@@ -1,0 +1,35 @@
+# Robots.txt for Sanjai Ram M Portfolio (https://sanjairam.vercel.app/)
+# Optimized for Google, Bing, Applebot, DuckDuckBot, and Generative AI Engines
+
+User-agent: *
+Allow: /
+
+# Dedicated Directives for Major Search & AI / GEO Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://sanjairam.vercel.app/sitemap.xml
