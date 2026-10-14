@@ -1,4 +1,4 @@
-# Robots.txt for Sanjai Ram M Portfolio (https://sanjairam.vercel.app/)
+# Robots.txt for Sanjai Ram M Portfolio (https://sanjai-analytics.vercel.app/)
 # Optimized for Google, Bing, Applebot, DuckDuckBot, and Generative AI Engines
 
 User-agent: *
@@ -32,5 +32,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://sanjairam.vercel.app/sitemap.xml
-
+Sitemap: https://sanjai-analytics.vercel.app/sitemap.xml
