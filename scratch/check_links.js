@@ -8,3 +8,4 @@ while ((match = regex.exec(html)) !== null) {
 }
 console.log('External Links in portfolio:');
 links.forEach(l => console.log(' - ' + l));
+

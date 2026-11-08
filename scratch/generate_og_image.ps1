@@ -93,3 +93,4 @@ $bmp.Dispose()
 $g.Dispose()
 
 Write-Output "OG Image generated successfully at $outputPath"
+

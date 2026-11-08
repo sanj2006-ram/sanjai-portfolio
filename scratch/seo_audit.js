@@ -68,3 +68,4 @@ if (fs.existsSync(p404)) {
   console.log('404 title:', h404.match(/<title>(.*?)<\/title>/i)?.[1]);
   console.log('404 robots:', h404.match(/<meta\s+name=["']robots["']\s+content=["'](.*?)["']/i)?.[1] || 'MISSING (Should be noindex)');
 }
+

@@ -175,3 +175,4 @@ if (fs.existsSync(docsDir)) {
 }
 
 console.log('\n=== ALL SEO IMPLEMENTATIONS COMPLETED ===');
+
