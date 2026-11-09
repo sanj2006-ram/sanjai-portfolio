@@ -2101,4 +2101,37 @@
     if (laptopHint) laptopHint.classList.add('hint-dismissed');
   }, 25000);
 
+  // ==================== REUSABLE BRAND LOGO COMPONENT (<sanjai-logo>) ====================
+  if (typeof customElements !== 'undefined' && !customElements.get('sanjai-logo')) {
+    var SA_MARK_SVG = '<svg viewBox="0 0 178 126" width="100%" height="100%" fill="none" aria-hidden="true" style="display:block;">' +
+      '<path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />' +
+      '<path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />' +
+      '<path class="brand-navy-shape" d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="var(--brand-navy, #0A1624)" />' +
+      '<path class="brand-navy-shape" d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="var(--brand-navy, #0A1624)" />' +
+    '</svg>';
+
+    customElements.define('sanjai-logo', class extends HTMLElement {
+      connectedCallback() {
+        var variant = this.getAttribute('variant') || 'navbar';
+        if (variant === 'mark') {
+          this.innerHTML = '<span class="sanjai-logo-mark" style="width:42px; height:30px; display:inline-flex;">' + SA_MARK_SVG + '</span>';
+        } else if (variant === 'full') {
+          this.innerHTML = '<div class="sanjai-logo-full">' +
+            '<div class="sanjai-logo-mark" style="width:72px; height:51px; margin-bottom:12px; display:inline-flex;">' + SA_MARK_SVG + '</div>' +
+            '<div class="sanjai-wm-dominant">SANJAI</div>' +
+            '<div class="sanjai-wm-subline"><span class="sanjai-wm-dash"></span><span class="sanjai-wm-sub">ANALYTICS</span><span class="sanjai-wm-dash"></span></div>' +
+          '</div>';
+        } else {
+          this.innerHTML = '<div style="display:flex; align-items:center; gap:10px;">' +
+            '<span class="sanjai-logo-mark" style="width:42px; height:30px; display:inline-flex;">' + SA_MARK_SVG + '</span>' +
+            '<div class="brand-title-wrap">' +
+              '<span class="brand-title-name">SANJAI</span>' +
+              '<span class="brand-title-role">ANALYTICS</span>' +
+            '</div>' +
+          '</div>';
+        }
+      }
+    });
+  }
+
 })();

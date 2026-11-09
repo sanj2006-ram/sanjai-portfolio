@@ -40,7 +40,7 @@
 <!-- Favicon (Optimized SVG & Fallback) -->
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="alternate icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
 <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -148,23 +148,15 @@
   <div id="intro-splash-gate" class="intro-splash-overlay" role="dialog" aria-modal="true" aria-label="Welcome Introduction" onclick="window.enterPortfolioDirectly(true)" style="cursor:pointer;">
     <div class="intro-glass-pod" onclick="event.stopPropagation(); window.enterPortfolioDirectly(true);">
       <div class="intro-brand-ring">
-        <div class="intro-monogram-gem" aria-label="Sanjai Ram M Logo">
-          <svg viewBox="0 0 64 64" width="46" height="46" fill="none" style="display:block;">
-            <defs>
-              <linearGradient id="sr-grad-pod" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7A2238"/>
-                <stop offset="100%" stop-color="#A64732"/>
-              </linearGradient>
-              <linearGradient id="sr-accent-pod" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#D95338"/>
-                <stop offset="100%" stop-color="#E87A5D"/>
-              </linearGradient>
-            </defs>
-            <path d="M 27 20 C 20 20, 16 23, 16 28 C 16 34, 28 33, 28 39 C 28 44, 22 45, 17 44" stroke="#FAF8F5" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 33 20 L 33 44" stroke="url(#sr-accent-pod)" stroke-width="4.5" stroke-linecap="round"/>
-            <path d="M 33 20 L 44 20 C 49 20, 50 24, 50 28 C 50 32, 47 34, 42 34 L 33 34" stroke="url(#sr-accent-pod)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 41 34 L 50 44" stroke="url(#sr-accent-pod)" stroke-width="4.5" stroke-linecap="round"/>
-            <circle cx="51" cy="20" r="2.75" fill="#D95338"/>
+        <div class="intro-monogram-gem" aria-label="Sanjai Analytics Logo">
+          <svg viewBox="0 0 178 126" width="46" height="33" fill="none" style="display:block;">
+            <!-- Orange A: Apex & Right Leg -->
+            <path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />
+            <!-- Orange A: Lower Left Leg -->
+            <path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />
+            <!-- Navy S in Crisp Off-White on Dark Pod -->
+            <path d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="#FAF8F5" />
+            <path d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="#FAF8F5" />
           </svg>
         </div>
         <div class="intro-ring-pulse"></div>
@@ -200,19 +192,22 @@
 <header class="site-header" role="banner">
   <div class="site-container">
     <nav class="nav-glass-shell" aria-label="Main Navigation">
-      <a href="#overview" class="brand-group" onclick="navigateToScreen('overview'); return false;">
-        <div class="brand-logo-tile" aria-label="Sanjai Ram M Logo">
-          <svg viewBox="0 0 64 64" width="22" height="22" fill="none" style="display:block;">
-            <path d="M 27 20 C 20 20, 16 23, 16 28 C 16 34, 28 33, 28 39 C 28 44, 22 45, 17 44" stroke="#FAF8F5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 33 20 L 33 44" stroke="#D95338" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M 33 20 L 44 20 C 49 20, 50 24, 50 28 C 50 32, 47 34, 42 34 L 33 34" stroke="#D95338" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 41 34 L 50 44" stroke="#D95338" stroke-width="5.5" stroke-linecap="round"/>
-            <circle cx="51" cy="20" r="3.2" fill="#D95338"/>
+      <a href="#overview" class="brand-group" onclick="navigateToScreen('overview'); return false;" aria-label="Sanjai Analytics Homepage">
+        <div class="brand-symbol" aria-hidden="true">
+          <svg viewBox="0 0 178 126" width="42" height="30" fill="none" style="display:block;">
+            <!-- Orange A: Apex & Right Leg -->
+            <path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />
+            <!-- Orange A: Lower Left Leg -->
+            <path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />
+            <!-- Navy S: Main Spine & Right Loop -->
+            <path class="brand-navy-shape" d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="var(--brand-navy)" />
+            <!-- Navy S: Bottom-Left Foot -->
+            <path class="brand-navy-shape" d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="var(--brand-navy)" />
           </svg>
         </div>
         <div class="brand-title-wrap">
-          <span class="brand-title-name">Sanjai Ram M</span>
-          <span class="brand-title-role">Data Analyst &amp; BI</span>
+          <span class="brand-title-name">SANJAI</span>
+          <span class="brand-title-role">ANALYTICS</span>
         </div>
       </a>
 
@@ -346,9 +341,20 @@
           <div class="hero-portrait-frame">
             <img class="hero-portrait-img" width="480" height="600" decoding="async" src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst & BI Developer">
           </div>
-          <div class="hero-card-meta-bar">
-            <div class="hero-meta-title">Sanjai Ram M</div>
-            <div class="hero-meta-subtitle">Power BI &bull; DAX &bull; MySQL</div>
+          <div class="hero-card-meta-bar" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div class="hero-meta-title">Sanjai Ram M</div>
+              <div class="hero-meta-subtitle">Power BI &bull; DAX &bull; MySQL</div>
+            </div>
+            <div class="hero-meta-brand-badge" style="display:inline-flex; align-items:center; gap:5px; padding:4px 8px; border-radius:8px; background:rgba(222,75,0,0.08); border:1px solid rgba(222,75,0,0.2);" title="Sanjai Analytics Identity">
+              <svg viewBox="0 0 178 126" width="18" height="13" fill="none" aria-hidden="true" style="display:block;">
+                <path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />
+                <path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />
+                <path d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="var(--brand-navy)" />
+                <path d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="var(--brand-navy)" />
+              </svg>
+              <span style="font-size:10px; font-weight:800; letter-spacing:0.06em; color:var(--brand-orange);">ANALYTICS</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2032,10 +2038,18 @@ GROUP BY p.category_name;
   <footer class="site-footer" role="contentinfo">
     <div class="site-container">
       <div class="footer-inner-row">
-        <div>
-          <div style="font-size:14px; font-weight:800; color: var(--text-pure); letter-spacing:-0.01em;">Sanjai Ram M</div>
-          <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
-            Data Analyst &middot; B.Com (Computer Applications) &middot; Chennai, India
+        <div style="display:flex; align-items:center; gap:12px;">
+          <svg viewBox="0 0 178 126" width="34" height="24" fill="none" aria-hidden="true" style="display:block; flex-shrink:0;">
+            <path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />
+            <path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />
+            <path class="brand-navy-shape" d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="var(--brand-navy)" />
+            <path class="brand-navy-shape" d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="var(--brand-navy)" />
+          </svg>
+          <div>
+            <div style="font-size:14px; font-weight:800; color: var(--text-pure); letter-spacing:-0.01em;">Sanjai Analytics &middot; Sanjai Ram M</div>
+            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+              Data Analyst &middot; B.Com (Computer Applications) &middot; Chennai, India
+            </div>
           </div>
         </div>
 
