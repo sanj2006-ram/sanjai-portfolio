@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178 126" width="178" height="126" fill="none">
+  <!-- Orange A: Apex & Right Leg -->
+  <path d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" fill="#DE4B00" />
+  <!-- Orange A: Lower Left Leg -->
+  <path d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" fill="#DE4B00" />
+
+  <!-- Navy S: Main Spine & Right Loop -->
+  <path d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" fill="#0A1624" />
+  <!-- Navy S: Bottom-Left Foot -->
+  <path d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" fill="#0A1624" />
+</svg>

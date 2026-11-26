@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" width="360" height="270" fill="none">
+  <defs>
+    <style>
+      .st-navy { fill: #0A1624; }
+      .st-orange { fill: #DE4B00; }
+      .st-line { stroke: #0A1624; stroke-width: 2.5; stroke-linecap: round; }
+      .txt-sanjai {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Montserrat", sans-serif;
+        font-size: 38px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-anchor: middle;
+        fill: #0A1624;
+      }
+      .txt-analytics {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+        font-size: 14.5px;
+        font-weight: 800;
+        letter-spacing: 0.32em;
+        text-anchor: middle;
+        fill: #DE4B00;
+      }
+      @media (prefers-color-scheme: dark) {
+        .st-navy { fill: #F8FAFC; }
+        .st-line { stroke: #F8FAFC; }
+        .txt-sanjai { fill: #F8FAFC; }
+        .st-orange { fill: #FF6A00; }
+        .txt-analytics { fill: #FF6A00; }
+      }
+    </style>
+  </defs>
+
+  <!-- Centered SA Mark -->
+  <g transform="translate(91, 18)">
+    <!-- Orange A: Apex & Right Leg -->
+    <path class="st-orange" d="M 114.5 11 L 175.5 122 L 154.5 122 L 115 50.5 L 95 45.5 Z" />
+    <!-- Orange A: Lower Left Leg -->
+    <path class="st-orange" d="M 78.5 73.5 L 97.5 73.5 L 71 122 L 50 122 Z" />
+
+    <!-- Navy S: Main Spine & Right Loop -->
+    <path class="st-navy" d="M 107 1 L 35 1 C 15 1, 1 15, 1 34 L 1 38 C 1 56, 15 71, 35 71 L 92 71 C 100 71, 105 76, 105 84 C 105 92, 100 97.5, 88.5 103 L 77 122 L 98 122 C 114 122, 125.5 107, 125.5 86 C 125.5 67, 117 56, 103 51 L 35 51 C 26 51, 21.5 43.5, 21.5 34 C 21.5 24.5, 26 21.5, 35 21.5 L 95.5 21.5 Z" />
+    <!-- Navy S: Bottom-Left Foot -->
+    <path class="st-navy" d="M 16 102 L 53.5 102 L 42 122 L 3 122 Z" />
+  </g>
+
+  <!-- Dominant Wordmark SANJAI -->
+  <text x="183" y="195" class="txt-sanjai">SANJAI</text>
+
+  <!-- Subtitle Line: — ANALYTICS — -->
+  <line x1="56" y1="228" x2="88" y2="228" class="st-line" />
+  <text x="183" y="233" class="txt-analytics">ANALYTICS</text>
+  <line x1="272" y1="228" x2="304" y2="228" class="st-line" />
+</svg>

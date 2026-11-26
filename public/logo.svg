@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 44" width="200" height="44" fill="none">
+  <defs>
+    <style>
+      .nl-navy { fill: #0A1622; }
+      .nl-orange { fill: #DE4B00; }
+      .nl-line { stroke: #0A1622; stroke-width: 1.5; stroke-linecap: round; }
+      .nl-sanjai {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Montserrat", "Segoe UI", sans-serif;
+        font-size: 16.5px;
+        font-weight: 900;
+        letter-spacing: 0.10em;
+        fill: #0A1622;
+      }
+      .nl-analytics {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        fill: #DE4B00;
+      }
+      @media (prefers-color-scheme: dark) {
+        .nl-navy { fill: #F8FAFC; }
+        .nl-line { stroke: #F8FAFC; }
+        .nl-sanjai { fill: #F8FAFC; }
+        .nl-orange { fill: #FF6A00; }
+        .nl-analytics { fill: #FF6A00; }
+      }
+    </style>
+  </defs>
+
+  <!-- SA Symbol scaled to height 34px (scale ~ 0.27) -->
+  <g transform="translate(2, 5) scale(0.27)">
+    <!-- Orange A: Apex & Right Leg -->
+    <path class="nl-orange" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" />
+    <!-- Orange A: Lower Left Leg -->
+    <path class="nl-orange" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" />
+
+    <!-- Navy S: Main Spine & Right Loop -->
+    <path class="nl-navy" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" />
+    <!-- Navy S: Bottom-Left Foot -->
+    <path class="nl-navy" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" />
+  </g>
+
+  <!-- Wordmark -->
+  <text x="58" y="21" class="nl-sanjai">SANJAI</text>
+  <line x1="58" y1="32" x2="66" y2="32" class="nl-line" />
+  <text x="96" y="35" text-anchor="middle" class="nl-analytics">ANALYTICS</text>
+  <line x1="126" y1="32" x2="134" y2="32" class="nl-line" />
+</svg>

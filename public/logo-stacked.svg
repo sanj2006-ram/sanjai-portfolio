@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" width="360" height="270" fill="none">
+  <defs>
+    <style>
+      .st-navy { fill: #0A1622; }
+      .st-orange { fill: #DE4B00; }
+      .st-line { stroke: #0A1622; stroke-width: 2.2; stroke-linecap: round; }
+      .txt-sanjai {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Montserrat", "Segoe UI", sans-serif;
+        font-size: 38px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-anchor: middle;
+        fill: #0A1622;
+      }
+      .txt-analytics {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.28em;
+        text-anchor: middle;
+        fill: #DE4B00;
+      }
+      @media (prefers-color-scheme: dark) {
+        .st-navy { fill: #F8FAFC; }
+        .st-line { stroke: #F8FAFC; }
+        .txt-sanjai { fill: #F8FAFC; }
+        .st-orange { fill: #FF6A00; }
+        .txt-analytics { fill: #FF6A00; }
+      }
+    </style>
+  </defs>
+
+  <!-- Centered SA Mark (178x126 at x=91, y=20) -->
+  <g transform="translate(91, 20)">
+    <!-- Orange A: Apex & Right Leg -->
+    <path class="st-orange" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" />
+    <!-- Orange A: Lower Left Leg -->
+    <path class="st-orange" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" />
+
+    <!-- Navy S: Main Spine & Right Loop -->
+    <path class="st-navy" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" />
+    <!-- Navy S: Bottom-Left Foot -->
+    <path class="st-navy" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" />
+  </g>
+
+  <!-- Dominant Wordmark SANJAI -->
+  <text x="179" y="196" class="txt-sanjai">SANJAI</text>
+
+  <!-- Subtitle Line: — ANALYTICS — -->
+  <line x1="99" y1="226" x2="118" y2="226" class="st-line" />
+  <text x="179" y="231" class="txt-analytics">ANALYTICS</text>
+  <line x1="240" y1="226" x2="259" y2="226" class="st-line" />
+</svg>
