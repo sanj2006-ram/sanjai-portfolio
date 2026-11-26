@@ -513,11 +513,12 @@
 
     ctx.clearRect(0, 0, w, h);
 
-    var isDark = document.body.getAttribute('data-theme') === 'dark';
-    var gridColor = isDark ? '#334155' : '#E2E8F0';
-    var textColor = isDark ? '#94A3B8' : '#64748B';
-    var primaryColor = '#2563EB';
-    var orangeColor = '#DC4B04';
+    var isDark = (document.documentElement.dataset.theme === 'dark' || document.documentElement.getAttribute('data-theme') === 'dark' || document.body.getAttribute('data-theme') === 'dark');
+    var gridColor = isDark ? '#2B333E' : '#E2DFD7';
+    var textColor = isDark ? '#76808F' : '#6E7681';
+    var primaryColor = isDark ? '#58A6FF' : '#1E40AF';
+    var orangeColor = isDark ? '#E3B341' : '#B45309';
+    var profitColor = isDark ? '#3FB950' : '#15803D';
 
     // Draw baseline axes
     ctx.strokeStyle = gridColor;
@@ -582,7 +583,7 @@
       });
     } else {
       // Margin trends
-      ctx.strokeStyle = '#059669';
+      ctx.strokeStyle = profitColor;
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       for (var k = 0; k < 6; k++) {
@@ -718,25 +719,55 @@
   };
 
   /* --------------------------------------------------------------------------
-     9. THEME CONTROLLER (Dark / Light Flat Parity)
+     9. THEME CONTROLLER (Warm Alabaster Light / Graphite Obsidian Dark)
      -------------------------------------------------------------------------- */
+  function updateThemeUI(theme) {
+    var btnDesktop = document.getElementById('btn-theme-toggle');
+    var btnDrawer = document.getElementById('btn-drawer-theme-toggle');
+    var labelText = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    var nextTitle = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+
+    if (btnDesktop) {
+      btnDesktop.setAttribute('title', nextTitle);
+      btnDesktop.setAttribute('aria-label', nextTitle);
+    }
+    if (btnDrawer) {
+      btnDrawer.setAttribute('title', nextTitle);
+      btnDrawer.setAttribute('aria-label', nextTitle);
+      var labelSpan = btnDrawer.querySelector('.theme-toggle-label');
+      if (labelSpan) labelSpan.textContent = labelText;
+    }
+  }
+
   function initTheme() {
     var stored = null;
     try {
-      stored = localStorage.getItem('sr_portfolio_theme');
+      stored = localStorage.getItem('sa_theme') || localStorage.getItem('sr_portfolio_theme');
     } catch (e) {}
-    var theme = stored || 'dark';
+    var theme = stored;
+    if (!theme) {
+      theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.dataset.theme = theme;
     document.body.setAttribute('data-theme', theme);
+    updateThemeUI(theme);
   }
 
   window.toggleTheme = function () {
-    var current = document.body.getAttribute('data-theme') || 'light';
+    var current = document.documentElement.dataset.theme || document.body.getAttribute('data-theme') || 'dark';
     var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    document.documentElement.dataset.theme = next;
     document.body.setAttribute('data-theme', next);
     try {
+      localStorage.setItem('sa_theme', next);
       localStorage.setItem('sr_portfolio_theme', next);
     } catch (e) {}
-    window.recalculateSimulation();
+    updateThemeUI(next);
+    if (typeof window.recalculateSimulation === 'function') {
+      window.recalculateSimulation();
+    }
   };
 
   /* --------------------------------------------------------------------------

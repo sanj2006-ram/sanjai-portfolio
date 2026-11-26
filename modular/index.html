@@ -84,20 +84,35 @@
   }
   </script>
 
+    <!-- Theme Pre-Hydration to Prevent FOUC -->
+  <script>
+    (function () {
+      var stored = null;
+      try {
+        stored = localStorage.getItem('sa_theme') || localStorage.getItem('sr_portfolio_theme');
+      } catch (e) {}
+      var theme = stored;
+      if (!theme) {
+        theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="deck-body" data-theme="light">
+<body class="deck-body">
 
   <!-- Single-Play Rotating Reload Preloader (850ms) -->
   <div id="sw-reload-gate" class="reload-gate" aria-hidden="true">
     <div class="reload-gate-inner">
       <div class="reload-logo-box">
         <svg viewBox="0 0 178 126" width="60" height="42.5" fill="none" class="brand-svg-mark">
-          <g fill="#DC4B04">
+          <g fill="var(--accent-gold)">
             <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
             <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
           </g>
-          <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
+          <g fill="var(--accent-primary)" class="brand-navy-shape">
             <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
             <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
           </g>
@@ -123,11 +138,11 @@
       <a href="#overview" class="brand-group" aria-label="Sanjai Analytics" onclick="event.preventDefault(); window.goToScreen(0);">
         <div class="brand-symbol" aria-hidden="true">
             <svg viewBox="0 0 178 126" width="38" height="27" fill="none" class="brand-svg-mark" aria-hidden="true">
-              <g fill="#DC4B04">
+              <g fill="var(--accent-gold)">
                 <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
                 <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
               </g>
-              <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
+              <g fill="var(--accent-primary)" class="brand-navy-shape">
                 <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
                 <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
               </g>
@@ -227,6 +242,12 @@
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="window.closeMobileMenu()" style="flex:1; justify-content:center; height:44px;">
           <span>Email (Gmail)</span>
         </a>
+            <div class="drawer-theme-box" style="margin-top: 12px;">
+        <button type="button" class="drawer-theme-btn" id="btn-drawer-theme-toggle" onclick="window.toggleTheme()" aria-label="Toggle dark/light theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+          <span class="theme-toggle-label">Light Mode</span>
+        </button>
       </div>
     </div>
   </header>
@@ -320,11 +341,11 @@
                   </div>
                   <div class="portrait-mini-badge" title="Sanjai Analytics Identity">
                     <svg viewBox="0 0 178 126" width="22" height="15" fill="none" class="brand-svg-mark" aria-hidden="true">
-                      <g fill="#DC4B04">
+                      <g fill="var(--accent-gold)">
                         <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
                         <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
                       </g>
-                      <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
+                      <g fill="var(--accent-primary)" class="brand-navy-shape">
                         <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
                         <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
                       </g>
@@ -492,8 +513,8 @@
               <div class="chart-card-header">
                 <span class="chart-meta-badge">6-MONTH PERFORMANCE MATRIX</span>
                 <div class="chart-legend-row">
-                  <span class="legend-dot" style="background:#2563EB;"></span><span>Revenue</span>
-                  <span class="legend-dot" style="background:#059669; margin-left:8px;"></span><span>Profit</span>
+                  <span class="legend-dot" style="background:var(--accent-primary);"></span><span>Revenue</span>
+                  <span class="legend-dot" style="background:var(--positive); margin-left:8px;"></span><span>Profit</span>
                 </div>
               </div>
 
@@ -501,12 +522,12 @@
                 <svg viewBox="0 0 540 180" class="svg-dashboard-canvas" id="main-cockpit-chart">
                   <defs>
                     <linearGradient id="barRevGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#3B82F6" />
-                      <stop offset="100%" stop-color="#1D4ED8" />
+                      <stop offset="0%" stop-color="var(--accent-primary)" />
+                      <stop offset="100%" stop-color="var(--accent-primary-hover)" />
                     </linearGradient>
                     <linearGradient id="barProfitGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#10B981" />
-                      <stop offset="100%" stop-color="#047857" />
+                      <stop offset="0%" stop-color="var(--positive)" />
+                      <stop offset="100%" stop-color="var(--positive)" />
                     </linearGradient>
                     <linearGradient id="barHighlight" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stop-color="rgba(255,255,255,0.3)" />
@@ -515,13 +536,13 @@
                   </defs>
 
                   <!-- Dashed Horizontal Reference Gridlines -->
-                  <line x1="40" y1="25" x2="520" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <line x1="40" y1="25" x2="520" y2="25" stroke="var(--border-hairline)" stroke-dasharray="4,4" />
                   <text x="35" y="28" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">200k</text>
-                  <line x1="40" y1="65" x2="520" y2="65" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <line x1="40" y1="65" x2="520" y2="65" stroke="var(--border-hairline)" stroke-dasharray="4,4" />
                   <text x="35" y="68" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">150k</text>
-                  <line x1="40" y1="105" x2="520" y2="105" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <line x1="40" y1="105" x2="520" y2="105" stroke="var(--border-hairline)" stroke-dasharray="4,4" />
                   <text x="35" y="108" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">100k</text>
-                  <line x1="40" y1="145" x2="520" y2="145" stroke="rgba(255,255,255,0.08)" />
+                  <line x1="40" y1="145" x2="520" y2="145" stroke="var(--border-hairline)" />
                   <text x="35" y="148" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">0</text>
 
                   <!-- Month 1: Jan -->
@@ -555,9 +576,9 @@
                   <rect x="404" y="80" width="22" height="2" rx="1" fill="url(#barHighlight)" />
 
                   <!-- Month 6: Jun (Dynamic Simulated Target) -->
-                  <rect id="svg-bar-rev" x="458" y="32" width="22" height="113" rx="3" fill="#60A5FA" />
+                  <rect id="svg-bar-rev" x="458" y="32" width="22" height="113" rx="3" fill="var(--accent-primary)" />
                   <rect x="458" y="32" width="22" height="2" rx="1" fill="#FFFFFF" />
-                  <rect id="svg-bar-profit" x="484" y="70" width="22" height="75" rx="3" fill="#34D399" />
+                  <rect id="svg-bar-profit" x="484" y="70" width="22" height="75" rx="3" fill="var(--positive)" />
                   <rect x="484" y="70" width="22" height="2" rx="1" fill="#FFFFFF" />
                 </svg>
               </div>
@@ -1466,11 +1487,11 @@ GROUP BY p.category_name;
             <div class="footer-brand-lockup" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
               
             <svg viewBox="0 0 178 126" width="38" height="27" fill="none" class="brand-svg-mark" aria-hidden="true">
-              <g fill="#DC4B04">
+              <g fill="var(--accent-gold)">
                 <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
                 <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
               </g>
-              <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
+              <g fill="var(--accent-primary)" class="brand-navy-shape">
                 <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
                 <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
               </g>
