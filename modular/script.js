@@ -1,480 +1,702 @@
 /**
- * SANJAI RAM M — EDITORIAL BI & ANALYTICS PORTFOLIO JAVASCRIPT
- * Strict 8px Grid · Real-time DAX Binding · Star Schema Interactivity · Active Integrity Guard
+ * Sanjai Ram M — Multi-Screen Horizontal Swipe Deck Architecture
+ * Inspired by sarveshworks.vercel.app · 6 Discrete Full-Viewport Screens
+ * GPU-Composited Hardware Accelerated Navigation · Zero Mobile Lag
  */
 
 (function () {
   'use strict';
 
-  // State Management
-  var currentVisualMode = 'bars';
-  var lastMarginVal = 32;
-  var lastRetVal = 40;
-  var isIntegrityCompromised = false;
+  // Screen Names Registry (6 discrete full-viewport screens)
+  var screenNames = ['overview', 'cockpit', 'projects', 'skills', 'experience', 'resume'];
+  var currentScreenIndex = 0;
+  var isNavigating = false;
 
-  // Format INR Currency (Strict Tabular Formatting)
-  function formatINR(val) {
-    var str = Math.round(val).toString();
-    var lastThree = str.substring(str.length - 3);
-    var otherNumbers = str.substring(0, str.length - 3);
-    if (otherNumbers !== '') {
-      lastThree = ',' + lastThree;
-    }
-    return '₹' + otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
+  Object.defineProperty(window, 'currentScreenIndex', {
+    get: function () { return currentScreenIndex; },
+    set: function (val) { window.goToScreen(val); },
+    configurable: true
+  });
+
+  // Cache DOM Elements
+  var deckTrack = null;
+  var deckScreens = [];
+  var deckNavLinks = [];
+  var drawerNavRows = [];
+  var dockPillItems = [];
+  var dockActivePillBg = null;
+  var mobileDrawerPane = null;
+  var mobileHamburgerBtn = null;
+
+  /* --------------------------------------------------------------------------
+     1. SCREEN DECK NAVIGATION CONTROLLER (translate3d Hardware Compositing)
+     -------------------------------------------------------------------------- */
+  function updateDockPillPosition(idx) {
+    if (!dockActivePillBg) dockActivePillBg = document.getElementById('dock-active-pill-bg');
+    if (!dockActivePillBg || !dockPillItems[idx]) return;
+
+    var activeBtn = dockPillItems[idx];
+    dockActivePillBg.style.transform = 'translate3d(' + activeBtn.offsetLeft + 'px, 0, 0)';
+    dockActivePillBg.style.width = activeBtn.offsetWidth + 'px';
   }
 
-  // Toast Notification System
-  window.showToast = function (message) {
-    if (isIntegrityCompromised) return;
-    var pill = document.getElementById('toast-message-pill');
-    if (!pill) return;
-    pill.textContent = message;
-    pill.classList.add('active');
-    clearTimeout(pill._timer);
-    pill._timer = setTimeout(function () {
-      pill.classList.remove('active');
-    }, 2400);
+  window.goToScreen = function (idx, updateHash) {
+    if (typeof updateHash === 'undefined') updateHash = true;
+    idx = Math.max(0, Math.min(screenNames.length - 1, parseInt(idx, 10) || 0));
+
+    currentScreenIndex = idx;
+    var targetScreen = screenNames[idx];
+
+    // Hardware-accelerated 280ms cubic-bezier translation
+    if (!deckTrack) deckTrack = document.getElementById('deck-track');
+    if (deckTrack) {
+      deckTrack.style.transform = 'translate3d(-' + (idx * 100) + 'vw, 0, 0)';
+    }
+
+    // Update Screen Active States
+    deckScreens.forEach(function (screen, sIdx) {
+      if (sIdx === idx) {
+        screen.classList.add('active');
+        screen.setAttribute('aria-hidden', 'false');
+      } else {
+        screen.classList.remove('active');
+        screen.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Update Desktop Header Links
+    deckNavLinks.forEach(function (btn, bIdx) {
+      if (bIdx === idx) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+
+    // Update Mobile Drawer Rows
+    drawerNavRows.forEach(function (row, rIdx) {
+      if (rIdx === idx) row.classList.add('active');
+      else row.classList.remove('active');
+    });
+
+    // Update Bottom Dock Pills
+    dockPillItems.forEach(function (pill, pIdx) {
+      if (pIdx === idx) pill.classList.add('active');
+      else pill.classList.remove('active');
+    });
+
+    updateDockPillPosition(idx);
+
+    // Update URL hash
+    if (updateHash && window.location.hash !== '#' + targetScreen) {
+      try {
+        history.replaceState(null, null, '#' + targetScreen);
+      } catch (e) {}
+    }
+
+    // Reset vertical scroll inside the target screen to top
+    if (deckScreens[idx]) {
+      deckScreens[idx].scrollTop = 0;
+    }
   };
 
-  // Rotating Single-Play Reload Animation Controller
+  window.nextScreen = function () {
+    if (currentScreenIndex < screenNames.length - 1) {
+      window.goToScreen(currentScreenIndex + 1);
+    }
+  };
+
+  window.prevScreen = function () {
+    if (currentScreenIndex > 0) {
+      window.goToScreen(currentScreenIndex - 1);
+    }
+  };
+
+  /* --------------------------------------------------------------------------
+     2. MULTI-INPUT GESTURE CONTROLLER (Touch Swipe, Trackpad Wheel, Keys)
+     -------------------------------------------------------------------------- */
+  function initGestureControls() {
+    // 2A. Mobile Touch Swipe
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchStartTime = 0;
+    var isTouchScrolling = false;
+    var isInteractiveTarget = false;
+
+    document.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      var target = e.target;
+      
+      // Ignore gestures originating in sliders, code blocks, form inputs, modals, or buttons
+      if (target && typeof target.closest === 'function') {
+        if (target.closest('input[type="range"], pre, code, textarea, input, select, .modal-backdrop, .modal-card, button, a')) {
+          isInteractiveTarget = true;
+          return;
+        }
+      }
+      isInteractiveTarget = false;
+      isTouchScrolling = false;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (isInteractiveTarget || e.touches.length !== 1 || isTouchScrolling) return;
+      var curX = e.touches[0].clientX;
+      var curY = e.touches[0].clientY;
+      var dx = curX - touchStartX;
+      var dy = curY - touchStartY;
+
+      // If predominantly vertical scrolling inside screen, don't hijack
+      if (Math.abs(dy) > Math.abs(dx) * 1.2) {
+        isTouchScrolling = true;
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchend', function (e) {
+      if (isInteractiveTarget || isTouchScrolling) return;
+      var endX = e.changedTouches[0].clientX;
+      var endY = e.changedTouches[0].clientY;
+      var dx = endX - touchStartX;
+      var dy = endY - touchStartY;
+      var dt = Date.now() - touchStartTime;
+
+      // Swipe threshold: |dx| > 48px, horizontal dominance |dx| > |dy| * 1.4, duration < 600ms
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4 && dt < 600) {
+        if (dx < -48) {
+          window.nextScreen();
+        } else if (dx > 48) {
+          window.prevScreen();
+        }
+      }
+    }, { passive: true });
+
+    // 2B. Laptop Trackpad 2-Finger Horizontal Swipe & Wheel
+    var wheelAccumulatorX = 0;
+    var wheelResetTimer = null;
+    var isWheelDebounced = false;
+
+    window.addEventListener('wheel', function (e) {
+      // Protect horizontal code blocks and tables from wheel swipe navigation
+      if (e.target && typeof e.target.closest === 'function') {
+        if (e.target.closest('pre, code, .table-responsive-box')) return;
+      }
+
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        wheelAccumulatorX += e.deltaX;
+        clearTimeout(wheelResetTimer);
+        wheelResetTimer = setTimeout(function () {
+          wheelAccumulatorX = 0;
+        }, 200);
+
+        if (!isWheelDebounced && Math.abs(wheelAccumulatorX) > 35) {
+          isWheelDebounced = true;
+          if (wheelAccumulatorX > 0) {
+            window.nextScreen();
+          } else {
+            window.prevScreen();
+          }
+          wheelAccumulatorX = 0;
+          setTimeout(function () {
+            isWheelDebounced = false;
+          }, 420);
+        }
+      }
+    }, { passive: true });
+
+    // 2C. Keyboard Arrow Navigation & Command Palette Shortcuts
+    document.addEventListener('keydown', function (e) {
+      var activeEl = document.activeElement;
+      var isInputFocused = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+
+      // Command Palette Trigger: Ctrl+K or Cmd+K
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        window.toggleCommandPalette();
+        return;
+      }
+
+      // Escape key closes modals
+      if (e.key === 'Escape') {
+        window.closeAllModals();
+        return;
+      }
+
+      // If user is typing in a form or palette, don't trigger deck arrow keys
+      if (isInputFocused) {
+        if (activeEl.id === 'palette-search-input') {
+          handlePaletteKeydown(e);
+        }
+        return;
+      }
+
+      if (e.key === 'ArrowRight') {
+        window.nextScreen();
+      } else if (e.key === 'ArrowLeft') {
+        window.prevScreen();
+      }
+    });
+
+    // Resize event updates active pill position
+    window.addEventListener('resize', function () {
+      updateDockPillPosition(currentScreenIndex);
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     3. MODAL CONTROLLERS (Recruiter Summary, Command Palette, Avatar)
+     -------------------------------------------------------------------------- */
+  window.openModal = function (modalId) {
+    var modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeModal = function (modalId) {
+    var modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  };
+
+  window.closeAllModals = function () {
+    var modals = document.querySelectorAll('.modal-backdrop.open');
+    modals.forEach(function (m) {
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden', 'true');
+    });
+    window.closeMobileMenu();
+  };
+
+  window.openRecruiterSummaryModal = function () {
+    window.openModal('modal-recruiter-summary');
+  };
+
+  window.openAvatarModal = function () {
+    window.openModal('modal-avatar-preview');
+  };
+
+  window.toggleCommandPalette = function () {
+    var modal = document.getElementById('modal-command-palette');
+    if (!modal) return;
+    if (modal.classList.contains('open')) {
+      window.closeModal('modal-command-palette');
+    } else {
+      window.openModal('modal-command-palette');
+      var searchInput = document.getElementById('palette-search-input');
+      if (searchInput) {
+        searchInput.value = '';
+        window.filterPaletteItems('');
+        setTimeout(function () { searchInput.focus(); }, 50);
+      }
+    }
+  };
+
+  window.filterPaletteItems = function (query) {
+    query = (query || '').toLowerCase().trim();
+    var items = document.querySelectorAll('.palette-item');
+    var headings = document.querySelectorAll('.palette-group-heading');
+
+    items.forEach(function (item) {
+      var text = item.textContent.toLowerCase();
+      if (!query || text.indexOf(query) !== -1) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Hide empty group headings if query is active
+    if (query) {
+      headings.forEach(function (h) { h.style.display = 'none'; });
+    } else {
+      headings.forEach(function (h) { h.style.display = 'block'; });
+    }
+
+    // Set first visible item active
+    var firstVisible = document.querySelector('.palette-item[style*="display: flex"]');
+    items.forEach(function (it) { it.classList.remove('active'); });
+    if (firstVisible) firstVisible.classList.add('active');
+  };
+
+  function handlePaletteKeydown(e) {
+    var items = Array.prototype.slice.call(document.querySelectorAll('.palette-item')).filter(function (it) {
+      return it.style.display !== 'none';
+    });
+    if (!items.length) return;
+
+    var curIdx = -1;
+    items.forEach(function (it, idx) {
+      if (it.classList.contains('active')) curIdx = idx;
+    });
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var nextIdx = (curIdx + 1) % items.length;
+      items.forEach(function (it) { it.classList.remove('active'); });
+      items[nextIdx].classList.add('active');
+      items[nextIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      var prevIdx = (curIdx - 1 + items.length) % items.length;
+      items.forEach(function (it) { it.classList.remove('active'); });
+      items[prevIdx].classList.add('active');
+      items[prevIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (curIdx >= 0 && items[curIdx]) {
+        items[curIdx].click();
+      }
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     4. MOBILE DRAWER NAVIGATION MENU
+     -------------------------------------------------------------------------- */
+  window.toggleMobileMenu = function () {
+    if (!mobileDrawerPane) mobileDrawerPane = document.getElementById('mobile-drawer-pane');
+    if (!mobileHamburgerBtn) mobileHamburgerBtn = document.getElementById('mobile-hamburger-btn');
+    if (!mobileDrawerPane) return;
+
+    var isOpen = mobileDrawerPane.classList.contains('open');
+    if (isOpen) {
+      window.closeMobileMenu();
+    } else {
+      mobileDrawerPane.classList.add('open');
+      mobileDrawerPane.setAttribute('aria-hidden', 'false');
+      if (mobileHamburgerBtn) {
+        mobileHamburgerBtn.classList.add('active');
+        mobileHamburgerBtn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  };
+
+  window.closeMobileMenu = function () {
+    if (!mobileDrawerPane) mobileDrawerPane = document.getElementById('mobile-drawer-pane');
+    if (!mobileHamburgerBtn) mobileHamburgerBtn = document.getElementById('mobile-hamburger-btn');
+    if (mobileDrawerPane) {
+      mobileDrawerPane.classList.remove('open');
+      mobileDrawerPane.setAttribute('aria-hidden', 'true');
+    }
+    if (mobileHamburgerBtn) {
+      mobileHamburgerBtn.classList.remove('active');
+      mobileHamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  /* --------------------------------------------------------------------------
+     5. ROTATING SINGLE-PLAY RELOAD ANIMATION CONTROLLER (850ms)
+     -------------------------------------------------------------------------- */
   function initReloadPreloader() {
     var gate = document.getElementById('sw-reload-gate');
     if (!gate) return;
 
     var variant = 0;
     try {
-      var stored = localStorage.getItem('sw_reload_variant');
-      variant = stored !== null ? (parseInt(stored, 10) + 1) % 4 : 0;
-      localStorage.setItem('sw_reload_variant', variant.toString());
-    } catch (e) {
-      variant = 0;
-    }
+      variant = parseInt(localStorage.getItem('sr_preloader_variant') || '0', 10);
+      localStorage.setItem('sr_preloader_variant', ((variant + 1) % 4).toString());
+    } catch (e) {}
 
-    // Hide all variants, show selected
-    for (var i = 0; i < 4; i++) {
-      var el = document.getElementById('reload-v' + i);
-      if (el) el.style.display = i === variant ? 'flex' : 'none';
-    }
-
-    if (variant === 3) {
-      setTimeout(function () {
-        gate.classList.add('v3-open');
-      }, 150);
-    }
-
-    // Auto-dismiss in 850ms, unmount completely in 950ms
+    // Auto-dismiss in exactly 850ms
     setTimeout(function () {
       gate.classList.add('dismissed');
       setTimeout(function () {
-        gate.style.display = 'none';
-      }, 250);
+        if (gate.parentNode) gate.parentNode.removeChild(gate);
+      }, 350);
     }, 850);
   }
 
-  // Copy Helpers (DAX only; phone copy is permanently deleted)
-  window.copyFormulaCode = function () {
-    if (isIntegrityCompromised) return;
-    var marginInput = document.getElementById('range-margin');
-    var retInput = document.getElementById('range-ret');
-    var marginDec = (parseFloat(marginInput ? marginInput.value : 32) / 100).toFixed(2);
-    var retDec = (parseFloat(retInput ? retInput.value : 40) / 100).toFixed(2);
+  /* --------------------------------------------------------------------------
+     6. LIVE BI COCKPIT & DAX SIMULATOR ENGINE
+     -------------------------------------------------------------------------- */
+  function formatINR(val) {
+    val = Math.round(val);
+    var isNeg = val < 0;
+    val = Math.abs(val);
+    var s = val.toString();
+    var lastThree = s.substring(s.length - 3);
+    var otherNumbers = s.substring(0, s.length - 3);
+    if (otherNumbers !== '') {
+      lastThree = ',' + lastThree;
+    }
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
+    return (isNeg ? '-' : '') + '₹' + res;
+  }
 
-    var daxText = '// Realtime Power BI DAX Expression:\n' +
-      'Projected_Profit = \n' +
-      'CALCULATE(\n' +
-      '    SUM(Fact_Sales[Revenue]) * ' + marginDec + ',\n' +
-      '    FILTER(\n' +
-      '        Dim_Customer,\n' +
-      '        Dim_Customer[RetentionRate] >= ' + retDec + '\n' +
-      '    )\n' +
-      ')';
-
-    navigator.clipboard.writeText(daxText).then(function () {
-      window.showToast('DAX formula copied to clipboard!');
-    }).catch(function () {
-      window.showToast('DAX copied!');
-    });
-  };
-
-  // Flash DAX Parameter on slider move
-  function flashDaxParam(el) {
+  function flashDaxParam(id, valText) {
+    var el = document.getElementById(id);
     if (!el) return;
-    el.classList.add('dax-flash');
-    clearTimeout(el._flashTimer);
-    el._flashTimer = setTimeout(function () {
-      el.classList.remove('dax-flash');
-    }, 350);
+    el.textContent = valText;
+    el.classList.remove('dax-active-pulse');
+    void el.offsetWidth;
+    el.classList.add('dax-active-pulse');
   }
 
-  // Recalculate Simulation and Bind to DAX & Chart
   window.recalculateSimulation = function () {
-    if (isIntegrityCompromised) return;
+    var revSlider = document.getElementById('slider-revenue');
+    var marginSlider = document.getElementById('slider-margin');
+    var retSlider = document.getElementById('slider-retention');
 
-    var rangeRev = document.getElementById('range-rev');
-    var rangeMargin = document.getElementById('range-margin');
-    var rangeRet = document.getElementById('range-ret');
+    if (!revSlider || !marginSlider || !retSlider) return;
 
-    if (!rangeRev || !rangeMargin || !rangeRet) return;
+    var revenue = parseFloat(revSlider.value);
+    var marginPct = parseFloat(marginSlider.value) / 100;
+    var retentionPct = parseFloat(retSlider.value) / 100;
 
-    var rev = parseFloat(rangeRev.value);
-    var margin = parseFloat(rangeMargin.value);
-    var ret = parseFloat(rangeRet.value);
+    // Display slider labels
+    var revValEl = document.getElementById('val-revenue');
+    var marginValEl = document.getElementById('val-margin');
+    var retValEl = document.getElementById('val-retention');
 
-    // Update Slider Labels
-    var dispRev = document.getElementById('ctrl-rev-display');
-    var dispMargin = document.getElementById('ctrl-margin-display');
-    var dispRet = document.getElementById('ctrl-ret-display');
+    if (revValEl) revValEl.textContent = formatINR(revenue);
+    if (marginValEl) marginValEl.textContent = (marginPct * 100).toFixed(0) + '%';
+    if (retValEl) retValEl.textContent = (retentionPct * 100).toFixed(0) + '%';
 
-    if (dispRev) dispRev.textContent = formatINR(rev);
-    if (dispMargin) dispMargin.textContent = margin + '%';
-    if (dispRet) dispRet.textContent = ret + '%';
+    // Core Metrics
+    var grossProfit = revenue * marginPct;
+    var netProfit = grossProfit * 0.78;
+    var avgOrderVal = 1850;
+    var customerCount = Math.round(revenue / (avgOrderVal * 4.2));
+    var clv = avgOrderVal * (marginPct / (1.05 - retentionPct));
+    var retentionEfficiency = (retentionPct * marginPct * 100).toFixed(1) + 'x';
 
-    // Calculate Derived KPIs
-    var profit = rev * (margin / 100);
-    var retentionGmv = rev * (ret / 100);
-    var targetAttainment = Math.round((rev / 160000) * 100);
+    // Update KPI Scorecards
+    var kpiProfit = document.getElementById('kpi-gross-profit');
+    var kpiMargin = document.getElementById('kpi-net-margin');
+    var kpiClv = document.getElementById('kpi-clv');
+    var kpiEff = document.getElementById('kpi-retention-eff');
 
-    // Update KPI Scorecards (Tabular Figures)
-    var kpiRev = document.getElementById('kpi-gross-rev');
-    var kpiMargin = document.getElementById('kpi-margin-pct');
-    var kpiProfit = document.getElementById('kpi-net-profit');
-    var kpiRetGmv = document.getElementById('kpi-retention-gmv');
-    var kpiDelta = document.getElementById('kpi-gross-delta');
+    if (kpiProfit) kpiProfit.textContent = formatINR(grossProfit);
+    if (kpiMargin) kpiMargin.textContent = formatINR(netProfit);
+    if (kpiClv) kpiClv.textContent = formatINR(clv);
+    if (kpiEff) kpiEff.textContent = retentionEfficiency;
 
-    if (kpiRev) kpiRev.textContent = formatINR(rev);
-    if (kpiMargin) kpiMargin.textContent = margin.toFixed(1) + '%';
-    if (kpiProfit) kpiProfit.textContent = formatINR(profit);
-    if (kpiRetGmv) kpiRetGmv.textContent = formatINR(retentionGmv);
-    if (kpiDelta) {
-      var diff = targetAttainment - 100;
-      kpiDelta.textContent = (diff >= 0 ? '+' : '') + diff + '% Target Attainment';
-    }
+    // Flash DAX Measure Formula Parameters
+    flashDaxParam('dax-param-margin', (marginPct * 100).toFixed(0) + '%');
+    flashDaxParam('dax-param-retention', (retentionPct * 100).toFixed(0) + '%');
+    flashDaxParam('dax-param-revenue', formatINR(revenue));
 
-    // Dynamic DAX Parameter Binding
-    var daxMarginParam = document.getElementById('dax-margin-param');
-    var daxRetParam = document.getElementById('dax-retention-param');
-
-    if (daxMarginParam) {
-      var marginDec = (margin / 100).toFixed(2);
-      daxMarginParam.textContent = marginDec;
-      if (margin !== lastMarginVal) {
-        flashDaxParam(daxMarginParam);
-        lastMarginVal = margin;
-      }
-    }
-
-    if (daxRetParam) {
-      var retDec = (ret / 100).toFixed(2);
-      daxRetParam.textContent = retDec;
-      if (ret !== lastRetVal) {
-        flashDaxParam(daxRetParam);
-        lastRetVal = ret;
-      }
-    }
-
-    // Update SVG Visual
-    updateChartCanvas(rev, profit, targetAttainment);
+    // Update Visual Chart Canvas
+    updateChartCanvas(revenue, marginPct, retentionPct);
   };
 
-  function updateChartCanvas(rev, profit, targetAttainment) {
-    // 1. Bar Chart updates
-    var revBar = document.getElementById('chart-bar-rev-active');
-    var profitBar = document.getElementById('chart-bar-profit-active');
-
-    if (revBar && profitBar) {
-      var revHeight = 40 + ((rev - 50000) / 450000) * 100;
-      var revY = 145 - revHeight;
-      revBar.setAttribute('height', Math.round(revHeight));
-      revBar.setAttribute('y', Math.round(revY));
-
-      var profitHeight = revHeight * (profit / rev);
-      var profitY = 145 - profitHeight;
-      profitBar.setAttribute('height', Math.round(profitHeight));
-      profitBar.setAttribute('y', Math.round(profitY));
-    }
-
-    // 2. Growth Area Polygon updates
-    var areaPoly = document.getElementById('chart-area-polygon');
-    var areaLine = document.getElementById('chart-area-line');
-    var areaPoint = document.getElementById('chart-area-point');
-
-    if (areaPoly && areaLine && areaPoint) {
-      var ptY = Math.round(145 - (35 + ((rev - 50000) / 450000) * 105));
-      var polyPoints = '60,145 60,75 145,55 230,45 315,48 400,32 485,' + ptY + ' 485,145';
-      var linePoints = '60,75 145,55 230,45 315,48 400,32 485,' + ptY;
-      areaPoly.setAttribute('points', polyPoints);
-      areaLine.setAttribute('points', linePoints);
-      areaPoint.setAttribute('cy', ptY);
-    }
-
-    // 3. Gauge Updates
-    var gaugeText = document.getElementById('gauge-pct-text');
-    var gaugeFill = document.getElementById('gauge-circle-fill');
-    var gaugeProj = document.getElementById('gauge-projected-val');
-    var gaugeSurplus = document.getElementById('gauge-surplus-val');
-
-    if (gaugeText) gaugeText.textContent = targetAttainment + '%';
-    if (gaugeFill) {
-      var offset = Math.max(0, 100 - targetAttainment);
-      gaugeFill.setAttribute('stroke-dashoffset', offset);
-    }
-    if (gaugeProj) gaugeProj.textContent = formatINR(rev);
-    if (gaugeSurplus) {
-      var surplus = rev - 160000;
-      if (surplus >= 0) {
-        gaugeSurplus.textContent = '+' + formatINR(surplus) + ' Surplus';
-        gaugeSurplus.style.color = 'var(--accent-green)';
-      } else {
-        gaugeSurplus.textContent = '-' + formatINR(Math.abs(surplus)) + ' Gap';
-        gaugeSurplus.style.color = 'var(--accent-amber)';
-      }
-    }
-  }
-
-  // Switch Visual Mode (Bars / Growth / Gauge)
-  window.switchVisualMode = function (mode) {
-    if (isIntegrityCompromised) return;
-    currentVisualMode = mode;
-    var barsTab = document.getElementById('tab-mode-bars');
-    var growthTab = document.getElementById('tab-mode-growth');
-    var gaugeTab = document.getElementById('tab-mode-gauge');
-
-    var barsGroup = document.getElementById('chart-bars-group');
-    var areaGroup = document.getElementById('chart-area-group');
-    var gaugeGroup = document.getElementById('chart-gauge-group');
-    var monthLabels = document.getElementById('chart-month-labels');
-
-    if (barsTab) barsTab.classList.remove('active');
-    if (growthTab) growthTab.classList.remove('active');
-    if (gaugeTab) gaugeTab.classList.remove('active');
-
-    if (barsGroup) barsGroup.style.display = 'none';
-    if (areaGroup) areaGroup.style.display = 'none';
-    if (gaugeGroup) gaugeGroup.style.display = 'none';
-
-    if (mode === 'bars') {
-      if (barsTab) barsTab.classList.add('active');
-      if (barsGroup) barsGroup.style.display = 'inline';
-      if (monthLabels) monthLabels.style.display = 'flex';
-    } else if (mode === 'growth') {
-      if (growthTab) growthTab.classList.add('active');
-      if (areaGroup) areaGroup.style.display = 'inline';
-      if (monthLabels) monthLabels.style.display = 'flex';
-    } else if (mode === 'gauge') {
-      if (gaugeTab) gaugeTab.classList.add('active');
-      if (gaugeGroup) gaugeGroup.style.display = 'inline';
-      if (monthLabels) monthLabels.style.display = 'none';
-    }
-
+  var currentChartMode = 'trajectory';
+  window.switchChartMode = function (mode) {
+    currentChartMode = mode;
+    var tabs = document.querySelectorAll('.chart-mode-btn');
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-mode') === mode) t.classList.add('active');
+      else t.classList.remove('active');
+    });
     window.recalculateSimulation();
   };
 
-  // Switch Data Model View (Raw Messy CSV vs. Normalized 3NF Schema)
-  window.switchDataModelView = function (mode) {
-    if (isIntegrityCompromised) return;
-    var btnRaw = document.getElementById('btn-view-raw');
-    var btnSchema = document.getElementById('btn-view-schema');
-    var zoneRaw = document.getElementById('container-view-raw');
-    var zoneSchema = document.getElementById('container-view-schema');
+  function updateChartCanvas(rev, margin, ret) {
+    var canvas = document.getElementById('bi-visual-canvas');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width;
+    var h = canvas.height;
 
-    if (!btnRaw || !btnSchema || !zoneRaw || !zoneSchema) return;
+    ctx.clearRect(0, 0, w, h);
 
-    if (mode === 'raw') {
-      btnRaw.classList.add('active');
-      btnRaw.setAttribute('aria-selected', 'true');
-      btnSchema.classList.remove('active');
-      btnSchema.setAttribute('aria-selected', 'false');
+    var isDark = document.body.getAttribute('data-theme') === 'dark';
+    var gridColor = isDark ? '#334155' : '#E2E8F0';
+    var textColor = isDark ? '#94A3B8' : '#64748B';
+    var primaryColor = '#2563EB';
+    var orangeColor = '#DC4B04';
 
-      zoneRaw.style.display = 'block';
-      zoneSchema.style.display = 'none';
-    } else {
-      btnSchema.classList.add('active');
-      btnSchema.setAttribute('aria-selected', 'true');
-      btnRaw.classList.remove('active');
-      btnRaw.setAttribute('aria-selected', 'false');
+    // Draw baseline axes
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(40, 20);
+    ctx.lineTo(40, h - 30);
+    ctx.lineTo(w - 20, h - 30);
+    ctx.stroke();
 
-      zoneSchema.style.display = 'block';
-      zoneRaw.style.display = 'none';
-    }
-  };
+    if (currentChartMode === 'trajectory') {
+      var points = 6;
+      var step = (w - 70) / (points - 1);
+      ctx.beginPath();
+      ctx.strokeStyle = primaryColor;
+      ctx.lineWidth = 2.5;
 
-  // Trace and Highlight Foreign Key on Dimension Click
-  window.highlightSchemaFK = function (dimKey) {
-    if (isIntegrityCompromised) return;
-    var fkCust = document.getElementById('fk-cust-line');
-    var fkProd = document.getElementById('fk-prod-line');
-    var fkDate = document.getElementById('fk-date-line');
+      for (var i = 0; i < points; i++) {
+        var progress = i / (points - 1);
+        var growth = Math.pow(1 + margin * 0.45, i) * (0.8 + ret * 0.25);
+        var yVal = (h - 40) - (growth / 2.2) * (h - 70);
+        var xVal = 45 + i * step;
 
-    if (fkCust) fkCust.classList.remove('fk-highlighted');
-    if (fkProd) fkProd.classList.remove('fk-highlighted');
-    if (fkDate) fkDate.classList.remove('fk-highlighted');
-
-    var targetEl = null;
-    var name = '';
-
-    if (dimKey === 'cust') {
-      targetEl = fkCust;
-      name = 'CustomerKey (FK)';
-    } else if (dimKey === 'prod') {
-      targetEl = fkProd;
-      name = 'ProductKey (FK)';
-    } else if (dimKey === 'date') {
-      targetEl = fkDate;
-      name = 'DateKey (FK)';
-    }
-
-    if (targetEl) {
-      targetEl.classList.add('fk-highlighted');
-      window.showToast('Highlighted ' + name + ' in Fact_Sales');
-    }
-  };
-
-  // Zero-Lag Power BI Embed Facade Launcher
-  window.launchPowerBIEmbed = function () {
-    if (isIntegrityCompromised) return;
-    var overlay = document.getElementById('pbi-launch-overlay');
-    var previewCanvas = document.getElementById('pbi-preview-canvas');
-    var interactiveContainer = document.getElementById('pbi-interactive-container');
-
-    if (!interactiveContainer) return;
-
-    if (overlay) overlay.style.display = 'none';
-    if (previewCanvas) previewCanvas.style.display = 'none';
-
-    interactiveContainer.style.display = 'block';
-    interactiveContainer.innerHTML = [
-      '<div style="background:var(--bg-card); border-radius:var(--radius-card); padding:1.5rem; text-align:center;">',
-      '  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">',
-      '    <div style="display:flex; align-items:center; gap:8px;">',
-      '      <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--accent-green);"></span>',
-      '      <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:var(--text-pure);">LIVE POWER BI REPORT ACTIVE</span>',
-      '    </div>',
-      '    <button class="btn btn-outline" onclick="window.resetPowerBIFacade()" style="padding:4px 10px; font-size:0.75rem;">Reset Facade</button>',
-      '  </div>',
-      '  <div style="background:var(--bg-subtle); border:1px solid var(--border-subtle); border-radius:var(--radius-btn); padding:2rem 1rem; color:var(--text-secondary);">',
-      '    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" style="margin:0 auto 12px;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
-      '    <div style="font-weight:800; font-size:1.05rem; color:var(--text-pure); margin-bottom:6px;">Interactive Production Report Sandbox</div>',
-      '    <p style="font-size:0.85rem; max-width:520px; margin:0 auto 1rem;">DirectQuery connections, slicer cross-filtering, and RLS (Row-Level Security) models configured for enterprise stakeholders.</p>',
-      '    <div style="display:inline-flex; gap:8px; font-family:var(--font-mono); font-size:0.75rem;">',
-      '      <span style="background:var(--bg-card); border:1px solid var(--border-subtle); padding:4px 8px; border-radius:4px;">12,000+ Records Loaded</span>',
-      '      <span style="background:var(--bg-card); border:1px solid var(--border-subtle); padding:4px 8px; border-radius:4px;">3NF Schema Mapped</span>',
-      '    </div>',
-      '  </div>',
-      '</div>'
-    ].join('\n');
-
-    window.showToast('Power BI Interactive Report Loaded!');
-  };
-
-  window.resetPowerBIFacade = function () {
-    var overlay = document.getElementById('pbi-launch-overlay');
-    var previewCanvas = document.getElementById('pbi-preview-canvas');
-    var interactiveContainer = document.getElementById('pbi-interactive-container');
-
-    if (interactiveContainer) {
-      interactiveContainer.style.display = 'none';
-      interactiveContainer.innerHTML = '';
-    }
-    if (previewCanvas) previewCanvas.style.display = 'block';
-    if (overlay) overlay.style.display = 'flex';
-  };
-
-  // MySQL Workbench SQL Presets
-  window.runSQLTest = function (presetId) {
-    if (isIntegrityCompromised) return;
-    var consoleZone = document.getElementById('sql-console-zone');
-    var buttons = document.querySelectorAll('.sql-preset-btn');
-
-    buttons.forEach(function (btn, idx) {
-      btn.classList.toggle('active', idx === presetId - 1);
-    });
-
-    if (!consoleZone) return;
-
-    if (presetId === 1) {
-      consoleZone.textContent = '-- Query 1: Sales Fact Table Aggregation\n' +
-        'SELECT \n' +
-        '    p.category_name, \n' +
-        '    COUNT(s.order_id) AS total_orders,\n' +
-        '    SUM(s.order_amount) AS gross_sales,\n' +
-        '    ROUND(AVG(s.margin_pct), 2) AS avg_margin\n' +
-        'FROM sales_fact s\n' +
-        'JOIN dim_product p ON s.product_id = p.product_id\n' +
-        'GROUP BY p.category_name;\n' +
-        '----------------------------------------------------------------------\n' +
-        '> Electronics    | 480 orders | ₹7,45,000 | 29.5% margin\n' +
-        '> Commercial     | 320 orders | ₹5,12,800 | 33.2% margin\n' +
-        '> Office Supplies| 620 orders | ₹2,18,400 | 24.1% margin\n' +
-        '[Query executed in 0.0018 seconds · Ready for Star Schema DirectQuery]';
-    } else if (presetId === 2) {
-      consoleZone.textContent = '-- Query 2: Star Schema 3NF Multi-Table Join\n' +
-        'SELECT \n' +
-        '    c.city, d.fiscal_quarter, \n' +
-        '    COUNT(DISTINCT s.customer_id) AS active_clients,\n' +
-        '    SUM(s.order_amount) AS quarterly_rev\n' +
-        'FROM sales_fact s\n' +
-        'JOIN dim_customer c ON s.customer_id = c.customer_id\n' +
-        'JOIN dim_date d ON s.date_id = d.date_id\n' +
-        'WHERE c.retention_rate >= 0.40\n' +
-        'GROUP BY c.city, d.fiscal_quarter;\n' +
-        '----------------------------------------------------------------------\n' +
-        '> Chennai   | Q1-FY25 | 142 clients | ₹4,85,000\n' +
-        '> Bangalore | Q1-FY25 | 188 clients | ₹6,12,000\n' +
-        '[Query executed in 0.0022 seconds · 100% Referential Integrity]';
-    } else if (presetId === 3) {
-      consoleZone.textContent = '-- Query 3: Target Attainment & Regional Variance CTE\n' +
-        'WITH RegionalSummary AS (\n' +
-        '    SELECT city, SUM(order_amount) AS actual_sales, 160000 AS target_base\n' +
-        '    FROM sales_fact s JOIN dim_customer c ON s.customer_id = c.customer_id\n' +
-        '    GROUP BY city\n' +
-        ')\n' +
-        'SELECT city, actual_sales, target_base, \n' +
-        '       ROUND(((actual_sales - target_base) / target_base) * 100, 2) AS variance_pct\n' +
-        'FROM RegionalSummary;\n' +
-        '----------------------------------------------------------------------\n' +
-        '> Chennai   | ₹1,82,400 | ₹1,60,000 | +14.0% Over Target\n' +
-        '> Bangalore | ₹1,94,200 | ₹1,60,000 | +21.4% Over Target\n' +
-        '[Query executed in 0.0020 seconds · CTE Materialized]';
-    }
-
-    window.showToast('Executed SQL Query ' + presetId);
-  };
-
-  // Recruiter Project Filters
-  window.filterProjects = function (category, btnEl) {
-    if (isIntegrityCompromised) return;
-    var buttons = document.querySelectorAll('.recruiter-filter-bar .filter-pill-btn');
-    var cards = document.querySelectorAll('.project-card');
-
-    if (btnEl) {
-      buttons.forEach(function (b) { b.classList.remove('active'); });
-      btnEl.classList.add('active');
-    }
-
-    cards.forEach(function (card) {
-      var cardCat = card.getAttribute('data-category') || '';
-      if (category === 'all' || cardCat.indexOf(category) !== -1) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
+        if (i === 0) ctx.moveTo(xVal, yVal);
+        else ctx.lineTo(xVal, yVal);
       }
-    });
+      ctx.stroke();
+
+      // Points & labels
+      for (var j = 0; j < points; j++) {
+        var pX = 45 + j * step;
+        var pGrowth = Math.pow(1 + margin * 0.45, j) * (0.8 + ret * 0.25);
+        var pY = (h - 40) - (pGrowth / 2.2) * (h - 70);
+
+        ctx.fillStyle = orangeColor;
+        ctx.beginPath();
+        ctx.arc(pX, pY, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = textColor;
+        ctx.font = '10px ui-monospace, monospace';
+        ctx.fillText('Q' + (j + 1), pX - 6, h - 14);
+      }
+    } else if (currentChartMode === 'breakdown') {
+      var categories = ['Electronics', 'Grocery', 'Fashion', 'Home'];
+      var shares = [0.38 * margin, 0.28, 0.20 * (1 + ret * 0.2), 0.14];
+      var totalShare = shares.reduce(function (a, b) { return a + b; }, 0);
+      var barStep = (w - 70) / categories.length;
+
+      categories.forEach(function (cat, idx) {
+        var barW = barStep * 0.55;
+        var barH = ((shares[idx] / totalShare) * (h - 70));
+        var bX = 55 + idx * barStep;
+        var bY = (h - 30) - barH;
+
+        ctx.fillStyle = idx % 2 === 0 ? primaryColor : orangeColor;
+        ctx.fillRect(bX, bY, barW, barH);
+
+        ctx.fillStyle = textColor;
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillText(cat.substring(0, 5), bX, h - 14);
+      });
+    } else {
+      // Margin trends
+      ctx.strokeStyle = '#059669';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (var k = 0; k < 6; k++) {
+        var mX = 45 + k * ((w - 70) / 5);
+        var mY = (h - 40) - (margin * 1.6 + (k * 0.04)) * (h - 80);
+        if (k === 0) ctx.moveTo(mX, mY);
+        else ctx.lineTo(mX, mY);
+      }
+      ctx.stroke();
+    }
+  }
+
+  window.switchModelMode = function (mode) {
+    var btn3nf = document.getElementById('btn-model-3nf');
+    var btnCsv = document.getElementById('btn-model-csv');
+    var view3nf = document.getElementById('model-view-3nf');
+    var viewCsv = document.getElementById('model-view-csv');
+
+    if (!btn3nf || !btnCsv || !view3nf || !viewCsv) return;
+
+    if (mode === '3nf') {
+      btn3nf.classList.add('active');
+      btnCsv.classList.remove('active');
+      view3nf.style.display = 'block';
+      viewCsv.style.display = 'none';
+    } else {
+      btnCsv.classList.add('active');
+      btn3nf.classList.remove('active');
+      viewCsv.style.display = 'block';
+      view3nf.style.display = 'none';
+    }
   };
 
-  // Recruiter Skill Filters
-  window.filterSkills = function (category, btnEl) {
-    if (isIntegrityCompromised) return;
-    var buttons = document.querySelectorAll('#skills .filter-pill-btn');
-    var cards = document.querySelectorAll('.skill-bento-card');
+  /* --------------------------------------------------------------------------
+     7. SQL QUERY RUNNER
+     -------------------------------------------------------------------------- */
+  var sqlPresets = {
+    top_stores: {
+      query: "SELECT s.store_name, s.region,\n       COUNT(f.transaction_id) AS total_orders,\n       ROUND(SUM(f.sales_amount), 2) AS gross_revenue\nFROM fact_sales f\nJOIN dim_store s ON f.store_id = s.store_id\nGROUP BY s.store_id, s.store_name, s.region\nORDER BY gross_revenue DESC\nLIMIT 5;",
+      timing: "1.8ms execution · 5 rows returned",
+      headers: ["store_name", "region", "total_orders", "gross_revenue"],
+      rows: [
+        ["Izeon Anna Nagar", "Chennai Central", "3,412", "₹48,24,190.00"],
+        ["Izeon T. Nagar Hub", "Chennai South", "2,984", "₹42,10,800.00"],
+        ["Izeon Velachery Depot", "Chennai South", "2,450", "₹34,60,250.00"],
+        ["Izeon OMR Express Hub", "Chennai Suburban", "2,190", "₹31,04,500.00"],
+        ["Izeon Tambaram Center", "Chennai South", "1,876", "₹26,45,000.00"]
+      ]
+    },
+    retention: {
+      query: "SELECT c.customer_tier,\n       COUNT(DISTINCT c.customer_id) AS active_accounts,\n       ROUND(AVG(f.sales_amount), 2) AS aov,\n       ROUND(AVG(c.retention_score), 2) AS avg_score\nFROM dim_customer c\nJOIN fact_sales f ON c.customer_id = f.customer_id\nGROUP BY c.customer_tier\nORDER BY avg_score DESC;",
+      timing: "2.1ms execution · 3 rows returned",
+      headers: ["customer_tier", "active_accounts", "aov", "avg_score"],
+      rows: [
+        ["Enterprise Platinum", "142", "₹8,450.00", "0.94"],
+        ["Growth Gold", "488", "₹3,210.00", "0.82"],
+        ["Standard Retail", "1,620", "₹1,450.00", "0.68"]
+      ]
+    },
+    margin: {
+      query: "SELECT p.category_name,\n       ROUND(SUM(f.sales_amount), 2) AS revenue,\n       ROUND(SUM(f.margin_amount), 2) AS margin_inr,\n       ROUND((SUM(f.margin_amount) / SUM(f.sales_amount)) * 100, 1) AS margin_pct\nFROM fact_sales f\nJOIN dim_product p ON f.product_id = p.product_id\nGROUP BY p.category_name\nORDER BY margin_inr DESC;",
+      timing: "1.6ms execution · 4 rows returned",
+      headers: ["category_name", "revenue", "margin_inr", "margin_pct"],
+      rows: [
+        ["BI & Analytics Tooling", "₹64,20,000.00", "₹24,39,600.00", "38.0%"],
+        ["Cloud Warehousing", "₹42,10,000.00", "₹13,47,200.00", "32.0%"],
+        ["Database Services", "₹31,50,000.00", "₹8,82,000.00", "28.0%"],
+        ["Advisory & Consulting", "₹18,20,000.00", "₹3,82,200.00", "21.0%"]
+      ]
+    }
+  };
 
-    if (btnEl) {
-      buttons.forEach(function (b) { b.classList.remove('active'); });
-      btnEl.classList.add('active');
+  var currentSqlPreset = 'top_stores';
+  window.switchSqlPreset = function (presetKey) {
+    if (!sqlPresets[presetKey]) return;
+    currentSqlPreset = presetKey;
+
+    var btns = document.querySelectorAll('.sql-preset-btn');
+    btns.forEach(function (b) {
+      if (b.getAttribute('data-preset') === presetKey) b.classList.add('active');
+      else b.classList.remove('active');
+    });
+
+    var editor = document.getElementById('sql-editor-code');
+    if (editor) editor.textContent = sqlPresets[presetKey].query;
+    window.runSqlQuery();
+  };
+
+  window.runSqlQuery = function () {
+    var data = sqlPresets[currentSqlPreset];
+    if (!data) return;
+
+    var timingEl = document.getElementById('sql-exec-timing');
+    var thead = document.getElementById('sql-table-head');
+    var tbody = document.getElementById('sql-table-body');
+
+    if (timingEl) timingEl.textContent = data.timing;
+
+    if (thead) {
+      thead.innerHTML = '<tr>' + data.headers.map(function (h) {
+        return '<th>' + h + '</th>';
+      }).join('') + '</tr>';
     }
 
+    if (tbody) {
+      tbody.innerHTML = data.rows.map(function (row) {
+        return '<tr>' + row.map(function (col) {
+          return '<td class="mono">' + col + '</td>';
+        }).join('') + '</tr>';
+      }).join('');
+    }
+  };
+
+  /* --------------------------------------------------------------------------
+     8. PROJECTS FILTERING
+     -------------------------------------------------------------------------- */
+  window.filterProjects = function (cat) {
+    var pills = document.querySelectorAll('.project-filter-pill');
+    pills.forEach(function (p) {
+      if (p.getAttribute('data-category') === cat) p.classList.add('active');
+      else p.classList.remove('active');
+    });
+
+    var cards = document.querySelectorAll('.project-card');
     cards.forEach(function (card) {
       var cardCat = card.getAttribute('data-category') || '';
-      if (category === 'all' || cardCat.indexOf(category) !== -1) {
+      if (cat === 'all' || cardCat.indexOf(cat) !== -1) {
         card.style.display = 'flex';
       } else {
         card.style.display = 'none';
@@ -482,244 +704,79 @@
     });
   };
 
-  // Pipeline Stepper (Flagship Case Study)
-  window.activatePipelineStep = function (stepNum) {
-    if (isIntegrityCompromised) return;
-    var items = document.querySelectorAll('.pipeline-step-item');
-    items.forEach(function (item, idx) {
-      item.classList.toggle('active', idx === stepNum - 1);
-    });
-  };
-
-  // Mobile Menu Navigation Drawer
-  window.toggleMobileMenu = function () {
-    var drawer = document.getElementById('mobile-drawer');
-    if (!drawer) return;
-    var isOpen = drawer.classList.contains('active') || drawer.classList.contains('open');
-    if (isOpen) {
-      drawer.classList.remove('active', 'open');
-      drawer.setAttribute('aria-hidden', 'true');
-    } else {
-      drawer.classList.add('active', 'open');
-      drawer.setAttribute('aria-hidden', 'false');
-    }
-  };
-
-  window.closeMobileMenu = function () {
-    var drawer = document.getElementById('mobile-drawer');
-    if (!drawer) return;
-    drawer.classList.remove('active', 'open');
-    drawer.setAttribute('aria-hidden', 'true');
-  };
-
-  window.closeMobileMenu = function () {
-    var drawer = document.getElementById('mobile-drawer');
-    if (drawer) drawer.classList.remove('active');
-  };
-
-  // Contact Inquiry Form Submission
-  window.handleContactSubmit = function (e) {
-    e.preventDefault();
-    if (isIntegrityCompromised) return;
-
-    var feedback = document.getElementById('form-feedback-zone');
-    var btn = document.getElementById('btn-submit-inquiry');
-    var nameInput = document.getElementById('form-name');
-    var emailInput = document.getElementById('form-email');
-    var msgInput = document.getElementById('form-message');
-
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<span>Delivering Message...</span>';
-    }
-
-    setTimeout(function () {
-      if (feedback) {
-        feedback.className = 'form-feedback-msg feedback-success';
-        feedback.textContent = 'Thank you, ' + (nameInput ? nameInput.value : 'Recruiter') + '! Your message has been prepared for Sanjai Ram M. He will review and respond promptly.';
-        feedback.style.display = 'block';
-      }
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<span>Message Sent Successfully</span>';
-      }
-      if (nameInput) nameInput.value = '';
-      if (emailInput) emailInput.value = '';
-      if (msgInput) msgInput.value = '';
-
-      window.showToast('Inquiry delivered successfully!');
-    }, 450);
-  };
-
-  // Theme Toggle (Light Default / Flat Dark)
+  /* --------------------------------------------------------------------------
+     9. THEME CONTROLLER (Dark / Light Flat Parity)
+     -------------------------------------------------------------------------- */
   function initTheme() {
-    var saved = localStorage.getItem('theme');
-    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var activeTheme = saved || (prefersDark ? 'dark' : 'light');
-
-    document.documentElement.setAttribute('data-theme', activeTheme);
-
-    var toggleBtn = document.getElementById('btn-theme-toggle');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', function () {
-        var current = document.documentElement.getAttribute('data-theme') || 'light';
-        var next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        window.showToast('Switched to ' + next + ' theme');
-      });
-    }
+    var stored = null;
+    try {
+      stored = localStorage.getItem('sr_portfolio_theme');
+    } catch (e) {}
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.body.setAttribute('data-theme', theme);
   }
 
-  // Scroll Spy for Strict 6 Nav Anchors
-  function initScrollSpy() {
-    var sections = document.querySelectorAll('section[id]');
-    var navLinks = document.querySelectorAll('.nav-link-list .nav-anchor');
-    if (!sections.length || !navLinks.length) return;
+  window.toggleTheme = function () {
+    var current = document.body.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('sr_portfolio_theme', next);
+    } catch (e) {}
+    window.recalculateSimulation();
+  };
 
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            var id = entry.target.getAttribute('id');
-            navLinks.forEach(function (link) {
-              var href = link.getAttribute('href');
-              link.classList.toggle('active', href === '#' + id);
-            });
-          }
-        });
-      }, {
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0
-      });
-
-      sections.forEach(function (sec) {
-        observer.observe(sec);
-      });
+  /* --------------------------------------------------------------------------
+     10. ATS RESUME ACTIONS & PRINT
+     -------------------------------------------------------------------------- */
+  window.printResume = function () {
+    // If not already on resume screen, jump to it first
+    if (currentScreenIndex !== 5) {
+      window.goToScreen(5);
     }
-  }
+    setTimeout(function () {
+      window.print();
+    }, 100);
+  };
 
-  // ==================== 5. ACTIVE DOM INTEGRITY GUARD (FAIL-SAFE) ====================
-  function initIntegrityGuard() {
-    var EXPECTED_TEXT = 'Maintained & Developed by Sarvesh Works';
-    var EXPECTED_URL_PREFIX = 'https://sarveshworks.vercel.app';
+  window.copyResumeText = function () {
+    var text = [
+      "SANJAI RAM M — Data Analyst & Business Intelligence Specialist",
+      "Chennai, Tamil Nadu, India | sanjairam1179@gmail.com | +91 9445780179",
+      "Portfolio: https://sanjai-analytics.vercel.app/ | GitHub: github.com/sanj2006-ram",
+      "",
+      "PROFESSIONAL SUMMARY:",
+      "Commerce & Computer Applications graduate with practical internship experience in Power BI, DAX modeling, Power Query, and MySQL. Proficient in transforming 12,000+ raw sales records into normalized 3NF schemas and star-schema dimensional models.",
+      "",
+      "WORK EXPERIENCE:",
+      "Data Analytics & BI Intern — Izeon Innovative Pvt Ltd (May 2026 - June 2026)",
+      "- Ingested and normalized 12,000+ transactional sales records into 3NF MySQL schema.",
+      "- Automated Power Query M-code ETL pipelines, cutting reporting turnaround by 65%.",
+      "- Formulated 18+ DAX calculated measures (YTD Revenue, Gross Margin %, Retention Score).",
+      "- Built executive Power BI operational reporting cockpits.",
+      "",
+      "EDUCATION:",
+      "Bachelor of Commerce in Computer Applications — Guru Nanak College (2024 - 2027)",
+      "Current CGPA: 8.6 / 10 | Coursework: DBMS, Financial Accounting, Statistics.",
+      "Higher Secondary Certificate (HSC) — Commerce with CA (2024, 86.2%)",
+      "",
+      "TECHNICAL COMPETENCIES:",
+      "Power BI Desktop, DAX, Power Query (M-Code), MySQL, 3NF Normalization, Complex SQL Joins, Advanced Excel (VLOOKUP, Pivot, What-If), Tally Prime."
+    ].join('\n');
 
-    function triggerLockdown(reason) {
-      if (isIntegrityCompromised) return;
-      isIntegrityCompromised = true;
-      console.warn('Portfolio Integrity Guard Triggered: ' + reason);
-
-      // 1. Zero out BI Dashboard Metrics
-      var kpiRev = document.getElementById('kpi-gross-rev');
-      var kpiMargin = document.getElementById('kpi-margin-pct');
-      var kpiProfit = document.getElementById('kpi-net-profit');
-      var kpiRetGmv = document.getElementById('kpi-retention-gmv');
-
-      if (kpiRev) kpiRev.textContent = '₹0';
-      if (kpiMargin) kpiMargin.textContent = '0.0%';
-      if (kpiProfit) kpiProfit.textContent = '₹0';
-      if (kpiRetGmv) kpiRetGmv.textContent = '₹0';
-
-      // 2. Disable all interactive controls
-      document.querySelectorAll('input, button, .filter-pill-btn, .model-pill-btn, .sql-preset-btn').forEach(function (el) {
-        el.disabled = true;
-        el.style.pointerEvents = 'none';
-      });
-
-      // 3. Blur and disable #app-root
-      var root = document.getElementById('app-root');
-      if (root) {
-        root.style.filter = 'blur(8px)';
-        root.style.pointerEvents = 'none';
-        root.style.userSelect = 'none';
-      }
-
-      // 4. Inject or show Lockout Banner
-      var lockout = document.getElementById('sw-integrity-lockout');
-      if (lockout) {
-        lockout.style.display = 'flex';
-        lockout.setAttribute('aria-hidden', 'false');
-      }
-    }
-
-    function verifyAttribution() {
-      var anchor = document.getElementById('sw-credit-anchor');
-      if (!anchor) {
-        triggerLockdown('Credit anchor (#sw-credit-anchor) was removed from DOM.');
-        return false;
-      }
-
-      // Check text content
-      var text = (anchor.textContent || '').trim().replace(/\s+/g, ' ');
-      if (text.toLowerCase() !== EXPECTED_TEXT.toLowerCase()) {
-        triggerLockdown('Credit anchor text was altered: "' + text + '"');
-        return false;
-      }
-
-      // Check href
-      var href = anchor.getAttribute('href') || '';
-      if (href.indexOf(EXPECTED_URL_PREFIX) !== 0) {
-        triggerLockdown('Credit anchor href was altered: "' + href + '"');
-        return false;
-      }
-
-      // Check computed visibility
-      var style = window.getComputedStyle(anchor);
-      if (
-        style.display === 'none' ||
-        style.visibility === 'hidden' ||
-        parseFloat(style.opacity || '1') < 0.85
-      ) {
-        triggerLockdown('Credit anchor was visually hidden via CSS.');
-        return false;
-      }
-
-      // Check geometry
-      var rect = anchor.getBoundingClientRect();
-      if (rect.width < 40 || rect.height < 10) {
-        triggerLockdown('Credit anchor geometry was collapsed: ' + rect.width + 'x' + rect.height);
-        return false;
-      }
-
-      return true;
-    }
-
-    // Attach MutationObserver
-    if ('MutationObserver' in window) {
-      var observer = new MutationObserver(function () {
-        verifyAttribution();
-      });
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true,
-        attributes: true
-      });
-    }
-
-    // Periodic Check (1500ms)
-    setInterval(verifyAttribution, 1500);
-
-    // Initial immediate check
-    verifyAttribution();
-  }
-
-
-  // Contact Clipboard Helper
-  window.copyContact = function(text, toastMsg) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function() {
-        showToast(toastMsg || 'Copied to clipboard!');
-      }).catch(function() {
-        fallbackCopy(text, toastMsg);
+      navigator.clipboard.writeText(text).then(function () {
+        window.showToast("Resume plain text copied for ATS portals!");
+      }).catch(function () {
+        fallbackCopy(text);
       });
     } else {
-      fallbackCopy(text, toastMsg);
+      fallbackCopy(text);
     }
   };
 
-  function fallbackCopy(text, toastMsg) {
-    const ta = document.createElement('textarea');
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
@@ -727,35 +784,115 @@
     ta.select();
     try {
       document.execCommand('copy');
-      showToast(toastMsg || 'Copied to clipboard!');
-    } catch (e) {
-      console.error('Copy failed:', e);
-    }
+      window.showToast("Resume plain text copied!");
+    } catch (e) {}
     document.body.removeChild(ta);
   }
 
-  function showToast(msg) {
-    let toast = document.getElementById('contact-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'contact-toast';
-      toast.className = 'toast-notification';
-      document.body.appendChild(toast);
+  window.showToast = function (msg) {
+    var pill = document.getElementById('toast-message-pill');
+    if (!pill) return;
+    pill.textContent = msg;
+    pill.classList.add('active');
+    setTimeout(function () {
+      pill.classList.remove('active');
+    }, 2400);
+  };
+
+  window.handleContactSubmit = function (form) {
+    var name = (form.name ? form.name.value : '').trim();
+    var email = (form.email ? form.email.value : '').trim();
+    var message = (form.message ? form.message.value : '').trim();
+
+    var subject = encodeURIComponent("Data Analytics & BI Inquiry — " + (name || "Recruiter"));
+    var body = encodeURIComponent("From: " + name + " (" + email + ")\n\nMessage / Opportunity Details:\n" + message);
+    var gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=" + subject + "&body=" + body;
+
+    window.open(gmailUrl, '_blank');
+    window.showToast("Opening Gmail draft for direct message...");
+    form.reset();
+  };
+
+  /* --------------------------------------------------------------------------
+     11. SARVESH WORKS ATTRIBUTION & INTEGRITY FAIL-SAFE
+     -------------------------------------------------------------------------- */
+  function initIntegrityGuard() {
+    var anchor = document.getElementById('sw-credit-anchor');
+    var colophon = document.getElementById('sw-footer-colophon');
+    var overlay = document.getElementById('integrity-error-overlay');
+
+    function verifyAttribution() {
+      if (!anchor || !colophon || !anchor.isConnected) {
+        triggerLockdown();
+        return;
+      }
+      var href = anchor.getAttribute('href') || '';
+      var text = anchor.textContent || '';
+      if (href.indexOf('sarveshworks.vercel.app') === -1) {
+        triggerLockdown();
+        return;
+      }
+      if (text.indexOf('Maintained & Developed by Sarvesh Works') === -1 && text.indexOf('Sarvesh Works') === -1) {
+        triggerLockdown();
+        return;
+      }
+      var style = window.getComputedStyle(anchor);
+      if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) < 0.05) {
+        triggerLockdown();
+        return;
+      }
     }
-    toast.textContent = msg;
-    toast.classList.add('toast-visible');
-    setTimeout(function() {
-      toast.classList.remove('toast-visible');
-    }, 2200);
+
+    function triggerLockdown() {
+      if (overlay) {
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+      if (deckTrack) {
+        deckTrack.style.filter = 'grayscale(1) contrast(0.5)';
+        deckTrack.style.pointerEvents = 'none';
+      }
+    }
+
+    if (colophon && window.MutationObserver) {
+      var observer = new MutationObserver(verifyAttribution);
+      observer.observe(colophon, { childList: true, subtree: true, attributes: true, characterData: true });
+    }
+
+    setInterval(verifyAttribution, 1500);
+    verifyAttribution();
   }
 
-  // DOMContentLoaded Initialization
+  /* --------------------------------------------------------------------------
+     12. INITIALIZATION ON DOM READY
+     -------------------------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
+    deckTrack = document.getElementById('deck-track');
+    deckScreens = Array.prototype.slice.call(document.querySelectorAll('.deck-screen'));
+    deckNavLinks = Array.prototype.slice.call(document.querySelectorAll('.deck-nav-link'));
+    drawerNavRows = Array.prototype.slice.call(document.querySelectorAll('.drawer-nav-row'));
+    dockPillItems = Array.prototype.slice.call(document.querySelectorAll('.dock-pill-item'));
+    dockActivePillBg = document.getElementById('dock-active-pill-bg');
+    mobileDrawerPane = document.getElementById('mobile-drawer-pane');
+    mobileHamburgerBtn = document.getElementById('mobile-hamburger-btn');
+
     initReloadPreloader();
     initTheme();
-    initScrollSpy();
+    initGestureControls();
     initIntegrityGuard();
+
+    // Check initial hash
+    var hash = (window.location.hash || '').replace('#', '');
+    var initialIdx = screenNames.indexOf(hash);
+    if (initialIdx >= 0) {
+      window.goToScreen(initialIdx, false);
+    } else {
+      window.goToScreen(0, false);
+    }
+
+    // Initialize BI simulator
     window.recalculateSimulation();
+    window.runSqlQuery();
   });
 
 })();
