@@ -6601,3 +6601,293 @@ html, body.deck-body {
   color: var(--accent-primary);
   text-decoration: underline;
 }
+
+
+/* ==========================================================================
+   PRODUCTION HARDENING & AUDIT ADDITIONS
+   ========================================================================== */
+
+/* 1. Case Study Grid Mobile Vertical Stacking (< 1024px) */
+@media (max-width: 1023px) {
+  .case-study-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .case-meta-list {
+    display: contents !important;
+  }
+  .case-block-header {
+    order: 1 !important;
+    width: 100% !important;
+  }
+  .case-block-toolset {
+    order: 2 !important;
+    width: 100% !important;
+  }
+  .case-block-problem {
+    order: 3 !important;
+    width: 100% !important;
+  }
+  .pipeline-stepper-wrap {
+    order: 4 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .case-block-impact {
+    order: 5 !important;
+    width: 100% !important;
+  }
+  .pipeline-step-item {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .case-tags-cluster {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .flagship-card {
+    padding: 20px 16px !important;
+  }
+}
+
+/* 2. Equal-Width 6-Column Mobile Dock (< 768px) */
+@media (max-width: 768px) {
+  .bottom-floating-dock {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    z-index: 50 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+    padding: 0 6px 8px 6px !important;
+    box-sizing: border-box !important;
+  }
+  .dock-container-pill {
+    pointer-events: auto !important;
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 4px 2px !important;
+    gap: 2px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-hairline) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+  .dock-pill-item {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 44px !important;
+    padding: 2px 1px !important;
+    font-size: 10px !important;
+    text-align: center !important;
+    width: 100% !important;
+    gap: 2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .dock-item-dot {
+    display: inline-block !important;
+    width: 4px !important;
+    height: 4px !important;
+    border-radius: 50% !important;
+    background: currentColor !important;
+  }
+  .dock-active-pill-bg {
+    display: none !important;
+  }
+  .dock-pill-item.active {
+    background: var(--accent-primary) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+  }
+  .deck-main {
+    padding-bottom: 72px !important;
+  }
+}
+
+/* 3. Legal Modals (Privacy Policy & Terms) */
+.modal-card-legal {
+  max-width: 640px;
+  width: 92vw;
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+}
+.legal-modal-body {
+  overflow-y: auto;
+  padding: 20px 24px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.legal-effective-date {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.legal-heading {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 16px 0 6px;
+}
+.legal-heading:first-of-type {
+  margin-top: 0;
+}
+.legal-text {
+  margin: 0 0 12px;
+}
+.legal-list {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.legal-list li {
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.legal-link {
+  color: var(--brand-orange, #DE4B00);
+  text-decoration: underline;
+}
+
+/* 4. Cookie Consent Banner */
+.cookie-consent-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  max-width: 580px;
+  margin: 0 auto;
+  z-index: 99;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: slideUpCookie 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+.cookie-consent-bar.fade-out {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+@keyframes slideUpCookie {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cookie-consent-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cookie-consent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brand-orange, #DE4B00);
+  margin-bottom: 4px;
+}
+.cookie-consent-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.cookie-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cookie-btn-accept {
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  height: 32px !important;
+}
+.cookie-btn-dismiss {
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  height: 32px !important;
+}
+.cookie-legal-link-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 6px;
+  transition: color 0.15s ease;
+}
+.cookie-legal-link-btn:hover {
+  color: var(--text-primary);
+}
+@media (max-width: 768px) {
+  .cookie-consent-bar {
+    bottom: 64px;
+    left: 10px;
+    right: 10px;
+    padding: 12px 14px;
+  }
+}
+
+/* 5. Contact Status Feedback States */
+.contact-status-success {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #059669 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+[data-theme="dark"] .contact-status-success {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34D399 !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}
+.contact-status-warning {
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #D97706 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+[data-theme="dark"] .contact-status-warning {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #FBBF24 !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+}
+.contact-status-error {
+  background: rgba(239, 68, 68, 0.12) !important;
+  color: #DC2626 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+[data-theme="dark"] .contact-status-error {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #F87171 !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}

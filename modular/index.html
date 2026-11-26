@@ -1016,13 +1016,13 @@ GROUP BY p.category_name;
             
             <!-- Left Column: Specs & Overview -->
             <div class="case-meta-list">
-              <div>
+              <div class="case-block-header">
                 <div class="case-meta-tag">FLAGSHIP INTERNSHIP CASE STUDY</div>
                 <h3 class="case-main-title">Commercial Sales &amp; Revenue Intelligence Pipeline</h3>
                 <div class="case-org-line">Izeon Innovative Pvt Ltd &middot; Chennai, India</div>
               </div>
 
-              <div>
+              <div class="case-block-toolset">
                 <div class="case-section-subtitle">CORE TOOLSET</div>
                 <div class="case-tags-cluster">
                   <span class="case-tag-pill"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>Power BI Pro</span>
@@ -1033,14 +1033,14 @@ GROUP BY p.category_name;
                 </div>
               </div>
 
-              <div>
+              <div class="case-block-problem">
                 <div class="case-section-subtitle">BUSINESS PROBLEM</div>
                 <p class="case-body-text">
                   Disparate transactional records across distributed spreadsheet exports caused severe reporting latencies, untracked customer entities, and zero real-time visibility into weekly product gross margins.
                 </p>
               </div>
 
-              <div class="case-impact-box">
+              <div class="case-impact-box case-block-impact">
                 <div class="case-impact-title">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   <span>VERIFIED BUSINESS IMPACT</span>
@@ -1760,7 +1760,14 @@ GROUP BY p.category_name;
 
             <!-- Contact Form Card -->
             <div class="contact-form-card">
+              <div id="contact-status-feedback" role="alert" style="display:none; font-size:13px; font-weight:600; padding:12px 14px; border-radius:8px; margin-bottom:16px;"></div>
               <form class="contact-card-form" onsubmit="event.preventDefault(); window.handleContactSubmit(this);">
+                <!-- Honeypot field (hidden from real users, traps bots) -->
+                <div style="display:none !important; position:absolute; left:-9999px;" aria-hidden="true">
+                  <label for="contact-hp-field">Leave blank</label>
+                  <input type="text" id="contact-hp-field" name="_hp_trap" tabindex="-1" autocomplete="off">
+                </div>
+
                 <div class="form-grid-2col">
                   <div class="form-field">
                     <label for="sender-name-input" class="form-input-label">RECRUITER / SENDER NAME</label>
@@ -1775,6 +1782,15 @@ GROUP BY p.category_name;
                   <label for="sender-msg-input" class="form-input-label">MESSAGE / POSITION DETAILS</label>
                   <textarea id="sender-msg-input" name="message" class="form-textarea-control" rows="4" placeholder="Role requirements, project scope, or interview schedule..." required></textarea>
                 </div>
+
+                <!-- Explicit Legal Consent Checkbox -->
+                <div class="form-checkbox-row" style="display:flex; align-items:flex-start; gap:8px; margin: 4px 0 16px 0;">
+                  <input type="checkbox" id="privacy-consent-checkbox" name="privacy_consent" style="margin-top:2px; accent-color:var(--brand-orange, #DE4B00); cursor:pointer;" required>
+                  <label for="privacy-consent-checkbox" style="font-size:12px; color:var(--text-secondary); line-height:1.45; cursor:pointer;">
+                    I have reviewed and agree to the <a href="javascript:void(0)" onclick="window.openPrivacyModal()" style="color:var(--brand-orange, #DE4B00); text-decoration:underline;">Privacy Policy</a> &amp; <a href="javascript:void(0)" onclick="window.openTermsModal()" style="color:var(--brand-orange, #DE4B00); text-decoration:underline;">Terms &amp; Conditions</a>.
+                  </label>
+                </div>
+
                 <div class="form-actions-row">
                   <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">
                     <span>Send Message</span>
@@ -1814,6 +1830,10 @@ GROUP BY p.category_name;
 
             <div class="footer-bottom-lockup" id="sw-footer-colophon">
               <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
               <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
               <a id="sw-credit-anchor" href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
@@ -1872,7 +1892,7 @@ GROUP BY p.category_name;
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <div class="recruiter-point-text">
-              <strong>Data Analytics &amp; BI Intern @ Izeon Innovative Pvt Ltd:</strong> Normalized 12,000+ raw transactional retail records into a 3NF MySQL relational database; authored automated Power Query M-code ETL workflows reducing recurring reporting preparation turnaround by 65%.
+              <strong>Data Analytics &amp; BI Intern @ Izeon Innovative Pvt Ltd:</strong> Normalized 12,000+ raw transactional retail records into a 3NF MySQL relational database; authored automated Power Query M-code ETL workflows reducing recurring reporting preparation turnaround by 40%.
             </div>
           </div>
 
@@ -2050,6 +2070,111 @@ GROUP BY p.category_name;
       </p>
     </div>
   </div>
+
+  <!-- Privacy Policy Modal -->
+  <div class="modal-backdrop" id="modal-privacy-policy" aria-hidden="true" onclick="if(event.target === this) window.closeModal('modal-privacy-policy')">
+    <div class="modal-card modal-card-legal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-eyebrow">LEGAL COMPLIANCE &middot; DATA INTEGRITY</span>
+          <h3 class="modal-title" id="privacy-modal-title">Privacy Policy</h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="window.closeModal('modal-privacy-policy')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body legal-modal-body">
+        <p class="legal-effective-date">Effective Date: May 2026 &middot; Last Updated: November 2026</p>
+        
+        <h4 class="legal-heading">1. Introduction</h4>
+        <p class="legal-text">This portfolio website (<strong>https://sanjai-analytics.vercel.app/</strong>) is authored and maintained by <strong>Sanjai Ram M</strong>, Data Analyst &amp; Business Intelligence Specialist based in Chennai, India. We respect your privacy and are committed to safeguarding any communication details shared with us.</p>
+
+        <h4 class="legal-heading">2. Information Collection &amp; Purpose</h4>
+        <p class="legal-text">We do not sell, rent, monetize, or broker personal information. When you initiate correspondence via the Contact form or email (<strong>sanjairam1179@gmail.com</strong>), we receive your name, professional email address, and message scope exclusively to evaluate prospective employment, internship, or freelance business intelligence engagements.</p>
+
+        <h4 class="legal-heading">3. Local &amp; Session Storage</h4>
+        <p class="legal-text">This site employs minimal first-party browser storage for functional accessibility and anti-abuse safeguards:</p>
+        <ul class="legal-list">
+          <li><code>sa_theme</code>: Remembers your preferred visual contrast mode (Warm Alabaster Light / Graphite Obsidian Dark).</li>
+          <li><code>sa_email_sent</code>: Temporary session marker preventing automated duplicate submissions during an active browsing session.</li>
+          <li><code>sa_contact_draft</code>: Temporary session storage protecting unsent message text from accidental loss.</li>
+          <li><code>sa_cookie_consent</code>: Stores your acknowledgment of essential session cookies.</li>
+        </ul>
+        <p class="legal-text">No third-party tracking beacons, cross-site telemetry, or advertising cookies are embedded.</p>
+
+        <h4 class="legal-heading">4. Data Security &amp; Retention</h4>
+        <p class="legal-text">All interactions are encrypted in transit via Transport Layer Security (TLS 1.3). Communication records are retained only as long as necessary to conduct recruitment dialog, after which they may be archived or removed upon request.</p>
+
+        <h4 class="legal-heading">5. Your Rights &amp; Inquiries</h4>
+        <p class="legal-text">You have the right to request deletion or modification of any correspondence details provided. For any privacy inquiries, reach out directly to Sanjai Ram M at <a href="mailto:sanjairam1179@gmail.com" class="legal-link">sanjairam1179@gmail.com</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.closeModal('modal-privacy-policy')">
+          <span>Understood &amp; Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms & Conditions Modal -->
+  <div class="modal-backdrop" id="modal-terms-conditions" aria-hidden="true" onclick="if(event.target === this) window.closeModal('modal-terms-conditions')">
+    <div class="modal-card modal-card-legal" role="dialog" aria-modal="true" aria-labelledby="terms-modal-title">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-eyebrow">LEGAL AGREEMENT &middot; CANDIDATE DOSSIER</span>
+          <h3 class="modal-title" id="terms-modal-title">Terms &amp; Conditions</h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="window.closeModal('modal-terms-conditions')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body legal-modal-body">
+        <p class="legal-effective-date">Effective Date: May 2026 &middot; Last Updated: November 2026</p>
+
+        <h4 class="legal-heading">1. Acceptance of Terms</h4>
+        <p class="legal-text">By browsing or interacting with <strong>https://sanjai-analytics.vercel.app/</strong>, you agree to comply with and be bound by these Terms and Conditions. If you do not agree, you should discontinue use of the portfolio.</p>
+
+        <h4 class="legal-heading">2. Professional Portfolio Purpose</h4>
+        <p class="legal-text">This platform serves as an executive portfolio and candidate dossier highlighting Sanjai Ram M's verified competencies in Power BI, DAX modeling, MySQL 3NF architecture, and ETL pipeline automation. All materials are presented for recruitment evaluation, technical review, and professional networking.</p>
+
+        <h4 class="legal-heading">3. Intellectual Property &amp; Attribution Integrity</h4>
+        <p class="legal-text">All proprietary interactive code, BI Cockpit simulation algorithms, custom SVG charts, and dossier designs are the intellectual work of Sanjai Ram M, developed in collaboration with and maintained by <strong>Sarvesh Works</strong> (<a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="legal-link">https://sarveshworks.vercel.app</a>). Mandatory attribution links and integrity fail-safes are protected and may not be removed or obscured.</p>
+
+        <h4 class="legal-heading">4. Acceptable Use</h4>
+        <p class="legal-text">Users agree not to engage in denial-of-service attempts, automated scraping, vulnerability probing, or spamming the contact dispatch endpoints. Automated bot submissions are trapped and blocked.</p>
+
+        <h4 class="legal-heading">5. Governing Law</h4>
+        <p class="legal-text">These Terms shall be interpreted and governed in accordance with the laws of the Republic of India and the jurisdiction of courts in Chennai, Tamil Nadu.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.closeModal('modal-terms-conditions')">
+          <span>Accept &amp; Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent Banner -->
+  <aside id="cookie-consent-banner" class="cookie-consent-bar" role="region" aria-label="Cookie and Session Consent" style="display:none;">
+    <div class="cookie-consent-container">
+      <div class="cookie-consent-text">
+        <div class="cookie-consent-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 1 0-10-10"/></svg>
+          <span>SESSION &amp; PREFERENCE COOKIES</span>
+        </div>
+        <p class="cookie-consent-desc">
+          We use strictly necessary first-party cookies and session storage to maintain your theme preference and protect contact inquiries against automated spam. No advertising or third-party trackers are used.
+        </p>
+      </div>
+      <div class="cookie-consent-actions">
+        <button type="button" class="btn btn-primary cookie-btn-accept" onclick="window.acceptCookies('essential')">
+          <span>Accept Essential</span>
+        </button>
+        <button type="button" class="btn btn-outline cookie-btn-dismiss" onclick="window.closeCookieBanner()">
+          <span>Dismiss</span>
+        </button>
+        <button type="button" class="cookie-legal-link-btn" onclick="window.openPrivacyModal()">
+          <span>Privacy Policy</span>
+        </button>
+      </div>
+    </div>
+  </aside>
 
   <!-- Toast Notification Pill -->
   <div id="toast-message-pill" class="toast-pill" aria-live="polite"></div>
