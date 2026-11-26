@@ -103,6 +103,21 @@
       document.documentElement.dataset.theme = theme;
     })();
   </script>
+
+  <!-- Loading Gate Pre-Hydration to Prevent FOUC on Refresh -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('sa_initial_intro_seen') === 'true') {
+          document.documentElement.classList.add('sa-has-seen-intro');
+        } else {
+          document.documentElement.classList.add('sa-first-visit');
+        }
+      } catch (e) {
+        document.documentElement.classList.add('sa-first-visit');
+      }
+    })();
+  </script>
   <style>
 /* ==========================================================================
    SANJAI RAM M — EDITORIAL BI & ANALYTICS PORTFOLIO DESIGN SYSTEM
@@ -4415,16 +4430,24 @@ html, body.deck-body {
   border-radius: 16px;
 }
 
-/* Preloader Reload Gate */
+/* FOUC Prevention for Loading Experiences */
+html.sa-has-seen-intro #sw-reload-gate {
+  display: none !important;
+}
+html.sa-first-visit #sa-refresh-overlay {
+  display: none !important;
+}
+
+/* Preloader Reload Gate (First Visit Full-Screen Intro) */
 .reload-gate {
   position: fixed;
   inset: 0;
-  background: #0A1622;
+  background: var(--bg-canvas, #0A1622);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s ease;
 }
 .reload-gate.dismissed {
   opacity: 0;
@@ -4438,11 +4461,11 @@ html, body.deck-body {
   text-align: center;
 }
 .reload-logo-box {
-  animation: reloadPulse 0.85s ease-in-out infinite alternate;
+  animation: reloadPulse 1.1s ease-in-out infinite alternate;
 }
 @keyframes reloadPulse {
-  0% { transform: scale(0.96); opacity: 0.85; }
-  100% { transform: scale(1.04); opacity: 1; }
+  0% { transform: scale(0.97); opacity: 0.9; }
+  100% { transform: scale(1.03); opacity: 1; }
 }
 .reload-brand-wordmark {
   margin-top: 14px;
@@ -4453,7 +4476,7 @@ html, body.deck-body {
 .reload-name {
   font-size: 22px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--text-primary, #FFFFFF);
   letter-spacing: 0.14em;
 }
 .reload-sub {
@@ -4466,19 +4489,19 @@ html, body.deck-body {
 .reload-line {
   flex: 1;
   height: 1.5px;
-  background: #FFFFFF;
+  background: var(--text-muted, rgba(255, 255, 255, 0.4));
 }
 .reload-role {
   font-size: 10px;
   font-weight: 700;
-  color: #DC4B04;
+  color: #E04F00;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 .reload-progress-bar {
   width: 140px;
   height: 3px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(125, 125, 125, 0.2);
   border-radius: 2px;
   margin-top: 20px;
   overflow: hidden;
@@ -4486,12 +4509,96 @@ html, body.deck-body {
 .reload-progress-fill {
   width: 0%;
   height: 100%;
-  background: #DC4B04;
-  animation: reloadProgress 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: #E04F00;
+  animation: reloadProgress 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 @keyframes reloadProgress {
   0% { width: 0%; }
   100% { width: 100%; }
+}
+
+/* Subsequent Browser Refresh Frosted-Blur Overlay */
+.sa-refresh-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 248, 245, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 1;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.28s ease;
+  pointer-events: auto;
+}
+
+[data-theme="dark"] .sa-refresh-overlay {
+  background: rgba(9, 13, 20, 0.65);
+}
+
+.sa-refresh-overlay.dismissed {
+  opacity: 0 !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+  pointer-events: none !important;
+}
+
+.sa-refresh-spinner-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sa-refresh-spinner-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(15, 23, 42, 0.12);
+  border-top-color: #E04F00;
+  animation: saSpin 0.75s linear infinite;
+}
+
+[data-theme="dark"] .sa-refresh-spinner-ring {
+  border-color: rgba(248, 250, 252, 0.15);
+  border-top-color: #E04F00;
+}
+
+.sa-refresh-icon {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes saSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reload-logo-box {
+    animation: none !important;
+  }
+  .reload-progress-fill {
+    animation-duration: 0.2s !important;
+  }
+  .sa-refresh-spinner-ring {
+    animation: none !important;
+  }
+  .sa-refresh-overlay,
+  .reload-gate {
+    transition-duration: 0.15s !important;
+  }
 }
 
 /* Colophon in Deck Screen */
@@ -7797,20 +7904,16 @@ html, body.deck-body {
 </head>
 <body class="deck-body">
 
-  <!-- Single-Play Rotating Reload Preloader (850ms) -->
+  <!-- First-Visit Full Intro Screen (Plays Once Only) -->
   <div id="sw-reload-gate" class="reload-gate" aria-hidden="true">
     <div class="reload-gate-inner">
       <div class="reload-logo-box">
-        <svg viewBox="0 0 178 126" width="60" height="42.5" fill="none" class="brand-svg-mark">
-          <!-- Orange A: Apex & Right Leg -->
-          <path class="brand-orange-shape" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" fill="var(--brand-orange, #DE4B00)" />
-          <!-- Orange A: Lower Left Leg -->
-          <path class="brand-orange-shape" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" fill="var(--brand-orange, #DE4B00)" />
-
-          <!-- Navy S: Main Spine & Right Loop -->
-          <path class="brand-navy-shape" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" fill="var(--brand-navy, #0A1622)" />
-          <!-- Navy S: Bottom-Left Foot -->
-          <path class="brand-navy-shape" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" fill="var(--brand-navy, #0A1622)" />
+        <svg viewBox="0 0 100 100" width="68" height="68" fill="none" class="brand-svg-mark">
+          <rect width="100" height="100" rx="20" fill="#FFFFFF"/>
+          <path fill="#E04F00" d="M 62.64 25.21 L 92.00 79.12 L 81.65 79.12 L 62.64 44.46 L 52.53 41.82 Z"/>
+          <path fill="#E04F00" d="M 45.07 55.54 L 54.45 55.54 L 41.46 79.12 L 31.35 79.12 Z"/>
+          <path fill="#0F172A" d="M 59.03 20.88 L 24.13 20.88 C 14.50 20.88, 8.00 27.38, 8.00 36.76 C 8.00 46.15, 14.50 55.05, 24.13 55.05 L 51.56 55.05 C 55.90 55.05, 58.54 57.46, 58.54 61.07 C 58.54 64.68, 56.14 67.33, 50.36 69.74 L 44.83 79.12 L 54.45 79.12 C 62.15 79.12, 68.41 71.90, 68.41 61.55 C 68.41 52.17, 63.84 44.95, 56.86 44.95 L 24.13 44.95 C 19.79 44.95, 17.63 41.34, 17.63 36.76 C 17.63 32.19, 19.79 30.99, 24.13 30.99 L 54.21 30.99 Z"/>
+          <path fill="#0F172A" d="M 15.46 69.50 L 33.51 69.50 L 28.22 79.12 L 8.96 79.12 Z"/>
         </svg>
       </div>
       <div class="reload-brand-wordmark">
@@ -7822,6 +7925,22 @@ html, body.deck-body {
         </div>
       </div>
       <div class="reload-progress-bar"><div class="reload-progress-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Subsequent Browser Refresh Frosted-Blur Overlay -->
+  <div id="sa-refresh-overlay" class="sa-refresh-overlay" aria-hidden="true">
+    <div class="sa-refresh-spinner-wrap">
+      <div class="sa-refresh-spinner-ring"></div>
+      <div class="sa-refresh-icon">
+        <svg viewBox="0 0 100 100" width="22" height="22" fill="none">
+          <rect width="100" height="100" rx="20" fill="#FFFFFF"/>
+          <path fill="#E04F00" d="M 62.64 25.21 L 92.00 79.12 L 81.65 79.12 L 62.64 44.46 L 52.53 41.82 Z"/>
+          <path fill="#E04F00" d="M 45.07 55.54 L 54.45 55.54 L 41.46 79.12 L 31.35 79.12 Z"/>
+          <path fill="#0F172A" d="M 59.03 20.88 L 24.13 20.88 C 14.50 20.88, 8.00 27.38, 8.00 36.76 C 8.00 46.15, 14.50 55.05, 24.13 55.05 L 51.56 55.05 C 55.90 55.05, 58.54 57.46, 58.54 61.07 C 58.54 64.68, 56.14 67.33, 50.36 69.74 L 44.83 79.12 L 54.45 79.12 C 62.15 79.12, 68.41 71.90, 68.41 61.55 C 68.41 52.17, 63.84 44.95, 56.86 44.95 L 24.13 44.95 C 19.79 44.95, 17.63 41.34, 17.63 36.76 C 17.63 32.19, 19.79 30.99, 24.13 30.99 L 54.21 30.99 Z"/>
+          <path fill="#0F172A" d="M 15.46 69.50 L 33.51 69.50 L 28.22 79.12 L 8.96 79.12 Z"/>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -10802,26 +10921,81 @@ GROUP BY p.category_name;
   };
 
   /* --------------------------------------------------------------------------
-     5. ROTATING SINGLE-PLAY RELOAD ANIMATION CONTROLLER (850ms)
+     5. DUAL-STAGE LOADING ARCHITECTURE (Single-Play Intro + Refresh Frosted Blur)
      -------------------------------------------------------------------------- */
-  function initReloadPreloader() {
-    var gate = document.getElementById('sw-reload-gate');
-    if (!gate) return;
-
-    var variant = 0;
+  function initLoadingExperience() {
+    var hasSeenIntro = false;
     try {
-      variant = parseInt(localStorage.getItem('sr_preloader_variant') || '0', 10);
-      localStorage.setItem('sr_preloader_variant', ((variant + 1) % 4).toString());
+      hasSeenIntro = localStorage.getItem('sa_initial_intro_seen') === 'true';
+    } catch (e) {
+      hasSeenIntro = false;
+    }
+
+    var prefersReduced = false;
+    try {
+      prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     } catch (e) {}
 
-    // Auto-dismiss in exactly 850ms
-    setTimeout(function () {
-      gate.classList.add('dismissed');
-      setTimeout(function () {
-        if (gate.parentNode) gate.parentNode.removeChild(gate);
-      }, 350);
-    }, 850);
+    var introGate = document.getElementById('sw-reload-gate');
+    var refreshOverlay = document.getElementById('sa-refresh-overlay');
+
+    if (hasSeenIntro) {
+      // Subsequent visit / page refresh: remove full intro gate immediately
+      if (introGate && introGate.parentNode) {
+        introGate.parentNode.removeChild(introGate);
+      }
+
+      if (refreshOverlay) {
+        var dismissDelay = prefersReduced ? 120 : 380;
+        var cleanupDelay = prefersReduced ? 150 : 300;
+
+        setTimeout(function () {
+          refreshOverlay.classList.add('dismissed');
+          refreshOverlay.style.pointerEvents = 'none';
+          setTimeout(function () {
+            if (refreshOverlay.parentNode) {
+              refreshOverlay.parentNode.removeChild(refreshOverlay);
+            }
+          }, cleanupDelay);
+        }, dismissDelay);
+      }
+    } else {
+      // First-time visit: remove refresh overlay immediately
+      if (refreshOverlay && refreshOverlay.parentNode) {
+        refreshOverlay.parentNode.removeChild(refreshOverlay);
+      }
+
+      if (introGate) {
+        var introDuration = prefersReduced ? 250 : 1350;
+        var introFadeDuration = prefersReduced ? 150 : 320;
+
+        setTimeout(function () {
+          try {
+            localStorage.setItem('sa_initial_intro_seen', 'true');
+          } catch (e) {}
+          introGate.classList.add('dismissed');
+          introGate.style.pointerEvents = 'none';
+
+          setTimeout(function () {
+            if (introGate.parentNode) {
+              introGate.parentNode.removeChild(introGate);
+            }
+          }, introFadeDuration);
+        }, introDuration);
+      } else {
+        try {
+          localStorage.setItem('sa_initial_intro_seen', 'true');
+        } catch (e) {}
+      }
+    }
   }
+
+  // Alias for backward compatibility
+  function initReloadPreloader() {
+    initLoadingExperience();
+  }
+  window.initLoadingExperience = initLoadingExperience;
+  window.initReloadPreloader = initReloadPreloader;
 
   /* --------------------------------------------------------------------------
      6. LIVE BI COCKPIT & DAX SIMULATOR ENGINE
@@ -11838,7 +12012,7 @@ GROUP BY p.category_name;
     mobileDrawerPane = document.getElementById('mobile-drawer-pane');
     mobileHamburgerBtn = document.getElementById('mobile-hamburger-btn');
 
-    initReloadPreloader();
+    initLoadingExperience();
     initTheme();
     initGestureControls();
     initIntegrityGuard();

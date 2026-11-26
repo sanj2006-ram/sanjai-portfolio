@@ -103,24 +103,35 @@
       document.documentElement.dataset.theme = theme;
     })();
   </script>
+
+  <!-- Loading Gate Pre-Hydration to Prevent FOUC on Refresh -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('sa_initial_intro_seen') === 'true') {
+          document.documentElement.classList.add('sa-has-seen-intro');
+        } else {
+          document.documentElement.classList.add('sa-first-visit');
+        }
+      } catch (e) {
+        document.documentElement.classList.add('sa-first-visit');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="deck-body">
 
-  <!-- Single-Play Rotating Reload Preloader (850ms) -->
+  <!-- First-Visit Full Intro Screen (Plays Once Only) -->
   <div id="sw-reload-gate" class="reload-gate" aria-hidden="true">
     <div class="reload-gate-inner">
       <div class="reload-logo-box">
-        <svg viewBox="0 0 178 126" width="60" height="42.5" fill="none" class="brand-svg-mark">
-          <!-- Orange A: Apex & Right Leg -->
-          <path class="brand-orange-shape" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" fill="var(--brand-orange, #DE4B00)" />
-          <!-- Orange A: Lower Left Leg -->
-          <path class="brand-orange-shape" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" fill="var(--brand-orange, #DE4B00)" />
-
-          <!-- Navy S: Main Spine & Right Loop -->
-          <path class="brand-navy-shape" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" fill="var(--brand-navy, #0A1622)" />
-          <!-- Navy S: Bottom-Left Foot -->
-          <path class="brand-navy-shape" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" fill="var(--brand-navy, #0A1622)" />
+        <svg viewBox="0 0 100 100" width="68" height="68" fill="none" class="brand-svg-mark">
+          <rect width="100" height="100" rx="20" fill="#FFFFFF"/>
+          <path fill="#E04F00" d="M 62.64 25.21 L 92.00 79.12 L 81.65 79.12 L 62.64 44.46 L 52.53 41.82 Z"/>
+          <path fill="#E04F00" d="M 45.07 55.54 L 54.45 55.54 L 41.46 79.12 L 31.35 79.12 Z"/>
+          <path fill="#0F172A" d="M 59.03 20.88 L 24.13 20.88 C 14.50 20.88, 8.00 27.38, 8.00 36.76 C 8.00 46.15, 14.50 55.05, 24.13 55.05 L 51.56 55.05 C 55.90 55.05, 58.54 57.46, 58.54 61.07 C 58.54 64.68, 56.14 67.33, 50.36 69.74 L 44.83 79.12 L 54.45 79.12 C 62.15 79.12, 68.41 71.90, 68.41 61.55 C 68.41 52.17, 63.84 44.95, 56.86 44.95 L 24.13 44.95 C 19.79 44.95, 17.63 41.34, 17.63 36.76 C 17.63 32.19, 19.79 30.99, 24.13 30.99 L 54.21 30.99 Z"/>
+          <path fill="#0F172A" d="M 15.46 69.50 L 33.51 69.50 L 28.22 79.12 L 8.96 79.12 Z"/>
         </svg>
       </div>
       <div class="reload-brand-wordmark">
@@ -132,6 +143,22 @@
         </div>
       </div>
       <div class="reload-progress-bar"><div class="reload-progress-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Subsequent Browser Refresh Frosted-Blur Overlay -->
+  <div id="sa-refresh-overlay" class="sa-refresh-overlay" aria-hidden="true">
+    <div class="sa-refresh-spinner-wrap">
+      <div class="sa-refresh-spinner-ring"></div>
+      <div class="sa-refresh-icon">
+        <svg viewBox="0 0 100 100" width="22" height="22" fill="none">
+          <rect width="100" height="100" rx="20" fill="#FFFFFF"/>
+          <path fill="#E04F00" d="M 62.64 25.21 L 92.00 79.12 L 81.65 79.12 L 62.64 44.46 L 52.53 41.82 Z"/>
+          <path fill="#E04F00" d="M 45.07 55.54 L 54.45 55.54 L 41.46 79.12 L 31.35 79.12 Z"/>
+          <path fill="#0F172A" d="M 59.03 20.88 L 24.13 20.88 C 14.50 20.88, 8.00 27.38, 8.00 36.76 C 8.00 46.15, 14.50 55.05, 24.13 55.05 L 51.56 55.05 C 55.90 55.05, 58.54 57.46, 58.54 61.07 C 58.54 64.68, 56.14 67.33, 50.36 69.74 L 44.83 79.12 L 54.45 79.12 C 62.15 79.12, 68.41 71.90, 68.41 61.55 C 68.41 52.17, 63.84 44.95, 56.86 44.95 L 24.13 44.95 C 19.79 44.95, 17.63 41.34, 17.63 36.76 C 17.63 32.19, 19.79 30.99, 24.13 30.99 L 54.21 30.99 Z"/>
+          <path fill="#0F172A" d="M 15.46 69.50 L 33.51 69.50 L 28.22 79.12 L 8.96 79.12 Z"/>
+        </svg>
+      </div>
     </div>
   </div>
 

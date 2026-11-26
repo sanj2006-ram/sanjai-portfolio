@@ -447,26 +447,81 @@
   };
 
   /* --------------------------------------------------------------------------
-     5. ROTATING SINGLE-PLAY RELOAD ANIMATION CONTROLLER (850ms)
+     5. DUAL-STAGE LOADING ARCHITECTURE (Single-Play Intro + Refresh Frosted Blur)
      -------------------------------------------------------------------------- */
-  function initReloadPreloader() {
-    var gate = document.getElementById('sw-reload-gate');
-    if (!gate) return;
-
-    var variant = 0;
+  function initLoadingExperience() {
+    var hasSeenIntro = false;
     try {
-      variant = parseInt(localStorage.getItem('sr_preloader_variant') || '0', 10);
-      localStorage.setItem('sr_preloader_variant', ((variant + 1) % 4).toString());
+      hasSeenIntro = localStorage.getItem('sa_initial_intro_seen') === 'true';
+    } catch (e) {
+      hasSeenIntro = false;
+    }
+
+    var prefersReduced = false;
+    try {
+      prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     } catch (e) {}
 
-    // Auto-dismiss in exactly 850ms
-    setTimeout(function () {
-      gate.classList.add('dismissed');
-      setTimeout(function () {
-        if (gate.parentNode) gate.parentNode.removeChild(gate);
-      }, 350);
-    }, 850);
+    var introGate = document.getElementById('sw-reload-gate');
+    var refreshOverlay = document.getElementById('sa-refresh-overlay');
+
+    if (hasSeenIntro) {
+      // Subsequent visit / page refresh: remove full intro gate immediately
+      if (introGate && introGate.parentNode) {
+        introGate.parentNode.removeChild(introGate);
+      }
+
+      if (refreshOverlay) {
+        var dismissDelay = prefersReduced ? 120 : 380;
+        var cleanupDelay = prefersReduced ? 150 : 300;
+
+        setTimeout(function () {
+          refreshOverlay.classList.add('dismissed');
+          refreshOverlay.style.pointerEvents = 'none';
+          setTimeout(function () {
+            if (refreshOverlay.parentNode) {
+              refreshOverlay.parentNode.removeChild(refreshOverlay);
+            }
+          }, cleanupDelay);
+        }, dismissDelay);
+      }
+    } else {
+      // First-time visit: remove refresh overlay immediately
+      if (refreshOverlay && refreshOverlay.parentNode) {
+        refreshOverlay.parentNode.removeChild(refreshOverlay);
+      }
+
+      if (introGate) {
+        var introDuration = prefersReduced ? 250 : 1350;
+        var introFadeDuration = prefersReduced ? 150 : 320;
+
+        setTimeout(function () {
+          try {
+            localStorage.setItem('sa_initial_intro_seen', 'true');
+          } catch (e) {}
+          introGate.classList.add('dismissed');
+          introGate.style.pointerEvents = 'none';
+
+          setTimeout(function () {
+            if (introGate.parentNode) {
+              introGate.parentNode.removeChild(introGate);
+            }
+          }, introFadeDuration);
+        }, introDuration);
+      } else {
+        try {
+          localStorage.setItem('sa_initial_intro_seen', 'true');
+        } catch (e) {}
+      }
+    }
   }
+
+  // Alias for backward compatibility
+  function initReloadPreloader() {
+    initLoadingExperience();
+  }
+  window.initLoadingExperience = initLoadingExperience;
+  window.initReloadPreloader = initReloadPreloader;
 
   /* --------------------------------------------------------------------------
      6. LIVE BI COCKPIT & DAX SIMULATOR ENGINE
@@ -1483,7 +1538,7 @@
     mobileDrawerPane = document.getElementById('mobile-drawer-pane');
     mobileHamburgerBtn = document.getElementById('mobile-hamburger-btn');
 
-    initReloadPreloader();
+    initLoadingExperience();
     initTheme();
     initGestureControls();
     initIntegrityGuard();
