@@ -2475,27 +2475,48 @@ html[data-theme="dark"] .v3-curtain {
   gap: 32px;
 }
 
-.contact-channels-column {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Contact Section & Channel Cards */
+.contact-card-deck-wrap {
+  max-width: 860px;
+  margin: 36px auto 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .contact-channels-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 .contact-channel-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-card);
-  padding: 20px;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 140ms ease-out;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
 }
 
 .contact-channel-item:hover {
   border-color: var(--accent-primary);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow);
 }
 
 .contact-channel-item.static-channel {
@@ -2503,15 +2524,16 @@ html[data-theme="dark"] .v3-curtain {
 }
 
 .contact-channel-item.static-channel:hover {
-  border-color: var(--border-subtle);
+  border-color: var(--border-hairline);
   transform: none;
+  box-shadow: none;
 }
 
 .contact-channel-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-btn);
-  background: var(--accent-subtle);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-tint);
   color: var(--accent-primary);
   display: flex;
   align-items: center;
@@ -2529,80 +2551,144 @@ html[data-theme="dark"] .v3-curtain {
 
 .contact-channel-body {
   flex: 1;
+  min-width: 0;
 }
 
 .contact-channel-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
   font-weight: 700;
   color: var(--text-muted);
   display: block;
+  letter-spacing: 0.05em;
   margin-bottom: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .contact-channel-val {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--text-pure);
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .contact-external-ico svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   stroke: var(--text-muted);
-  stroke-width: 2;
+  stroke-width: 2.2;
   fill: none;
 }
 
-/* Contact Form */
+/* Contact Form Card & Editorial Inputs */
 .contact-form-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-card);
-  padding: 28px;
-  box-shadow: var(--shadow-card);
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-
-.form-input, .form-textarea {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
   width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .contact-form-card {
+    padding: 16px;
+  }
+}
+
+.contact-card-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input-label {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field textarea,
+.form-input-control,
+.form-textarea-control,
+.form-input,
+.form-textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-primary);
   background: var(--bg-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-btn);
-  padding: 10px 14px;
-  color: var(--text-pure);
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.form-field input[type="text"]:focus,
+.form-field input[type="email"]:focus,
+.form-field textarea:focus,
+.form-input-control:focus,
+.form-textarea-control:focus,
+.form-input:focus,
+.form-textarea:focus {
   outline: none;
-  transition: border-color 140ms ease-out;
-}
-
-.form-input:focus, .form-textarea:focus {
   border-color: var(--accent-primary);
-  background: var(--bg-card);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px var(--accent-tint);
 }
 
-.form-feedback-msg {
-  margin-top: 16px;
-  padding: 10px 14px;
-  border-radius: var(--radius-btn);
-  font-size: 0.85rem;
+.form-field textarea,
+.form-textarea-control,
+.form-textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.5;
 }
 
-.feedback-success {
-  background: var(--accent-green-subtle);
-  color: var(--accent-green);
-  border: 1px solid var(--accent-green-border);
+.form-actions-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
 }
 
 /* ---------- 16. FOOTER & SARVESH WORKS ATTRIBUTION ---------- */
@@ -3858,20 +3944,20 @@ html, body.deck-body {
   overscroll-behavior-y: contain;
   box-sizing: border-box;
   padding-top: 68px; /* clears 56px sticky header + 12px breathing room */
-  padding-bottom: 88px; /* clears floating bottom navigation dock + 20px breathing room */
+  padding-bottom: 132px; /* clears floating bottom navigation dock + ample breathing room */
   padding-inline: 16px;
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   .deck-screen {
     padding-top: 76px;
-    padding-bottom: 96px;
+    padding-bottom: 124px;
     padding-inline: 24px;
   }
 }
 @media (min-width: 1025px) {
   .deck-screen {
     padding-top: 76px;
-    padding-bottom: 96px;
+    padding-bottom: 120px;
     padding-inline: 32px;
   }
   .deck-screen > .site-container,
@@ -3975,10 +4061,10 @@ html, body.deck-body {
 /* Bottom Floating Pill Dock */
 .bottom-floating-dock {
   position: fixed;
-  bottom: 12px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 90;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3991,11 +4077,11 @@ html, body.deck-body {
   display: flex;
   align-items: center;
   gap: 2px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 9999px;
-  padding: 4px;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   max-width: calc(100vw - 20px);
   overflow-x: auto;
   scrollbar-width: none;
@@ -4036,7 +4122,7 @@ html, body.deck-body {
   color: #FFFFFF;
 }
 .dock-pill-item:hover:not(.active) {
-  color: var(--text-pure);
+  color: var(--text-primary);
 }
 .dock-item-dot {
   width: 5px;
@@ -4046,19 +4132,11 @@ html, body.deck-body {
   opacity: 0.6;
 }
 .dock-swipe-cue {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  opacity: 0.85;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-}
-[data-theme="dark"] .dock-swipe-cue {
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  display: none !important;
 }
 @media (max-width: 768px) {
   .dock-swipe-cue {
-    display: none;
+    display: none !important;
   }
   .dock-pill-item {
     padding: 5px 9px;
@@ -4391,15 +4469,25 @@ html, body.deck-body {
 }
 
 /* Colophon in Deck Screen */
-.deck-screen-footer {
+.deck-screen-footer,
+.screen-deck-footer {
   margin-top: 48px;
   padding-top: 28px;
-  border-top: 1px solid var(--border-subtle);
+  padding-bottom: 76px;
+  border-top: 1px solid var(--border-hairline);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .deck-screen-footer,
+  .screen-deck-footer {
+    padding-bottom: 96px;
+  }
 }
 .footer-colophon-sub {
   font-size: 13px;
@@ -5403,13 +5491,19 @@ html, body.deck-body {
   border-bottom: none;
 }
 .dossier-section-heading {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--accent-gold);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-primary);
   letter-spacing: 0.08em;
-  margin: 0 0 10px;
+  margin-top: 22px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-hairline);
   text-transform: uppercase;
+}
+.dossier-section:first-of-type .dossier-section-heading {
+  margin-top: 6px;
 }
 .dossier-summary-text {
   font-size: 0.88rem;
@@ -5460,15 +5554,11 @@ html, body.deck-body {
 }
 .dossier-entry-header {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
   justify-content: space-between;
-}
-@media (min-width: 641px) {
-  .dossier-entry-header {
-    flex-direction: row;
-    align-items: baseline;
-  }
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
 }
 .dossier-entry-title-wrap {
   display: flex;
@@ -5486,19 +5576,16 @@ html, body.deck-body {
   color: var(--text-muted);
 }
 .dossier-entry-date {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
   font-weight: 600;
-  color: var(--accent-primary);
-  background: var(--accent-tint);
-  padding: 2px 8px;
-  border-radius: 4px;
-  align-self: flex-start;
-}
-@media (min-width: 641px) {
-  .dossier-entry-date {
-    align-self: auto;
-  }
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  white-space: nowrap;
+  margin-left: auto;
 }
 .dossier-bullet-list {
   margin: 6px 0 0;
@@ -6987,80 +7074,78 @@ GROUP BY p.category_name;
               <p class="section-subtitle-p">Actively seeking Data Analyst and BI Internship opportunities. Reach out directly via Gmail or phone.</p>
             </div>
 
-            <div class="contact-layout-split">
-              <!-- Left Direct Channels -->
-              <div class="contact-channels-column">
-                
-                <!-- Gmail Direct Compose Card -->
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="contact-channel-item" title="Click to open pre-filled draft in Gmail directly">
-                  <div class="contact-channel-icon">
-                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  </div>
-                  <div class="contact-channel-body">
-                    <span class="contact-channel-label">EMAIL ADDRESS (CLICK TO COMPOSE IN GMAIL)</span>
-                    <div class="contact-channel-val">sanjairam1179@gmail.com</div>
-                  </div>
-                  <div class="contact-external-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  </div>
-                </a>
-
-                <!-- Phone Item: Clean link with zero copy button -->
-                <div class="contact-channel-item static" title="Direct Phone / WhatsApp">
-                  <div class="contact-channel-icon">
-                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  </div>
-                  <div class="contact-channel-body">
-                    <span class="contact-channel-label">PHONE NUMBER (DIRECT CALL)</span>
-                    <a href="tel:+919445780179" class="contact-channel-val mono">+91 9445780179</a>
-                  </div>
-                  <div class="contact-status-tag" style="font-size:11px; font-weight:700; color:var(--text-muted); padding:3px 8px; border-radius:6px; background:var(--bg-card); border:1px solid var(--border-subtle);">
-                    Direct
-                  </div>
+            <!-- Direct Contact Channels Grid Above Form -->
+            <div class="contact-channels-grid">
+              <!-- Gmail Direct Compose Card -->
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="contact-channel-item" title="Click to open pre-filled draft in Gmail directly">
+                <div class="contact-channel-icon">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </div>
+                <div class="contact-channel-body">
+                  <span class="contact-channel-label">EMAIL ADDRESS (CLICK TO COMPOSE IN GMAIL)</span>
+                  <div class="contact-channel-val">sanjairam1179@gmail.com</div>
+                </div>
+                <div class="contact-external-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </div>
+              </a>
 
-                <!-- GitHub Profile -->
-                <a href="https://github.com/sanj2006-ram" target="_blank" rel="noopener noreferrer" class="contact-channel-item">
-                  <div class="contact-channel-icon">
-                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                  </div>
-                  <div class="contact-channel-body">
-                    <span class="contact-channel-label">GITHUB PROFILE</span>
-                    <div class="contact-channel-val">github.com/sanj2006-ram &rarr;</div>
-                  </div>
-                  <div class="contact-external-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  </div>
-                </a>
-
+              <!-- Phone Item: Clean link with zero copy button -->
+              <div class="contact-channel-item static-channel" title="Direct Phone / WhatsApp">
+                <div class="contact-channel-icon">
+                  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="contact-channel-body">
+                  <span class="contact-channel-label">PHONE NUMBER (DIRECT CALL)</span>
+                  <a href="tel:+919445780179" class="contact-channel-val mono">+91 9445780179</a>
+                </div>
+                <div class="contact-status-tag" style="font-size:11px; font-weight:700; color:var(--text-muted); padding:3px 8px; border-radius:6px; background:var(--bg-subtle); border:1px solid var(--border-hairline);">
+                  Direct
+                </div>
               </div>
 
-              <!-- Right Contact Form -->
-              <div class="contact-form-column">
-                <form class="contact-card-form" onsubmit="event.preventDefault(); window.handleContactSubmit(this);">
-                  <div class="form-field-group">
+              <!-- GitHub Profile -->
+              <a href="https://github.com/sanj2006-ram" target="_blank" rel="noopener noreferrer" class="contact-channel-item">
+                <div class="contact-channel-icon">
+                  <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </div>
+                <div class="contact-channel-body">
+                  <span class="contact-channel-label">GITHUB PROFILE</span>
+                  <div class="contact-channel-val">github.com/sanj2006-ram &rarr;</div>
+                </div>
+                <div class="contact-external-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </div>
+              </a>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="contact-form-card">
+              <form class="contact-card-form" onsubmit="event.preventDefault(); window.handleContactSubmit(this);">
+                <div class="form-grid-2col">
+                  <div class="form-field">
                     <label for="sender-name-input" class="form-input-label">RECRUITER / SENDER NAME</label>
                     <input type="text" id="sender-name-input" name="name" class="form-input-control" placeholder="e.g. Talent Acquisition Lead" required>
                   </div>
-                  <div class="form-field-group">
+                  <div class="form-field">
                     <label for="sender-email-input" class="form-input-label">YOUR EMAIL ADDRESS</label>
                     <input type="email" id="sender-email-input" name="email" class="form-input-control" placeholder="recruiter@organization.com" required>
                   </div>
-                  <div class="form-field-group">
-                    <label for="sender-msg-input" class="form-input-label">MESSAGE / POSITION DETAILS</label>
-                    <textarea id="sender-msg-input" name="message" class="form-textarea-control" rows="4" placeholder="Role requirements, project scope, or interview schedule..." required></textarea>
-                  </div>
-                  <div class="form-actions-row">
-                    <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">
-                      <span>Send Message</span>
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                    </button>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Open Gmail Directly" style="padding:10px 14px;">
-                      <span>Gmail Compose &rarr;</span>
-                    </a>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="form-field">
+                  <label for="sender-msg-input" class="form-input-label">MESSAGE / POSITION DETAILS</label>
+                  <textarea id="sender-msg-input" name="message" class="form-textarea-control" rows="4" placeholder="Role requirements, project scope, or interview schedule..." required></textarea>
+                </div>
+                <div class="form-actions-row">
+                  <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">
+                    <span>Send Message</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </button>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Open Gmail Directly" style="padding:10px 14px;">
+                    <span>Gmail Compose &rarr;</span>
+                  </a>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -7129,7 +7214,6 @@ GROUP BY p.category_name;
         <span class="dock-item-name">Resume</span>
       </button>
     </div>
-    <div class="dock-swipe-cue" aria-hidden="true">&harr; Swipe &middot; Drag &middot; &larr; &rarr;</div>
   </nav>
 
   <!-- ⚡ 15s Recruiter Summary Modal -->
