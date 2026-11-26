@@ -34,8 +34,8 @@ body[data-theme="light"],
   --border-subtle: var(--border-hairline);
   --border-focus: var(--accent-primary);
   --text-pure: var(--text-primary);
-  --brand-navy: var(--accent-primary);
-  --brand-orange: var(--accent-gold);
+  --brand-navy: #0A1622;
+  --brand-orange: #DE4B00;
   --accent-hover: var(--accent-primary-hover);
   --accent-subtle: var(--accent-tint);
   --accent-green: var(--positive);
@@ -80,8 +80,8 @@ body[data-theme="dark"],
   --border-subtle: var(--border-hairline);
   --border-focus: var(--accent-primary);
   --text-pure: var(--text-primary);
-  --brand-navy: var(--accent-primary);
-  --brand-orange: var(--accent-gold);
+  --brand-navy: #F8FAFC;
+  --brand-orange: #FF6A00;
   --accent-hover: var(--accent-primary-hover);
   --accent-subtle: var(--accent-tint);
   --accent-green: var(--positive);
@@ -3323,6 +3323,8 @@ html, body {
   body {
     background: #FFFFFF !important;
     color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .deck-header,
@@ -3331,12 +3333,15 @@ html, body {
   .modal-backdrop,
   .reload-gate,
   #btn-theme-toggle,
-  .resume-actions-toolbar,
+  .dossier-toolbar-wrap,
+  .contact-card-deck-wrap,
+  .deck-screen-footer,
   .hero-canvas-spotlight,
   .hero-engineering-grid,
   .sw-reload-overlay,
   .integrity-lockout-overlay,
   .toast-pill,
+  .no-print,
   .deck-screen:not(#resume) {
     display: none !important;
   }
@@ -3352,6 +3357,8 @@ html, body {
     transform: none !important;
     background: #FFFFFF !important;
     color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .site-container {
@@ -3360,26 +3367,104 @@ html, body {
     margin: 0 !important;
   }
 
-  .resume-sheet,
+  .ats-dossier-sheet,
   .resume-sheet-card {
     box-shadow: none !important;
     border: none !important;
+    border-radius: 0 !important;
     padding: 0 !important;
     max-width: 100% !important;
     background: #FFFFFF !important;
     color: #000000 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.35 !important;
   }
 
-  .resume-doc-header {
-    border-bottom: 2px solid #000000 !important;
-  }
-
-  .resume-unit-title {
-    border-bottom: 1px solid #000000 !important;
+  .dossier-candidate-name {
+    font-size: 18pt !important;
     color: #000000 !important;
   }
+  .dossier-subtitle {
+    font-size: 10pt !important;
+    color: #222222 !important;
+  }
+  .dossier-contact-strip {
+    font-size: 8.5pt !important;
+    color: #444444 !important;
+  }
+  .dossier-header-rule {
+    height: 1.5px !important;
+    background: #000000 !important;
+    margin: 8px 0 12px !important;
+  }
+  .dossier-section {
+    border-bottom: 1px solid #DDDDDD !important;
+    padding: 8px 0 !important;
+  }
+  .dossier-section-heading {
+    color: #000000 !important;
+    font-size: 10pt !important;
+    margin-bottom: 4px !important;
+    font-weight: 800 !important;
+  }
+  .dossier-summary-text {
+    font-size: 9pt !important;
+    color: #111111 !important;
+  }
+  .dossier-skill-row {
+    border-bottom: 1px dotted #CCCCCC !important;
+    padding: 3px 0 !important;
+    grid-template-columns: 160px 1fr !important;
+  }
+  .dossier-skill-category {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    font-size: 9pt !important;
+  }
+  .dossier-skill-items {
+    font-size: 9pt !important;
+    color: #222222 !important;
+  }
+  .dossier-entry-title {
+    font-size: 9.5pt !important;
+    color: #000000 !important;
+  }
+  .dossier-entry-date {
+    background: transparent !important;
+    color: #333333 !important;
+    padding: 0 !important;
+    font-size: 8.5pt !important;
+  }
+  .dossier-bullet-list {
+    margin: 3px 0 0 !important;
+    padding-left: 16px !important;
+    font-size: 8.5pt !important;
+  }
+  .dossier-bullet-list li {
+    margin-bottom: 2px !important;
+    color: #222222 !important;
+  }
+  .dossier-project-title {
+    font-size: 9pt !important;
+    color: #000000 !important;
+  }
+  .dossier-stack-tag {
+    background: transparent !important;
+    color: #444444 !important;
+    padding: 0 !important;
+    font-size: 8pt !important;
+  }
+  .dossier-print-colophon {
+    display: flex !important;
+    justify-content: space-between !important;
+    border-top: 1px solid #CCCCCC !important;
+    margin-top: 12px !important;
+    padding-top: 6px !important;
+    font-size: 8pt !important;
+    color: #555555 !important;
+  }
 
-  .resume-email-link, .resume-phone-link, a {
+  a {
     color: #000000 !important;
     text-decoration: none !important;
   }
@@ -3646,19 +3731,12 @@ html, body.deck-body {
 }
 
 /* Deck Viewport & Track */
+/* Strict Fluid Viewport Locking (100dvh sarveshworks.vercel.app Geometry) */
 .deck-viewport {
-  position: absolute;
-  top: 56px;
-  bottom: 60px;
-  left: 0;
-  right: 0;
   width: 100vw;
+  height: 100dvh;
   overflow: hidden;
-}
-@media (max-width: 768px) {
-  .deck-viewport {
-    bottom: 56px;
-  }
+  position: relative;
 }
 .deck-track {
   display: flex;
@@ -3670,17 +3748,34 @@ html, body.deck-body {
 }
 .deck-screen {
   width: 100vw;
-  height: 100%;
+  height: 100dvh;
   flex-shrink: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
-  padding: 24px 20px 48px;
   box-sizing: border-box;
+  padding-top: 68px; /* clears 56px sticky header + 12px breathing room */
+  padding-bottom: 88px; /* clears floating bottom navigation dock + 20px breathing room */
+  padding-inline: 16px;
 }
-@media (max-width: 640px) {
+@media (min-width: 641px) and (max-width: 1024px) {
   .deck-screen {
-    padding: 16px 14px 36px;
+    padding-top: 76px;
+    padding-bottom: 96px;
+    padding-inline: 24px;
+  }
+}
+@media (min-width: 1025px) {
+  .deck-screen {
+    padding-top: 76px;
+    padding-bottom: 96px;
+    padding-inline: 32px;
+  }
+  .deck-screen > .site-container,
+  .deck-screen > .hero-layout-container {
+    max-width: 1120px;
+    margin-inline: auto;
   }
 }
 
@@ -4848,26 +4943,57 @@ html, body.deck-body {
 
 /* Brand Typography & Rule fills */
 .brand-title-name {
-  color: var(--text-primary);
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  color: var(--brand-navy, #0A1622);
+  font-weight: 850;
+  letter-spacing: 0.12em;
 }
 .brand-title-role {
-  color: var(--accent-gold);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  color: var(--brand-orange, #DE4B00);
+  font-weight: 800;
+  letter-spacing: 0.22em;
 }
 .brand-title-rule {
-  background: var(--accent-gold);
+  background: var(--brand-navy, #0A1622);
+  height: 1.5px;
 }
 .reload-name {
-  color: var(--text-primary);
+  color: var(--brand-navy, #0A1622);
+  font-weight: 850;
+  letter-spacing: 0.14em;
 }
 .reload-role {
-  color: var(--accent-gold);
+  color: var(--brand-orange, #DE4B00);
+  font-weight: 800;
+  letter-spacing: 0.26em;
 }
 .reload-line {
-  background: var(--accent-gold);
+  background: var(--brand-navy, #0A1622);
+}
+.brand-svg-mark .brand-navy-shape {
+  fill: var(--brand-navy, #0A1622);
+  transition: fill 0.2s ease;
+}
+.brand-svg-mark .brand-orange-shape {
+  fill: var(--brand-orange, #DE4B00);
+  transition: fill 0.2s ease;
+}
+[data-theme="dark"] .brand-title-name,
+[data-theme="dark"] .reload-name {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .brand-title-rule,
+[data-theme="dark"] .reload-line {
+  background: #F8FAFC !important;
+}
+[data-theme="dark"] .brand-title-role,
+[data-theme="dark"] .reload-role {
+  color: #FF6A00 !important;
+}
+[data-theme="dark"] .brand-svg-mark .brand-navy-shape {
+  fill: #F8FAFC !important;
+}
+[data-theme="dark"] .brand-svg-mark .brand-orange-shape {
+  fill: #FF6A00 !important;
 }
 .reload-gate {
   background: var(--bg-canvas);
@@ -4895,4 +5021,467 @@ html, body.deck-body {
   opacity: 0.5;
   pointer-events: none;
   z-index: 0;
+}
+
+
+/* ==========================================================================
+   EXACT MOBILE ASPECT RATIO & PROPORTIONS (sarveshworks.vercel.app Reference)
+   ========================================================================== */
+
+/* Mobile Header Lockup (<= 640px) */
+@media (max-width: 640px) {
+  .hero-mobile-header-card {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+  .mobile-avatar-box {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-subtle);
+    box-shadow: var(--card-shadow);
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .mobile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border-radius: 13px;
+  }
+  .mobile-status-dot {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--positive);
+    border: 2px solid var(--bg-surface);
+  }
+  .mobile-hero-meta-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+  }
+  .mobile-hero-name {
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.15;
+  }
+  .mobile-hero-role {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    letter-spacing: -0.01em;
+  }
+  .mobile-hero-meta-cluster .hero-status-pill {
+    margin-bottom: 0 !important;
+    padding: 3px 8px !important;
+    font-size: 0.72rem !important;
+    align-self: flex-start;
+  }
+}
+@media (min-width: 641px) {
+  .hero-mobile-header-card {
+    display: none !important;
+  }
+}
+
+/* Quick-Stats & BI KPI Grids (Uniform 2x2 Balanced Rectangle) */
+@media (max-width: 640px) {
+  .hero-metric-bar {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 20px 0 !important;
+    width: 100% !important;
+  }
+  .hero-metric-bar .metric-segment {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-hairline) !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    min-height: 84px !important;
+    box-sizing: border-box !important;
+    box-shadow: var(--card-shadow) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
+  }
+  .hero-metric-bar .metric-divider {
+    display: none !important;
+  }
+  .kpi-stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+  }
+  .kpi-stat-box {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-hairline) !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    min-height: 84px !important;
+    box-sizing: border-box !important;
+    box-shadow: var(--card-shadow) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+}
+
+/* Chart & Visual Containers (Locked Aspect Ratio: 16/10 mobile, 21/9 desktop) */
+.chart-svg-box,
+.chart-canvas-wrapper,
+.pbi-preview-canvas {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+@media (min-width: 769px) {
+  .chart-svg-box,
+  .chart-canvas-wrapper {
+    aspect-ratio: 21 / 9;
+  }
+}
+.svg-dashboard-canvas,
+#main-cockpit-chart,
+#bi-visual-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* ==========================================================================
+   STRUCTURED ATS CANDIDATE DOSSIER TEMPLATE (sarveshworks.vercel.app Style)
+   ========================================================================== */
+
+.dossier-toolbar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (min-width: 769px) {
+  .dossier-toolbar-wrap {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.dossier-actions-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.dossier-jump-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 0;
+}
+.dossier-jump-bar::-webkit-scrollbar {
+  display: none;
+}
+.dossier-jump-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-hairline);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.dossier-jump-pill:hover {
+  background: var(--accent-tint);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* ATS Dossier Sheet Paper Card */
+.ats-dossier-sheet {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+@media (min-width: 769px) {
+  .ats-dossier-sheet {
+    padding: 36px 40px;
+  }
+}
+
+.dossier-header-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dossier-candidate-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+@media (min-width: 769px) {
+  .dossier-candidate-name {
+    font-size: 24px;
+  }
+}
+.dossier-subtitle {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0;
+}
+.dossier-contact-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+.dossier-contact-item {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.dossier-contact-item:hover {
+  color: var(--accent-primary);
+}
+.dossier-sep {
+  color: var(--border-strong);
+}
+.dossier-header-rule {
+  height: 1.5px;
+  background: var(--border-strong);
+  margin: 16px 0 20px;
+}
+
+/* Numbered ATS Sections */
+.dossier-section {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.dossier-section:last-of-type {
+  border-bottom: none;
+}
+.dossier-section-heading {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+.dossier-summary-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Technical Skills Matrix Table */
+.dossier-skills-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dossier-skill-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border-hairline);
+}
+@media (min-width: 641px) {
+  .dossier-skill-row {
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+    align-items: baseline;
+  }
+}
+.dossier-skill-row:last-child {
+  border-bottom: none;
+}
+.dossier-skill-category {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+.dossier-skill-items {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Internship Experience & Projects */
+.dossier-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dossier-entry-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: space-between;
+}
+@media (min-width: 641px) {
+  .dossier-entry-header {
+    flex-direction: row;
+    align-items: baseline;
+  }
+}
+.dossier-entry-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dossier-entry-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.dossier-entry-loc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.dossier-entry-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background: var(--accent-tint);
+  padding: 2px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+@media (min-width: 641px) {
+  .dossier-entry-date {
+    align-self: auto;
+  }
+}
+.dossier-bullet-list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.dossier-bullet-list li {
+  margin-bottom: 4px;
+}
+.dossier-bullet-list li strong {
+  color: var(--text-primary);
+}
+
+.dossier-project-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dossier-project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+@media (min-width: 641px) {
+  .dossier-project-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+.dossier-project-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.dossier-stack-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-gold);
+  background: var(--accent-gold-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+@media (min-width: 641px) {
+  .dossier-stack-tag {
+    align-self: auto;
+  }
+}
+
+.dossier-sub-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+.dossier-certs-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dossier-certs-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+.dossier-certs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dossier-cert-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+}
+.dossier-print-colophon {
+  display: none;
 }

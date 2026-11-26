@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="sr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7A2238"/>
-      <stop offset="100%" stop-color="#A64732"/>
-    </linearGradient>
-    <linearGradient id="sr-accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#D95338"/>
-      <stop offset="100%" stop-color="#E87A5D"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#0D0E12"/>
-  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="url(#sr-grad)" stroke-width="2"/>
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 27 20 C 20 20, 16 23, 16 28 C 16 34, 28 33, 28 39 C 28 44, 22 45, 17 44" stroke="#FAF8F5" stroke-width="5"/>
-    <path d="M 33 20 L 33 44" stroke="url(#sr-accent)" stroke-width="5"/>
-    <path d="M 33 20 L 44 20 C 49 20, 50 24, 50 28 C 50 32, 47 34, 42 34 L 33 34" stroke="url(#sr-accent)" stroke-width="5"/>
-    <path d="M 41 34 L 50 44" stroke="url(#sr-accent)" stroke-width="5"/>
-    <circle cx="51" cy="20" r="3" fill="#D95338"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="100%" height="100%" fill="none">
+  <style>
+    .sa-navy { fill: #0A1622; }
+    .sa-orange { fill: #DE4B00; }
+    @media (prefers-color-scheme: dark) {
+      .sa-navy { fill: #F8FAFC; }
+      .sa-orange { fill: #FF6A00; }
+    }
+  </style>
+  <g transform="translate(7, 33)">
+    <!-- Orange A: Apex & Right Leg -->
+    <path class="sa-orange" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" />
+    <!-- Orange A: Lower Left Leg -->
+    <path class="sa-orange" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" />
+
+    <!-- Navy S: Main Spine & Right Loop -->
+    <path class="sa-navy" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" />
+    <!-- Navy S: Bottom-Left Foot -->
+    <path class="sa-navy" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" />
   </g>
 </svg>
