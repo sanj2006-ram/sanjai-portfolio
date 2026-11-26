@@ -319,8 +319,8 @@
               <div class="executive-profile-card">
                 
                 <div class="exec-card-header">
-                  <div class="exec-photo-wrap" onclick="window.openAvatarModal()" title="Click to view portrait">
-                    <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Specialist" class="exec-photo-img" width="88" height="104">
+                  <div class="exec-photo-wrap" onclick="window.openAvatarModal()" title="Click to view candidate portrait">
+                    <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Specialist" class="exec-photo-img" width="84" height="84">
                     <div class="exec-photo-badge" aria-hidden="true">&nearr;</div>
                   </div>
                   <div class="exec-header-meta">
@@ -2001,12 +2001,12 @@ GROUP BY p.category_name;
   <!-- Avatar Expand Modal -->
   <div class="modal-backdrop" id="modal-avatar-preview" aria-hidden="true" onclick="if(event.target === this) window.closeModal('modal-avatar-preview')">
     <div class="modal-card modal-card-avatar" role="dialog" aria-modal="true" aria-labelledby="avatar-modal-title">
-      <div class="modal-header" style="border-bottom:none; padding-bottom:0;">
+      <div class="modal-header" style="border-bottom:none; padding-bottom:6px;">
         <span class="modal-eyebrow" id="avatar-modal-title">CANDIDATE PORTRAIT</span>
         <button type="button" class="modal-close-btn" onclick="window.closeModal('modal-avatar-preview')" aria-label="Close modal">&times;</button>
       </div>
-      <div class="modal-body" style="text-align:center; padding-top:12px;">
-        <div class="avatar-large-frame">
+      <div class="modal-body" style="text-align:center; padding:4px 4px 12px;">
+        <div class="avatar-large-frame" onclick="window.closeModal('modal-avatar-preview')" style="cursor:pointer;" title="Click photo to minimize">
           <img src="assets/portrait.jpg" alt="Sanjai Ram M Portrait" class="avatar-large-img">
         </div>
         <h4 style="margin:16px 0 4px; font-size:18px; font-weight:800; color:var(--text-primary);">Sanjai Ram M</h4>

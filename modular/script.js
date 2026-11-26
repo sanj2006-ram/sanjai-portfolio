@@ -299,6 +299,9 @@
     if (!modal) return;
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+    if (!document.querySelector('.modal-backdrop.open')) {
+      document.body.style.overflow = '';
+    }
   };
 
   window.closeAllModals = function () {
@@ -307,6 +310,7 @@
       m.classList.remove('open');
       m.setAttribute('aria-hidden', 'true');
     });
+    document.body.style.overflow = '';
     window.closeMobileMenu();
   };
 

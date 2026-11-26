@@ -4080,7 +4080,13 @@ html, body.deck-body {
   overflow: hidden;
 }
 .modal-card-avatar {
-  max-width: 360px;
+  width: calc(100vw - 32px);
+  max-width: 420px;
+}
+@media (min-width: 640px) {
+  .modal-card-avatar {
+    max-width: 460px;
+  }
 }
 .modal-header {
   display: flex;
@@ -4270,18 +4276,37 @@ html, body.deck-body {
 
 /* Avatar Preview Modal */
 .avatar-large-frame {
-  width: 140px;
-  height: 140px;
-  border-radius: 20px;
-  border: 3px solid #FFFFFF;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+  width: 100%;
+  max-width: 340px;
+  max-height: 60vh;
   margin: 0 auto;
+  border-radius: 16px;
   overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  background: var(--bg-surface);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+@media (min-width: 640px) {
+  .avatar-large-frame {
+    max-width: 400px;
+  }
+}
+.avatar-large-frame:hover {
+  transform: scale(1.01);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 }
 .avatar-large-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 60vh;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  transform: none;
+  border-radius: 16px;
 }
 
 /* Preloader Reload Gate */
@@ -5779,38 +5804,54 @@ html, body.deck-body {
 
 .exec-photo-wrap {
   position: relative;
-  width: 76px;
-  height: 90px;
-  border-radius: 12px;
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1.5px solid var(--border-hairline);
   flex-shrink: 0;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .exec-photo-wrap:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
+  border-color: var(--accent-primary);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
 }
 
 .exec-photo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 65% 20%;
+  transform: scale(1.35);
+  transform-origin: 68% 22%;
   display: block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exec-photo-wrap:hover .exec-photo-img {
+  transform: scale(1.42);
 }
 
 .exec-photo-badge {
   position: absolute;
-  bottom: 3px;
-  right: 3px;
+  bottom: 4px;
+  right: 4px;
   background: rgba(10, 22, 34, 0.75);
   color: #FFFFFF;
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 700;
-  padding: 1px 4px;
-  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
 }
 
 .exec-header-meta {
