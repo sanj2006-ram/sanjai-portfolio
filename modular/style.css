@@ -2608,21 +2608,59 @@ html[data-theme="dark"] .v3-curtain {
   display: block;
 }
 
-/* ---------- 17. RESPONSIVE DESIGN & MOBILE GUARDRAILS ---------- */
+/* ---------- 17. RESPONSIVE DESIGN & MOBILE GUARDRAILS (BESPOKE AGENCY-CRAFTED) ---------- */
+
+/* Global Mobile Viewport & Overflow Lock */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+.cockpit-panel,
+.data-model-container,
+.pbi-facade-card,
+.sql-workbench-strip {
+  overflow: hidden !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.table-responsive-box {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  min-width: 0 !important;
+}
+
+/* Base Container Padding Rhythm */
+.site-container {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: 32px;
+}
+
 @media (max-width: 1024px) {
-  .hero-layout-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .site-container {
+    padding-inline: 24px !important;
   }
+}
 
-  .hero-stage-container {
-    order: -1;
+@media (max-width: 640px) {
+  .site-container {
+    padding-inline: 16px !important;
   }
+}
 
-  .hero-card-designer {
-    max-width: 320px;
-  }
-
+/* Tablet Layout (641px - 1024px) */
+@media (max-width: 1024px) {
   .overview-pillars-grid {
     grid-template-columns: 1fr;
   }
@@ -2632,10 +2670,6 @@ html[data-theme="dark"] .v3-curtain {
   }
 
   .dashboard-core-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .case-study-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2656,73 +2690,566 @@ html[data-theme="dark"] .v3-curtain {
   }
 }
 
+/* Mobile Layout (<= 768px): Strict 56px Header, 48px Section Spacing */
 @media (max-width: 768px) {
   :root {
-    --header-height: 60px;
+    --header-height: 56px;
   }
 
-  .site-container {
-    padding-inline: 24px;
+  /* Tightened mobile section vertical spacing */
+  .page-section,
+  .section-space,
+  .hero-section {
+    padding-block: 48px !important;
   }
 
-  .page-section, .section-space {
-    padding-block: 56px;
-    scroll-margin-top: 60px;
+  /* Compact 56px Sticky Top Bar */
+  .site-header {
+    height: 56px !important;
   }
 
+  .nav-container-lock {
+    height: 56px !important;
+    padding-inline: 16px !important;
+  }
+
+  .nav-shell {
+    height: 56px !important;
+  }
+
+  .desktop-theme-btn,
+  .desktop-resume-cta,
   .nav-link-list {
+    display: none !important;
+  }
+
+  .nav-actions-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  /* Compact Mobile Resume Pill Button (height: 36px) */
+  .nav-mobile-resume-pill {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 36px !important;
+    padding: 0 14px !important;
+    border-radius: 9999px !important;
+    background: var(--accent-primary) !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: opacity 160ms ease;
+  }
+  .nav-mobile-resume-pill:active {
+    opacity: 0.85;
+  }
+
+  /* Clean Mobile Menu Toggle Button (44px x 44px tap target) */
+  .nav-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--border-subtle) !important;
+    background: var(--bg-card) !important;
+    color: var(--text-pure) !important;
+    cursor: pointer;
+  }
+
+  /* Full-Width Dropdown Drawer with 48px-Tall Tap Rows */
+  .mobile-drawer {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15);
     display: none;
+    z-index: 999;
   }
 
-  .nav-actions-group .btn {
-    display: none;
+  .mobile-drawer.open,
+  .mobile-drawer.active {
+    display: block !important;
   }
 
-  .mobile-menu-trigger {
-    display: inline-flex;
+  .mobile-drawer-inner {
+    display: flex;
+    flex-direction: column;
   }
 
+  .mobile-nav-link {
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-inline: 20px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--text-pure) !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--border-hairline) !important;
+    transition: background-color 150ms ease;
+  }
+
+  .mobile-nav-link:active,
+  .mobile-nav-link:hover {
+    background-color: var(--bg-subtle) !important;
+    color: var(--accent-primary) !important;
+  }
+
+  .mobile-drawer-footer {
+    display: flex !important;
+    gap: 10px !important;
+    padding: 16px 20px !important;
+    background: var(--bg-canvas) !important;
+  }
+
+  /* ---------- HERO MOBILE REFINEMENTS ---------- */
+  .hero-desktop-status-pill {
+    display: none !important;
+  }
+
+  .hero-mobile-profile-lockup {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .hero-mobile-avatar-frame {
+    width: 76px !important;
+    height: 76px !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+    flex-shrink: 0 !important;
+    background: #E2E8F0;
+  }
+
+  .hero-mobile-avatar-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+  }
+
+  .hero-mobile-profile-meta {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .hero-mobile-profile-meta .hero-status-pill {
+    margin-bottom: 0 !important;
+    padding: 3px 8px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .hero-mobile-name-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  .hero-mobile-name {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: var(--text-pure) !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .hero-mobile-role-badge {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: var(--accent-primary) !important;
+  }
+
+  /* Hide the giant right desktop portrait card on mobile */
+  .hero-stage-container {
+    display: none !important;
+  }
+
+  .hero-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  /* Fluid H1 typography: clamp(1.65rem, 6.5vw, 2.75rem) */
   .hero-giant-title {
-    font-size: 2.1rem;
+    font-size: clamp(1.65rem, 6.5vw, 2.75rem) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.025em !important;
+    margin-bottom: 14px !important;
   }
 
+  .hero-lead-text {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 22px !important;
+  }
+
+  /* 2-Row Hero CTA Button Hierarchy */
+  .hero-cta-cluster {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+
+  .hero-cta-btn-main {
+    width: 100% !important;
+    height: 46px !important;
+    font-size: 14px !important;
+    justify-content: center !important;
+  }
+
+  .hero-cta-sub-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .hero-cta-btn-sub {
+    width: 100% !important;
+    height: 44px !important;
+    font-size: 13px !important;
+    justify-content: center !important;
+    padding-inline: 8px !important;
+  }
+
+  /* 2x2 Symmetrical Hero Quick-Stats Grid */
   .hero-fast-facts-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 14px !important;
   }
 
+  .hero-fact-cell {
+    padding: 12px !important;
+  }
+
+  /* ---------- 4. BI COCKPIT MOBILE PERFECTION ---------- */
+  /* 2x2 KPI Scorecards Grid on Mobile */
   .kpi-scorecards-grid {
-    grid-template-columns: 1fr;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
 
-  .skills-bento-grid {
-    grid-template-columns: 1fr;
+  .kpi-stat-box {
+    padding: 12px !important;
   }
 
-  .schema-tables-grid {
-    grid-template-columns: 1fr;
+  .kpi-stat-label {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .kpi-stat-num {
+    font-size: clamp(1.15rem, 4.8vw, 1.5rem) !important;
+    font-variant-numeric: tabular-nums !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .kpi-stat-delta {
+    font-size: 0.72rem !important;
+  }
+
+  /* Segmented 3-Tab Controls */
+  .view-mode-tabs,
+  .sql-presets-pills {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    width: 100% !important;
+    height: 40px !important;
+    gap: 4px !important;
+    padding: 3px !important;
+    background: var(--bg-subtle) !important;
+    border-radius: 8px !important;
+  }
+
+  .view-tab-btn,
+  .sql-preset-btn {
+    height: 100% !important;
+    padding: 0 4px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    border-radius: 6px !important;
+  }
+
+  .view-tab-btn svg,
+  .sql-preset-btn svg {
+    display: none !important;
   }
 
   .pbi-mockup-ribbon {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 
-  .pbi-mockup-body {
-    grid-template-columns: 1fr;
+  .pbi-mock-kpi {
+    padding: 8px !important;
   }
 
-  /* Strict touch targets >= 44px */
-  .btn, .filter-pill-btn, .model-pill-btn, .sim-range-input {
-    min-height: 44px;
+  .pbi-mock-kpi span {
+    font-size: 8px !important;
+  }
+
+  .pbi-mock-kpi strong {
+    font-size: 13px !important;
+  }
+
+  /* Touch-Friendly Range Sliders */
+  .sim-range-input {
+    height: 36px !important;
+    cursor: pointer;
+  }
+
+  .sim-range-input::-webkit-slider-thumb {
+    width: 22px !important;
+    height: 22px !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .sim-range-input::-moz-range-thumb {
+    width: 22px !important;
+    height: 22px !important;
+    border: 2px solid #FFFFFF !important;
+  }
+
+  /* Contained Code Blocks */
+  .dax-pre-code,
+  .sql-console-output {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+    padding: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Star Schema: Fact Table on Top, Dimensions Below */
+  .schema-tables-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .schema-table-node {
+    width: 100% !important;
+    padding: 14px !important;
+  }
+
+  .schema-table-node.fact-node {
+    grid-column: 1 / -1 !important;
+  }
+
+  .dashboard-core-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .cockpit-view-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+
+  .model-view-header-strip {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+
+  .model-view-pills {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+  }
+
+  .model-pill-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    padding: 8px 10px !important;
+  }
+
+  .sql-workbench-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* ---------- 5. MOBILE CARDS, SKILLS BENTO & ATS RESUME ---------- */
+  /* Edge-to-Edge Scrollable Recruiter Filter Bar */
+  .recruiter-filter-bar {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 4px !important;
+    margin-inline: -16px !important;
+    padding-inline: 16px !important;
+    gap: 8px !important;
+  }
+
+  .recruiter-filter-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .filter-pill-btn {
+    flex-shrink: 0 !important;
+    height: 38px !important;
+    white-space: nowrap !important;
+    font-size: 13px !important;
+    padding: 0 14px !important;
+  }
+
+  /* Clean Static Bento Skills Cards */
+  .skills-bento-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .skill-bento-card {
+    padding: 16px !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .secondary-projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .flagship-case-card {
+    padding: 20px 16px !important;
+  }
+
+  .case-metrics-ribbon {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .experience-timeline-box {
+    padding-left: 20px !important;
+  }
+
+  /* ATS Resume Layout on Mobile */
+  .resume-actions-toolbar {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .resume-actions-toolbar .btn {
+    width: 100% !important;
+    height: 44px !important;
+    font-size: 13px !important;
+    justify-content: center !important;
   }
 
   .resume-sheet {
-    padding: 24px 16px;
+    padding: 18px !important;
+    font-size: 14px !important;
+    border-radius: 12px !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   .resume-contact-inline {
-    flex-direction: column;
-    gap: 4px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .resume-contact-inline span:not(.resume-email-link):not(.resume-phone-link) {
+    display: none !important;
+  }
+
+  /* Contact Section Grid */
+  .contact-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .contact-form-card {
+    padding: 20px 16px !important;
+  }
+
+  /* Footer Attribution & Colophon */
+  .sw-footer-colophon {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 8px !important;
+    padding: 24px 16px !important;
+  }
+
+  .footer-content-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    text-align: center !important;
+  }
+
+  .footer-brand {
+    justify-content: center !important;
+  }
+
+  .footer-nav-list {
+    justify-content: center !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .schema-tables-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Proportional Desktop Portrait (max-width: 240px) */
+@media (min-width: 769px) {
+  .hero-stage-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .hero-card-designer {
+    max-width: 240px !important;
+    width: 100%;
+  }
+
+  .hero-portrait-frame {
+    aspect-ratio: 4 / 5;
+    max-height: 300px;
+    overflow: hidden;
   }
 }
 
@@ -2806,4 +3333,29 @@ html[data-theme="dark"] .v3-curtain {
     size: A4;
     margin: 1.2cm 1.5cm;
   }
+}
+
+/* Brand Title Wordmark (Concept 1: SANJAI — ANALYTICS —) */
+.brand-title-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+.brand-title-rule {
+  flex: 1;
+  height: 1.5px;
+  background: var(--brand-navy, #0A1622);
+  border-radius: 1px;
+  min-width: 6px;
+  transition: background 0.2s ease;
+}
+[data-theme="dark"] .brand-title-rule {
+  background: #F8FAFC !important;
+}
+[data-theme="dark"] .brand-title-name {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .brand-navy-shape {
+  fill: #F8FAFC !important;
 }

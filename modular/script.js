@@ -495,7 +495,21 @@
   window.toggleMobileMenu = function () {
     var drawer = document.getElementById('mobile-drawer');
     if (!drawer) return;
-    drawer.classList.toggle('active');
+    var isOpen = drawer.classList.contains('active') || drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('active', 'open');
+      drawer.setAttribute('aria-hidden', 'true');
+    } else {
+      drawer.classList.add('active', 'open');
+      drawer.setAttribute('aria-hidden', 'false');
+    }
+  };
+
+  window.closeMobileMenu = function () {
+    var drawer = document.getElementById('mobile-drawer');
+    if (!drawer) return;
+    drawer.classList.remove('active', 'open');
+    drawer.setAttribute('aria-hidden', 'true');
   };
 
   window.closeMobileMenu = function () {
