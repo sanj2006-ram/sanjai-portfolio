@@ -1,6 +1,6 @@
 /**
  * SANJAI RAM M — EDITORIAL BI & ANALYTICS PORTFOLIO JAVASCRIPT
- * Zero GPU Lag · Real-time DAX Binding · Star Schema Interactivity · Recruiter Tools
+ * Strict 8px Grid · Real-time DAX Binding · Star Schema Interactivity · Active Integrity Guard
  */
 
 (function () {
@@ -10,8 +10,9 @@
   var currentVisualMode = 'bars';
   var lastMarginVal = 32;
   var lastRetVal = 40;
+  var isIntegrityCompromised = false;
 
-  // Format INR Currency
+  // Format INR Currency (Strict Tabular Formatting)
   function formatINR(val) {
     var str = Math.round(val).toString();
     var lastThree = str.substring(str.length - 3);
@@ -24,6 +25,7 @@
 
   // Toast Notification System
   window.showToast = function (message) {
+    if (isIntegrityCompromised) return;
     var pill = document.getElementById('toast-message-pill');
     if (!pill) return;
     pill.textContent = message;
@@ -34,16 +36,44 @@
     }, 2400);
   };
 
-  // Copy Helpers
-  window.copyContact = function (text, successMsg) {
-    navigator.clipboard.writeText(text).then(function () {
-      window.showToast(successMsg || 'Copied to clipboard!');
-    }).catch(function () {
-      window.showToast('Copied: ' + text);
-    });
-  };
+  // Rotating Single-Play Reload Animation Controller
+  function initReloadPreloader() {
+    var gate = document.getElementById('sw-reload-gate');
+    if (!gate) return;
 
+    var variant = 0;
+    try {
+      var stored = localStorage.getItem('sw_reload_variant');
+      variant = stored !== null ? (parseInt(stored, 10) + 1) % 4 : 0;
+      localStorage.setItem('sw_reload_variant', variant.toString());
+    } catch (e) {
+      variant = 0;
+    }
+
+    // Hide all variants, show selected
+    for (var i = 0; i < 4; i++) {
+      var el = document.getElementById('reload-v' + i);
+      if (el) el.style.display = i === variant ? 'flex' : 'none';
+    }
+
+    if (variant === 3) {
+      setTimeout(function () {
+        gate.classList.add('v3-open');
+      }, 150);
+    }
+
+    // Auto-dismiss in 850ms, unmount completely in 950ms
+    setTimeout(function () {
+      gate.classList.add('dismissed');
+      setTimeout(function () {
+        gate.style.display = 'none';
+      }, 250);
+    }, 850);
+  }
+
+  // Copy Helpers (DAX only; phone copy is permanently deleted)
   window.copyFormulaCode = function () {
+    if (isIntegrityCompromised) return;
     var marginInput = document.getElementById('range-margin');
     var retInput = document.getElementById('range-ret');
     var marginDec = (parseFloat(marginInput ? marginInput.value : 32) / 100).toFixed(2);
@@ -66,44 +96,6 @@
     });
   };
 
-  window.copyResumeText = function () {
-    var plainResume = [
-      'SANJAI RAM M',
-      'Data Analyst & Business Intelligence Specialist',
-      'Location: Chennai, Tamil Nadu, India',
-      'Email: sanjairam1179@gmail.com | Phone: +91 ******0179',
-      'GitHub: https://github.com/sanj2006-ram',
-      '',
-      'PROFESSIONAL SUMMARY',
-      'B.Com (Computer Applications) student at Guru Nanak College, Chennai, with verified internship experience in business intelligence, data modeling, and ETL engineering. Experienced in ingesting and normalizing 12,000+ sales records into 3NF MySQL databases, automating Power Query transformations, and developing production Power BI dashboards with DAX measures that reduced weekly reporting turnaround by 40%.',
-      '',
-      'TECHNICAL PROFICIENCIES',
-      '- Business Intelligence: Power BI Desktop, Power BI Service, DAX Measures (CALCULATE, Time Intelligence), Report Design, Star Schema Modeling',
-      '- Databases & ETL: MySQL 8.0, 3NF Normalization, Complex Joins, CTEs, Window Functions, Power Query M-Code',
-      '- Finance & Analytics: B.Com Financial Accounting, Trial Balance, General Ledgers, Variance Analysis, Tally Prime, Advanced Excel (XLOOKUP, Power Pivot)',
-      '',
-      'PROFESSIONAL EXPERIENCE',
-      'Data Analytics & BI Intern — Izeon Innovative Pvt Ltd (2024 - 2025 | Chennai, India)',
-      '- Ingested and normalized 12,000+ transactional sales records into a 3NF MySQL database.',
-      '- Automated Power Query M-code ETL workflows to eliminate duplicates and standardize currencies.',
-      '- Constructed interactive Power BI reporting models featuring 18+ DAX calculated measures, cutting weekly reporting turnaround by 40%.',
-      '- Conducted regional sales variance analyses to isolate gross margin leakages.',
-      '',
-      'EDUCATION',
-      'Bachelor of Commerce in Computer Applications — B.Com (CA) (2024 - 2027)',
-      'Guru Nanak College (Autonomous), Velachery, Chennai'
-    ].join('\n');
-
-    navigator.clipboard.writeText(plainResume).then(function () {
-      var label = document.getElementById('copy-resume-btn-label');
-      if (label) {
-        label.textContent = 'Copied Plain Text!';
-        setTimeout(function () { label.textContent = 'Copy Plain Text'; }, 2000);
-      }
-      window.showToast('Full plain-text ATS resume copied!');
-    });
-  };
-
   // Flash DAX Parameter on slider move
   function flashDaxParam(el) {
     if (!el) return;
@@ -116,6 +108,8 @@
 
   // Recalculate Simulation and Bind to DAX & Chart
   window.recalculateSimulation = function () {
+    if (isIntegrityCompromised) return;
+
     var rangeRev = document.getElementById('range-rev');
     var rangeMargin = document.getElementById('range-margin');
     var rangeRet = document.getElementById('range-ret');
@@ -140,7 +134,7 @@
     var retentionGmv = rev * (ret / 100);
     var targetAttainment = Math.round((rev / 160000) * 100);
 
-    // Update KPI Scorecards
+    // Update KPI Scorecards (Tabular Figures)
     var kpiRev = document.getElementById('kpi-gross-rev');
     var kpiMargin = document.getElementById('kpi-margin-pct');
     var kpiProfit = document.getElementById('kpi-net-profit');
@@ -178,7 +172,7 @@
       }
     }
 
-    // Update SVG Visual based on active visual mode
+    // Update SVG Visual
     updateChartCanvas(rev, profit, targetAttainment);
   };
 
@@ -188,13 +182,11 @@
     var profitBar = document.getElementById('chart-bar-profit-active');
 
     if (revBar && profitBar) {
-      // Scale revenue: 50,000 -> height 40; 500,000 -> height 140
       var revHeight = 40 + ((rev - 50000) / 450000) * 100;
       var revY = 145 - revHeight;
       revBar.setAttribute('height', Math.round(revHeight));
       revBar.setAttribute('y', Math.round(revY));
 
-      // Scale profit relative to revenue
       var profitHeight = revHeight * (profit / rev);
       var profitY = 145 - profitHeight;
       profitBar.setAttribute('height', Math.round(profitHeight));
@@ -223,7 +215,6 @@
 
     if (gaugeText) gaugeText.textContent = targetAttainment + '%';
     if (gaugeFill) {
-      // pathLength 100: offset 100 = 0% filled; offset 0 = 100% filled
       var offset = Math.max(0, 100 - targetAttainment);
       gaugeFill.setAttribute('stroke-dashoffset', offset);
     }
@@ -242,6 +233,7 @@
 
   // Switch Visual Mode (Bars / Growth / Gauge)
   window.switchVisualMode = function (mode) {
+    if (isIntegrityCompromised) return;
     currentVisualMode = mode;
     var barsTab = document.getElementById('tab-mode-bars');
     var growthTab = document.getElementById('tab-mode-growth');
@@ -279,6 +271,7 @@
 
   // Switch Data Model View (Raw Messy CSV vs. Normalized 3NF Schema)
   window.switchDataModelView = function (mode) {
+    if (isIntegrityCompromised) return;
     var btnRaw = document.getElementById('btn-view-raw');
     var btnSchema = document.getElementById('btn-view-schema');
     var zoneRaw = document.getElementById('container-view-raw');
@@ -307,6 +300,7 @@
 
   // Trace and Highlight Foreign Key on Dimension Click
   window.highlightSchemaFK = function (dimKey) {
+    if (isIntegrityCompromised) return;
     var fkCust = document.getElementById('fk-cust-line');
     var fkProd = document.getElementById('fk-prod-line');
     var fkDate = document.getElementById('fk-date-line');
@@ -337,6 +331,7 @@
 
   // Zero-Lag Power BI Embed Facade Launcher
   window.launchPowerBIEmbed = function () {
+    if (isIntegrityCompromised) return;
     var overlay = document.getElementById('pbi-launch-overlay');
     var previewCanvas = document.getElementById('pbi-preview-canvas');
     var interactiveContainer = document.getElementById('pbi-interactive-container');
@@ -348,7 +343,7 @@
 
     interactiveContainer.style.display = 'block';
     interactiveContainer.innerHTML = [
-      '<div style="background:var(--bg-card); border-radius:var(--radius-md); padding:1.5rem; text-align:center;">',
+      '<div style="background:var(--bg-card); border-radius:var(--radius-card); padding:1.5rem; text-align:center;">',
       '  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">',
       '    <div style="display:flex; align-items:center; gap:8px;">',
       '      <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--accent-green);"></span>',
@@ -356,7 +351,7 @@
       '    </div>',
       '    <button class="btn btn-outline" onclick="window.resetPowerBIFacade()" style="padding:4px 10px; font-size:0.75rem;">Reset Facade</button>',
       '  </div>',
-      '  <div style="background:var(--bg-subtle); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:2rem 1rem; color:var(--text-secondary);">',
+      '  <div style="background:var(--bg-subtle); border:1px solid var(--border-subtle); border-radius:var(--radius-btn); padding:2rem 1rem; color:var(--text-secondary);">',
       '    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" style="margin:0 auto 12px;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
       '    <div style="font-weight:800; font-size:1.05rem; color:var(--text-pure); margin-bottom:6px;">Interactive Production Report Sandbox</div>',
       '    <p style="font-size:0.85rem; max-width:520px; margin:0 auto 1rem;">DirectQuery connections, slicer cross-filtering, and RLS (Row-Level Security) models configured for enterprise stakeholders.</p>',
@@ -386,6 +381,7 @@
 
   // MySQL Workbench SQL Presets
   window.runSQLTest = function (presetId) {
+    if (isIntegrityCompromised) return;
     var consoleZone = document.getElementById('sql-console-zone');
     var buttons = document.querySelectorAll('.sql-preset-btn');
 
@@ -446,6 +442,7 @@
 
   // Recruiter Project Filters
   window.filterProjects = function (category, btnEl) {
+    if (isIntegrityCompromised) return;
     var buttons = document.querySelectorAll('.recruiter-filter-bar .filter-pill-btn');
     var cards = document.querySelectorAll('.project-card');
 
@@ -466,6 +463,7 @@
 
   // Recruiter Skill Filters
   window.filterSkills = function (category, btnEl) {
+    if (isIntegrityCompromised) return;
     var buttons = document.querySelectorAll('#skills .filter-pill-btn');
     var cards = document.querySelectorAll('.skill-bento-card');
 
@@ -486,6 +484,7 @@
 
   // Pipeline Stepper (Flagship Case Study)
   window.activatePipelineStep = function (stepNum) {
+    if (isIntegrityCompromised) return;
     var items = document.querySelectorAll('.pipeline-step-item');
     items.forEach(function (item, idx) {
       item.classList.toggle('active', idx === stepNum - 1);
@@ -504,41 +503,11 @@
     if (drawer) drawer.classList.remove('active');
   };
 
-  // Modals (Recruiter Summary & CmdK)
-  window.openModal = function (modalId) {
-    var m = document.getElementById(modalId);
-    if (m) {
-      m.style.display = 'flex';
-      var input = m.querySelector('input');
-      if (input) setTimeout(function () { input.focus(); }, 100);
-    }
-  };
-
-  window.closeModal = function (modalId) {
-    var m = document.getElementById(modalId);
-    if (m) m.style.display = 'none';
-  };
-
-  // CmdK Search Handler
-  window.handleCmdkSearch = function (query) {
-    var zone = document.getElementById('cmdk-results-zone');
-    if (!zone) return;
-    var q = query.toLowerCase().trim();
-    var items = zone.querySelectorAll('.cmdk-item');
-
-    items.forEach(function (item) {
-      var text = item.textContent.toLowerCase();
-      if (!q || text.indexOf(q) !== -1) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  };
-
   // Contact Inquiry Form Submission
   window.handleContactSubmit = function (e) {
     e.preventDefault();
+    if (isIntegrityCompromised) return;
+
     var feedback = document.getElementById('form-feedback-zone');
     var btn = document.getElementById('btn-submit-inquiry');
     var nameInput = document.getElementById('form-name');
@@ -588,7 +557,7 @@
     }
   }
 
-  // Scroll Spy for Nav Anchors
+  // Scroll Spy for Strict 6 Nav Anchors
   function initScrollSpy() {
     var sections = document.querySelectorAll('section[id]');
     var navLinks = document.querySelectorAll('.nav-link-list .nav-anchor');
@@ -616,37 +585,162 @@
     }
   }
 
-  // Keyboard Shortcuts: Cmd+K and Escape
-  document.addEventListener('keydown', function (e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      var cmdk = document.getElementById('modal-cmdk');
-      if (cmdk && cmdk.style.display === 'flex') {
-        window.closeModal('modal-cmdk');
-      } else {
-        window.openModal('modal-cmdk');
-      }
-    }
-    if (e.key === 'Escape') {
-      window.closeModal('modal-cmdk');
-      window.closeModal('modal-recruiter');
-      window.closeMobileMenu();
-    }
-  });
+  // ==================== 5. ACTIVE DOM INTEGRITY GUARD (FAIL-SAFE) ====================
+  function initIntegrityGuard() {
+    var EXPECTED_TEXT = 'Maintained & Developed by Sarvesh Works';
+    var EXPECTED_URL_PREFIX = 'https://sarveshworks.vercel.app';
 
-  // Modal Backdrop Click to Close
-  document.querySelectorAll('.modal-backdrop').forEach(function (modal) {
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) {
-        modal.style.display = 'none';
+    function triggerLockdown(reason) {
+      if (isIntegrityCompromised) return;
+      isIntegrityCompromised = true;
+      console.warn('Portfolio Integrity Guard Triggered: ' + reason);
+
+      // 1. Zero out BI Dashboard Metrics
+      var kpiRev = document.getElementById('kpi-gross-rev');
+      var kpiMargin = document.getElementById('kpi-margin-pct');
+      var kpiProfit = document.getElementById('kpi-net-profit');
+      var kpiRetGmv = document.getElementById('kpi-retention-gmv');
+
+      if (kpiRev) kpiRev.textContent = '₹0';
+      if (kpiMargin) kpiMargin.textContent = '0.0%';
+      if (kpiProfit) kpiProfit.textContent = '₹0';
+      if (kpiRetGmv) kpiRetGmv.textContent = '₹0';
+
+      // 2. Disable all interactive controls
+      document.querySelectorAll('input, button, .filter-pill-btn, .model-pill-btn, .sql-preset-btn').forEach(function (el) {
+        el.disabled = true;
+        el.style.pointerEvents = 'none';
+      });
+
+      // 3. Blur and disable #app-root
+      var root = document.getElementById('app-root');
+      if (root) {
+        root.style.filter = 'blur(8px)';
+        root.style.pointerEvents = 'none';
+        root.style.userSelect = 'none';
       }
-    });
-  });
+
+      // 4. Inject or show Lockout Banner
+      var lockout = document.getElementById('sw-integrity-lockout');
+      if (lockout) {
+        lockout.style.display = 'flex';
+        lockout.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function verifyAttribution() {
+      var anchor = document.getElementById('sw-credit-anchor');
+      if (!anchor) {
+        triggerLockdown('Credit anchor (#sw-credit-anchor) was removed from DOM.');
+        return false;
+      }
+
+      // Check text content
+      var text = (anchor.textContent || '').trim().replace(/\s+/g, ' ');
+      if (text.toLowerCase() !== EXPECTED_TEXT.toLowerCase()) {
+        triggerLockdown('Credit anchor text was altered: "' + text + '"');
+        return false;
+      }
+
+      // Check href
+      var href = anchor.getAttribute('href') || '';
+      if (href.indexOf(EXPECTED_URL_PREFIX) !== 0) {
+        triggerLockdown('Credit anchor href was altered: "' + href + '"');
+        return false;
+      }
+
+      // Check computed visibility
+      var style = window.getComputedStyle(anchor);
+      if (
+        style.display === 'none' ||
+        style.visibility === 'hidden' ||
+        parseFloat(style.opacity || '1') < 0.85
+      ) {
+        triggerLockdown('Credit anchor was visually hidden via CSS.');
+        return false;
+      }
+
+      // Check geometry
+      var rect = anchor.getBoundingClientRect();
+      if (rect.width < 40 || rect.height < 10) {
+        triggerLockdown('Credit anchor geometry was collapsed: ' + rect.width + 'x' + rect.height);
+        return false;
+      }
+
+      return true;
+    }
+
+    // Attach MutationObserver
+    if ('MutationObserver' in window) {
+      var observer = new MutationObserver(function () {
+        verifyAttribution();
+      });
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true
+      });
+    }
+
+    // Periodic Check (1500ms)
+    setInterval(verifyAttribution, 1500);
+
+    // Initial immediate check
+    verifyAttribution();
+  }
+
+
+  // Contact Clipboard Helper
+  window.copyContact = function(text, toastMsg) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast(toastMsg || 'Copied to clipboard!');
+      }).catch(function() {
+        fallbackCopy(text, toastMsg);
+      });
+    } else {
+      fallbackCopy(text, toastMsg);
+    }
+  };
+
+  function fallbackCopy(text, toastMsg) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(toastMsg || 'Copied to clipboard!');
+    } catch (e) {
+      console.error('Copy failed:', e);
+    }
+    document.body.removeChild(ta);
+  }
+
+  function showToast(msg) {
+    let toast = document.getElementById('contact-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'contact-toast';
+      toast.className = 'toast-notification';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('toast-visible');
+    setTimeout(function() {
+      toast.classList.remove('toast-visible');
+    }, 2200);
+  }
 
   // DOMContentLoaded Initialization
   document.addEventListener('DOMContentLoaded', function () {
+    initReloadPreloader();
     initTheme();
     initScrollSpy();
+    initIntegrityGuard();
     window.recalculateSimulation();
   });
 
