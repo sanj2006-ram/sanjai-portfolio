@@ -488,6 +488,10 @@
               <div class="footer-bottom-lockup">
                 <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
                 <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+                <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+                <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+                <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
+                <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
                 <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
               </div>
             </div>
@@ -858,58 +862,439 @@
             </div>
           </div>
 
-          <!-- ==================== ZERO-LAG POWER BI EMBED FACADE ==================== -->
-          <div class="powerbi-facade-container" id="powerbi-facade-zone">
-            <div class="pbi-facade-card">
-              <div class="pbi-facade-header">
-                <div class="pbi-title-group">
-                  <span class="pbi-badge">POWER BI PRO EMBED FACADE</span>
-                  <h4 class="pbi-title">Executive Commercial &amp; Regional Performance Report</h4>
+          <!-- ==================== REGIONAL PERFORMANCE REPORT ==================== -->
+          <div class="regional-report-container" id="powerbi-facade-zone">
+            
+            <!-- Section Header Strip -->
+            <div class="regional-report-head-strip">
+              <div class="regional-head-title-wrap">
+                <div class="regional-head-badge-row">
+                  <span class="regional-live-badge">POWER BI EMBED ENGINE</span>
+                  <span class="regional-dataset-badge">DirectQuery &middot; 12,000+ Fact_Sales</span>
                 </div>
-                <span class="pbi-load-status">Lightweight Static Preview &middot; Zero Initial Page Load Impact</span>
+                <h4 class="regional-report-title">Executive Commercial &amp; Regional Performance Report</h4>
+                <p class="regional-report-subtitle">Multi-hub operational revenue, fulfillment distribution, and category gross margin analysis across South India distribution network.</p>
               </div>
 
-              <!-- Facade Visual Preview Canvas -->
-              <div class="pbi-preview-canvas" id="pbi-preview-canvas">
-                <div class="pbi-mockup-ribbon">
-                  <div class="pbi-mock-kpi"><span>TOTAL REVENUE</span><strong class="mono">₹18,45,200</strong></div>
-                  <div class="pbi-mock-kpi"><span>YOY GROWTH</span><strong class="mono" style="color:var(--accent-green);">+14.8%</strong></div>
-                  <div class="pbi-mock-kpi"><span>AVG ORDER VALUE</span><strong class="mono">₹3,680</strong></div>
-                  <div class="pbi-mock-kpi"><span>SLA FULFILLMENT</span><strong class="mono">98.4%</strong></div>
+              <div class="regional-head-actions">
+                <div class="hub-slicer-pill-group" role="tablist" aria-label="Region Slicers">
+                  <span class="hub-slicer-label">REGION SLICER:</span>
+                  <button type="button" class="hub-slicer-pill active" id="slicer-all" onclick="sliceRegionalData('All', this)">All Hubs</button>
+                  <button type="button" class="hub-slicer-pill" id="slicer-blr" onclick="sliceRegionalData('Bangalore', this)">Bangalore</button>
+                  <button type="button" class="hub-slicer-pill" id="slicer-chn" onclick="sliceRegionalData('Chennai', this)">Chennai</button>
+                  <button type="button" class="hub-slicer-pill" id="slicer-cbe" onclick="sliceRegionalData('Coimbatore', this)">Coimbatore</button>
+                  <button type="button" class="hub-slicer-pill" id="slicer-hyd" onclick="sliceRegionalData('Hyderabad', this)">Hyderabad</button>
                 </div>
-                <div class="pbi-mockup-body">
-                  <div class="pbi-mock-chart">
-                    <div class="pbi-mock-chart-title">Sales by Region &amp; Category</div>
-                    <div class="pbi-mock-bars">
-                      <div class="pbi-bar-item" style="height:70%;"><span>Chennai</span></div>
-                      <div class="pbi-bar-item" style="height:90%;"><span>Bangalore</span></div>
-                      <div class="pbi-bar-item" style="height:55%;"><span>Hyderabad</span></div>
-                      <div class="pbi-bar-item" style="height:80%;"><span>Coimbatore</span></div>
-                    </div>
-                  </div>
-                  <div class="pbi-mock-table">
-                    <div class="pbi-mock-chart-title">Executive Margin Breakdown</div>
-                    <div class="pbi-mock-table-rows">
-                      <div class="pbi-tr"><span>Electronics</span><strong class="mono">32.4%</strong></div>
-                      <div class="pbi-tr"><span>Commercial Supplies</span><strong class="mono">28.1%</strong></div>
-                      <div class="pbi-tr"><span>Hardware &amp; IT</span><strong class="mono">35.6%</strong></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Facade Overlay & Trigger Button -->
-                <div class="pbi-launch-overlay" id="pbi-launch-overlay">
-                  <button type="button" class="btn btn-primary btn-pbi-launch" onclick="launchPowerBIEmbed()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    <span>Launch Interactive Power BI Report</span>
-                  </button>
-                  <p class="pbi-launch-note">Clicking loads the live interactive report container with zero background latency.</p>
-                </div>
+                <button type="button" class="btn btn-outline btn-sm" id="btn-toggle-pbi-modal" onclick="launchPowerBIEmbed()" style="font-size:11.5px; height:32px; padding:0 12px; gap:6px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Launch Pro Simulator</span>
+                </button>
               </div>
-
-              <!-- Interactive Embed Target -->
-              <div class="pbi-interactive-container" id="pbi-interactive-container" style="display:none;"></div>
             </div>
+
+            <!-- Top Cards Grid: Responsive 12-Col (7 col + 5 col) with Equal-Height Stretch -->
+            <div class="regional-cards-grid">
+              
+              <!-- LEFT CARD: Regional Revenue & Order Performance (lg:col-span-7) -->
+              <div class="regional-card regional-revenue-card" id="card-regional-revenue">
+                <div class="regional-card-header">
+                  <div class="regional-card-title-group">
+                    <h5 class="regional-card-title">Regional Revenue &amp; Fulfillment Distribution</h5>
+                    <p class="regional-card-sub">4 South India Hubs &middot; Fact_Sales Star Schema</p>
+                  </div>
+                  <div class="regional-top-badge" id="top-performer-badge">
+                    <span class="badge-pulse-dot"></span>
+                    <span id="top-performer-text">Top Hub: Bangalore</span>
+                  </div>
+                </div>
+
+                <!-- Enhanced Bar Chart Area with Tooltips, Value Labels, and Gridlines -->
+                <div class="regional-chart-wrapper">
+                  <!-- Y-Axis scale labels -->
+                  <div class="regional-y-axis">
+                    <span>₹8.0L</span>
+                    <span>₹6.0L</span>
+                    <span>₹4.0L</span>
+                    <span>₹2.0L</span>
+                    <span>₹0</span>
+                  </div>
+
+                  <!-- Chart Canvas with Gridlines and 4 Bars -->
+                  <div class="regional-bars-canvas">
+                    <!-- Horizontal Gridlines -->
+                    <div class="chart-gridline" style="bottom: 80%;"></div>
+                    <div class="chart-gridline" style="bottom: 60%;"></div>
+                    <div class="chart-gridline" style="bottom: 40%;"></div>
+                    <div class="chart-gridline" style="bottom: 20%;"></div>
+                    <div class="chart-gridline chart-baseline" style="bottom: 0;"></div>
+
+                    <!-- 4 Interactive Regional Bar Columns -->
+                    <div class="regional-bars-row">
+                      
+                      <!-- Bangalore -->
+                      <div class="regional-bar-col active" id="bar-col-blr" data-region="Bangalore" onclick="selectRegion('Bangalore')">
+                        <div class="bar-top-val mono" id="bar-val-blr">₹6.90L <span class="bar-share-pct">37.4%</span></div>
+                        <div class="bar-track-wrap">
+                          <div class="bar-pill-fill fill-bangalore" id="bar-fill-blr" style="height: 86%;">
+                            <div class="bar-glow-top"></div>
+                          </div>
+                        </div>
+                        <div class="bar-hub-label">
+                          <strong class="hub-name">Bangalore</strong>
+                          <span class="hub-yoy text-green">+18.4% YoY</span>
+                        </div>
+                        <!-- Hover Tooltip -->
+                        <div class="regional-bar-tooltip">
+                          <div class="tip-title">Bangalore Distribution Hub</div>
+                          <div class="tip-row"><span>Revenue:</span><strong class="mono" id="tip-rev-blr">₹6,89,500</strong></div>
+                          <div class="tip-row"><span>Order Count:</span><strong class="mono">4,120 orders</strong></div>
+                          <div class="tip-row"><span>Average Order Value:</span><strong class="mono">₹1,673</strong></div>
+                          <div class="tip-row"><span>YoY Revenue Growth:</span><strong class="text-green">+18.4%</strong></div>
+                          <div class="tip-row"><span>Fulfillment Rate:</span><strong class="mono">97.8%</strong></div>
+                        </div>
+                      </div>
+
+                      <!-- Chennai -->
+                      <div class="regional-bar-col" id="bar-col-chn" data-region="Chennai" onclick="selectRegion('Chennai')">
+                        <div class="bar-top-val mono" id="bar-val-chn">₹5.84L <span class="bar-share-pct">31.7%</span></div>
+                        <div class="bar-track-wrap">
+                          <div class="bar-pill-fill fill-chennai" id="bar-fill-chn" style="height: 73%;">
+                            <div class="bar-glow-top"></div>
+                          </div>
+                        </div>
+                        <div class="bar-hub-label">
+                          <strong class="hub-name">Chennai</strong>
+                          <span class="hub-yoy text-green">+14.2% YoY</span>
+                        </div>
+                        <!-- Hover Tooltip -->
+                        <div class="regional-bar-tooltip">
+                          <div class="tip-title">Chennai Corporate Hub</div>
+                          <div class="tip-row"><span>Revenue:</span><strong class="mono" id="tip-rev-chn">₹5,84,200</strong></div>
+                          <div class="tip-row"><span>Order Count:</span><strong class="mono">3,840 orders</strong></div>
+                          <div class="tip-row"><span>Average Order Value:</span><strong class="mono">₹1,521</strong></div>
+                          <div class="tip-row"><span>YoY Revenue Growth:</span><strong class="text-green">+14.2%</strong></div>
+                          <div class="tip-row"><span>Fulfillment Rate:</span><strong class="mono">96.5%</strong></div>
+                        </div>
+                      </div>
+
+                      <!-- Coimbatore -->
+                      <div class="regional-bar-col" id="bar-col-cbe" data-region="Coimbatore" onclick="selectRegion('Coimbatore')">
+                        <div class="bar-top-val mono" id="bar-val-cbe">₹3.43L <span class="bar-share-pct">18.6%</span></div>
+                        <div class="bar-track-wrap">
+                          <div class="bar-pill-fill fill-coimbatore" id="bar-fill-cbe" style="height: 43%;">
+                            <div class="bar-glow-top"></div>
+                          </div>
+                        </div>
+                        <div class="bar-hub-label">
+                          <strong class="hub-name">Coimbatore</strong>
+                          <span class="hub-yoy text-green">+11.8% YoY</span>
+                        </div>
+                        <!-- Hover Tooltip -->
+                        <div class="regional-bar-tooltip">
+                          <div class="tip-title">Coimbatore Logistics Hub</div>
+                          <div class="tip-row"><span>Revenue:</span><strong class="mono" id="tip-rev-cbe">₹3,42,800</strong></div>
+                          <div class="tip-row"><span>Order Count:</span><strong class="mono">2,420 orders</strong></div>
+                          <div class="tip-row"><span>Average Order Value:</span><strong class="mono">₹1,416</strong></div>
+                          <div class="tip-row"><span>YoY Revenue Growth:</span><strong class="text-green">+11.8%</strong></div>
+                          <div class="tip-row"><span>Fulfillment Rate:</span><strong class="mono">95.6%</strong></div>
+                        </div>
+                      </div>
+
+                      <!-- Hyderabad -->
+                      <div class="regional-bar-col" id="bar-col-hyd" data-region="Hyderabad" onclick="selectRegion('Hyderabad')">
+                        <div class="bar-top-val mono" id="bar-val-hyd">₹2.29L <span class="bar-share-pct">12.4%</span></div>
+                        <div class="bar-track-wrap">
+                          <div class="bar-pill-fill fill-hyderabad" id="bar-fill-hyd" style="height: 29%;">
+                            <div class="bar-glow-top"></div>
+                          </div>
+                        </div>
+                        <div class="bar-hub-label">
+                          <strong class="hub-name">Hyderabad</strong>
+                          <span class="hub-yoy text-green">+9.6% YoY</span>
+                        </div>
+                        <!-- Hover Tooltip -->
+                        <div class="regional-bar-tooltip">
+                          <div class="tip-title">Hyderabad Emerging Hub</div>
+                          <div class="tip-row"><span>Revenue:</span><strong class="mono" id="tip-rev-hyd">₹2,28,700</strong></div>
+                          <div class="tip-row"><span>Order Count:</span><strong class="mono">2,100 orders</strong></div>
+                          <div class="tip-row"><span>Average Order Value:</span><strong class="mono">₹1,089</strong></div>
+                          <div class="tip-row"><span>YoY Revenue Growth:</span><strong class="text-green">+9.6%</strong></div>
+                          <div class="tip-row"><span>Fulfillment Rate:</span><strong class="mono">94.8%</strong></div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card Footer Summary Strip (grid-cols-3) -->
+                <div class="regional-card-footer-strip">
+                  <div class="summary-metric-cell">
+                    <span class="summary-cell-label">TOTAL REGIONAL ORDERS</span>
+                    <strong class="summary-cell-val mono" id="footer-metric-orders">12,480</strong>
+                    <span class="summary-cell-sub">12,000+ Normalized Base</span>
+                  </div>
+                  <div class="summary-metric-cell">
+                    <span class="summary-cell-label">WEIGHTED AVG. FULFILLMENT</span>
+                    <strong class="summary-cell-val mono" id="footer-metric-fulfillment" style="color:var(--positive);">96.4%</strong>
+                    <span class="summary-cell-sub text-green">&minus;40% Turnaround Cut</span>
+                  </div>
+                  <div class="summary-metric-cell">
+                    <span class="summary-cell-label">HIGHEST GROWTH HUB</span>
+                    <strong class="summary-cell-val" id="footer-metric-growth" style="color:var(--brand-orange, #DE4B00);">Bangalore</strong>
+                    <span class="summary-cell-sub text-green">+18.4% YoY Leader</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT CARD: Category Gross Margin & Cost Breakdown (lg:col-span-5) -->
+              <div class="regional-card regional-category-card" id="card-category-margin">
+                <div class="regional-card-header">
+                  <div class="regional-card-title-group">
+                    <h5 class="regional-card-title">Category Gross Margin &amp; Cost Breakdown</h5>
+                    <p class="regional-card-sub">3 Core Product Lines &middot; Benchmark vs. 30% Target</p>
+                  </div>
+                  <span class="category-meta-tag">3NF Categorization</span>
+                </div>
+
+                <!-- 3 Enriched Analytical Category Breakdown Blocks -->
+                <div class="category-breakdown-list">
+                  
+                  <!-- Block 1: Electronics (32.4%) -->
+                  <div class="category-breakdown-block" id="cat-block-electronics">
+                    <div class="cat-block-header">
+                      <div class="cat-identity">
+                        <span class="cat-bullet" style="background:#2563EB;"></span>
+                        <strong class="cat-name">Electronics</strong>
+                      </div>
+                      <div class="cat-margin-badge text-green">
+                        <strong class="mono" id="cat-margin-electronics">32.4%</strong>
+                        <span class="target-diff-pill text-green" id="cat-diff-electronics">+2.4% vs Target</span>
+                      </div>
+                    </div>
+                    <!-- Horizontal Progress Bar -->
+                    <div class="cat-progress-track">
+                      <div class="cat-progress-fill" id="cat-bar-electronics" style="width: 64.8%; background:#2563EB;"></div>
+                      <div class="cat-target-marker" style="left: 60%;" title="30.0% Standard Target"></div>
+                    </div>
+                    <!-- Detailed Analytical Metrics Row -->
+                    <div class="cat-metrics-grid">
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">REVENUE SHARE</span>
+                        <strong class="cat-metric-val mono">42.5%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">COGS RATIO</span>
+                        <strong class="cat-metric-val mono">67.6%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">ACTIVE SKUS</span>
+                        <strong class="cat-metric-val mono">142 SKUs</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">MARGIN STATUS</span>
+                        <strong class="cat-metric-val mono text-green">Optimal</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Block 2: Commercial Supplies (28.1%) -->
+                  <div class="category-breakdown-block" id="cat-block-commercial">
+                    <div class="cat-block-header">
+                      <div class="cat-identity">
+                        <span class="cat-bullet" style="background:#F59E0B;"></span>
+                        <strong class="cat-name">Commercial Supplies</strong>
+                      </div>
+                      <div class="cat-margin-badge text-amber">
+                        <strong class="mono" id="cat-margin-commercial">28.1%</strong>
+                        <span class="target-diff-pill text-amber" id="cat-diff-commercial">&minus;1.9% vs Target</span>
+                      </div>
+                    </div>
+                    <!-- Horizontal Progress Bar -->
+                    <div class="cat-progress-track">
+                      <div class="cat-progress-fill" id="cat-bar-commercial" style="width: 56.2%; background:#F59E0B;"></div>
+                      <div class="cat-target-marker" style="left: 60%;" title="30.0% Standard Target"></div>
+                    </div>
+                    <!-- Detailed Analytical Metrics Row -->
+                    <div class="cat-metrics-grid">
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">REVENUE SHARE</span>
+                        <strong class="cat-metric-val mono">26.8%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">COGS RATIO</span>
+                        <strong class="cat-metric-val mono">71.9%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">ACTIVE SKUS</span>
+                        <strong class="cat-metric-val mono">98 SKUs</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">MARGIN STATUS</span>
+                        <strong class="cat-metric-val mono text-amber">Under Review</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Block 3: Hardware & IT (35.6%) -->
+                  <div class="category-breakdown-block" id="cat-block-hardware">
+                    <div class="cat-block-header">
+                      <div class="cat-identity">
+                        <span class="cat-bullet" style="background:#10B981;"></span>
+                        <strong class="cat-name">Hardware &amp; IT</strong>
+                      </div>
+                      <div class="cat-margin-badge text-green">
+                        <strong class="mono" id="cat-margin-hardware">35.6%</strong>
+                        <span class="target-diff-pill text-green" id="cat-diff-hardware">+0.6% vs Target</span>
+                      </div>
+                    </div>
+                    <!-- Horizontal Progress Bar -->
+                    <div class="cat-progress-track">
+                      <div class="cat-progress-fill" id="cat-bar-hardware" style="width: 71.2%; background:#10B981;"></div>
+                      <div class="cat-target-marker" style="left: 70%;" title="35.0% Hardware Target"></div>
+                    </div>
+                    <!-- Detailed Analytical Metrics Row -->
+                    <div class="cat-metrics-grid">
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">REVENUE SHARE</span>
+                        <strong class="cat-metric-val mono">30.7%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">COGS RATIO</span>
+                        <strong class="cat-metric-val mono">64.4%</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">ACTIVE SKUS</span>
+                        <strong class="cat-metric-val mono">64 SKUs</strong>
+                      </div>
+                      <div class="cat-metric-item">
+                        <span class="cat-metric-label">MARGIN STATUS</span>
+                        <strong class="cat-metric-val mono text-green">High Yield</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- DAX Measure Callout Footer -->
+                <div class="dax-callout-footer">
+                  <div class="dax-callout-header">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <span>UNDERLYING DAX MEASURE:</span>
+                  </div>
+                  <code class="dax-callout-code mono">Gross Margin % = DIVIDE(SUM(Fact_Sales[Gross_Profit]), SUM(Fact_Sales[Net_Revenue]), 0)</code>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- LOWER SECTION: Full-Width Regional Drill-Down Matrix (mt-6) -->
+            <div class="regional-table-card mt-6">
+              <div class="regional-table-head">
+                <div class="table-title-group">
+                  <h5 class="table-card-title">Regional Performance Drill-Down Matrix</h5>
+                  <p class="table-card-subtitle">Click any row or chart bar above to cross-filter regional KPIs and fulfillment turnaround metrics.</p>
+                </div>
+                <div class="table-action-hint">
+                  <span class="table-active-filter-indicator" id="table-filter-status">Filter: All Hubs (Active)</span>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="resetRegionalFilter()" style="font-size:11px; height:28px; padding:0 10px;">↺ Reset Selection</button>
+                </div>
+              </div>
+
+              <div class="table-scroll-container">
+                <table class="regional-drill-table">
+                  <thead>
+                    <tr>
+                      <th>Region</th>
+                      <th>Top Category</th>
+                      <th>Normalized Records</th>
+                      <th>Net Revenue (₹)</th>
+                      <th>Gross Margin %</th>
+                      <th>Avg. Turnaround</th>
+                      <th>YoY Variance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="regional-row" id="row-bangalore" data-region="Bangalore" onclick="selectRegion('Bangalore')">
+                      <td>
+                        <div class="region-cell-name">
+                          <span class="region-flag-dot" style="background:#2563EB;"></span>
+                          <strong>Bangalore</strong>
+                          <span class="region-badge-pill">Top Hub</span>
+                        </div>
+                      </td>
+                      <td>Hardware &amp; IT</td>
+                      <td class="mono font-semibold">4,120</td>
+                      <td class="mono font-bold" id="td-rev-blr">₹6,89,500</td>
+                      <td><span class="mono font-bold text-green">35.2%</span></td>
+                      <td><span class="mono">18.2 hrs</span> <span class="turnaround-improvement-pill">&minus;43%</span></td>
+                      <td><span class="yoy-badge yoy-green">+18.4% YoY</span></td>
+                    </tr>
+                    <tr class="regional-row" id="row-chennai" data-region="Chennai" onclick="selectRegion('Chennai')">
+                      <td>
+                        <div class="region-cell-name">
+                          <span class="region-flag-dot" style="background:#10B981;"></span>
+                          <strong>Chennai</strong>
+                          <span class="region-badge-pill">HQ Base</span>
+                        </div>
+                      </td>
+                      <td>Electronics</td>
+                      <td class="mono font-semibold">3,840</td>
+                      <td class="mono font-bold" id="td-rev-chn">₹5,84,200</td>
+                      <td><span class="mono font-bold text-green">33.8%</span></td>
+                      <td><span class="mono">19.5 hrs</span> <span class="turnaround-improvement-pill">&minus;42%</span></td>
+                      <td><span class="yoy-badge yoy-green">+14.2% YoY</span></td>
+                    </tr>
+                    <tr class="regional-row" id="row-coimbatore" data-region="Coimbatore" onclick="selectRegion('Coimbatore')">
+                      <td>
+                        <div class="region-cell-name">
+                          <span class="region-flag-dot" style="background:#F59E0B;"></span>
+                          <strong>Coimbatore</strong>
+                          <span class="region-badge-pill">Tier-2</span>
+                        </div>
+                      </td>
+                      <td>Commercial Supplies</td>
+                      <td class="mono font-semibold">2,420</td>
+                      <td class="mono font-bold" id="td-rev-cbe">₹3,42,800</td>
+                      <td><span class="mono font-bold text-green">31.4%</span></td>
+                      <td><span class="mono">22.0 hrs</span> <span class="turnaround-improvement-pill">&minus;38%</span></td>
+                      <td><span class="yoy-badge yoy-green">+11.8% YoY</span></td>
+                    </tr>
+                    <tr class="regional-row" id="row-hyderabad" data-region="Hyderabad" onclick="selectRegion('Hyderabad')">
+                      <td>
+                        <div class="region-cell-name">
+                          <span class="region-flag-dot" style="background:#8B5CF6;"></span>
+                          <strong>Hyderabad</strong>
+                          <span class="region-badge-pill">Growth</span>
+                        </div>
+                      </td>
+                      <td>Electronics</td>
+                      <td class="mono font-semibold">2,100</td>
+                      <td class="mono font-bold" id="td-rev-hyd">₹2,28,700</td>
+                      <td><span class="mono font-bold text-amber">29.8%</span></td>
+                      <td><span class="mono">24.5 hrs</span> <span class="turnaround-improvement-pill">&minus;36%</span></td>
+                      <td><span class="yoy-badge yoy-amber">+9.6% YoY</span></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="table-total-row">
+                      <td><strong>4 South India Hubs Total</strong></td>
+                      <td>All Categories</td>
+                      <td class="mono font-bold" id="td-total-orders">12,480</td>
+                      <td class="mono font-bold" id="td-total-rev">₹18,45,200</td>
+                      <td><span class="mono font-bold text-green">32.6% Wtd</span></td>
+                      <td><span class="mono font-bold">20.8 hrs Wtd</span></td>
+                      <td><span class="yoy-badge yoy-green">+14.8% Net</span></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <!-- Power BI Embed Interactive Simulator Container (Supports test suite launch & slicers) -->
+            <div id="pbi-interactive-container" style="display:none; padding:16px 24px;"></div>
+            <div id="pbi-launch-overlay" style="display:none;"></div>
+
           </div>
 
           <!-- ==================== MYSQL RUNTIME WORKBENCH ==================== -->
@@ -964,6 +1349,10 @@ GROUP BY p.category_name;
             </div>
             <div class="footer-bottom-lockup">
               <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
               <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
               <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
@@ -1136,6 +1525,10 @@ GROUP BY p.category_name;
             </div>
             <div class="footer-bottom-lockup">
               <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
               <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
               <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
@@ -1366,6 +1759,10 @@ GROUP BY p.category_name;
             <div class="footer-bottom-lockup">
               <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
               <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
               <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
           </div>
@@ -1505,6 +1902,10 @@ GROUP BY p.category_name;
             </div>
             <div class="footer-bottom-lockup">
               <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openPrivacyModal()" class="sw-attribution-link">Privacy Policy</a>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="javascript:void(0)" onclick="window.openTermsModal()" class="sw-attribution-link">Terms &amp; Conditions</a>
               <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
               <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
@@ -2076,35 +2477,79 @@ GROUP BY p.category_name;
     <div class="modal-card modal-card-legal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
       <div class="modal-header">
         <div class="modal-title-lockup">
-          <span class="modal-eyebrow">LEGAL COMPLIANCE &middot; DATA INTEGRITY</span>
+          <span class="modal-eyebrow">DPDP ACT, 2023 &amp; IT ACT, 2000 COMPLIANT</span>
           <h3 class="modal-title" id="privacy-modal-title">Privacy Policy</h3>
         </div>
         <button type="button" class="modal-close-btn" onclick="window.closeModal('modal-privacy-policy')" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body legal-modal-body">
-        <p class="legal-effective-date">Effective Date: May 2026 &middot; Last Updated: November 2026</p>
+        <div class="legal-metadata-box">
+          <p><strong>Effective Date:</strong> November 26, 2026</p>
+          <p><strong>Website:</strong> <a href="https://sanjai-analytics.vercel.app/" class="legal-link" target="_blank" rel="noopener noreferrer">https://sanjai-analytics.vercel.app/</a></p>
+          <p><strong>Data Fiduciary / Owner:</strong> Sanjai Ram M (<a href="mailto:sanjairam1179@gmail.com" class="legal-link">sanjairam1179@gmail.com</a>)</p>
+          <p><strong>Technical Maintenance:</strong> Sarvesh Works (<a href="https://sarveshworks.vercel.app" class="legal-link" target="_blank" rel="noopener noreferrer">https://sarveshworks.vercel.app</a>)</p>
+        </div>
         
-        <h4 class="legal-heading">1. Introduction</h4>
-        <p class="legal-text">This portfolio website (<strong>https://sanjai-analytics.vercel.app/</strong>) is authored and maintained by <strong>Sanjai Ram M</strong>, Data Analyst &amp; Business Intelligence Specialist based in Chennai, India. We respect your privacy and are committed to safeguarding any communication details shared with us.</p>
+        <h4 class="legal-heading">1. Overview &amp; Legal Compliance</h4>
+        <p class="legal-text">This Privacy Policy explains how personal data is collected, used, stored, and protected when you visit or interact with <strong>Sanjai Analytics</strong> (<a href="https://sanjai-analytics.vercel.app/" class="legal-link">https://sanjai-analytics.vercel.app/</a>). We process personal data in strict compliance with the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong> of India and the <strong>Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011</strong>.</p>
+        <p class="legal-text">By accessing this website or submitting information through our communication channels, you acknowledge and consent to the practices described in this policy.</p>
 
-        <h4 class="legal-heading">2. Information Collection &amp; Purpose</h4>
-        <p class="legal-text">We do not sell, rent, monetize, or broker personal information. When you initiate correspondence via the Contact form or email (<strong>sanjairam1179@gmail.com</strong>), we receive your name, professional email address, and message scope exclusively to evaluate prospective employment, internship, or freelance business intelligence engagements.</p>
-
-        <h4 class="legal-heading">3. Local &amp; Session Storage</h4>
-        <p class="legal-text">This site employs minimal first-party browser storage for functional accessibility and anti-abuse safeguards:</p>
+        <h4 class="legal-heading">2. Information We Collect</h4>
+        <p class="legal-text">We follow strict data minimization principles and collect only the information necessary to respond to recruitment, internship, or professional analytics inquiries:</p>
         <ul class="legal-list">
-          <li><code>sa_theme</code>: Remembers your preferred visual contrast mode (Warm Alabaster Light / Graphite Obsidian Dark).</li>
-          <li><code>sa_email_sent</code>: Temporary session marker preventing automated duplicate submissions during an active browsing session.</li>
-          <li><code>sa_contact_draft</code>: Temporary session storage protecting unsent message text from accidental loss.</li>
-          <li><code>sa_cookie_consent</code>: Stores your acknowledgment of essential session cookies.</li>
+          <li><strong>Voluntarily Provided Contact Information:</strong> When you use the contact or email workflow, we collect your name, email address, subject, and message content.</li>
+          <li><strong>Technical &amp; Hosting Logs:</strong> Our hosting provider (<strong>Vercel Inc.</strong>) automatically processes standard server logs (such as anonymized IP addresses, browser user-agent, device viewport, and request timestamps) strictly for security, DDoS mitigation, and uptime diagnostics.</li>
+          <li><strong>What We Do NOT Collect:</strong> We do not collect sensitive personal data (such as financial account numbers, government IDs, passwords, or biometric data), nor do we use third-party advertising trackers or behavioral profiling pixels.</li>
         </ul>
-        <p class="legal-text">No third-party tracking beacons, cross-site telemetry, or advertising cookies are embedded.</p>
 
-        <h4 class="legal-heading">4. Data Security &amp; Retention</h4>
-        <p class="legal-text">All interactions are encrypted in transit via Transport Layer Security (TLS 1.3). Communication records are retained only as long as necessary to conduct recruitment dialog, after which they may be archived or removed upon request.</p>
+        <h4 class="legal-heading">3. Cookies &amp; Local Browser Storage</h4>
+        <p class="legal-text">We use strictly necessary functional cookies and browser storage to maintain security, prevent spam, and remember your preferences:</p>
+        <ul class="legal-list">
+          <li><strong>Cookie Consent Preference:</strong> Stores your acknowledgment of our cookie notice so the banner does not repeatedly interrupt your browsing.</li>
+          <li><strong>Anti-Spam Session Cookie (<code>sa_email_sent</code>):</strong> When you submit a message or email inquiry, a temporary, <code>SameSite=Strict; Secure</code> session cookie is set to prevent duplicate or automated spam submissions within the same browser session. This cookie expires automatically when your browser session ends.</li>
+          <li><strong>Temporary Draft Storage (<code>sessionStorage</code>):</strong> Temporary form inputs may be held in your browser's <code>sessionStorage</code> while you type and are automatically erased when you refresh or close the page.</li>
+        </ul>
+        <p class="legal-text">You can clear or block cookies at any time through your browser settings; however, disabling strictly necessary session cookies may restrict form submission safeguards.</p>
 
-        <h4 class="legal-heading">5. Your Rights &amp; Inquiries</h4>
-        <p class="legal-text">You have the right to request deletion or modification of any correspondence details provided. For any privacy inquiries, reach out directly to Sanjai Ram M at <a href="mailto:sanjairam1179@gmail.com" class="legal-link">sanjairam1179@gmail.com</a>.</p>
+        <h4 class="legal-heading">4. Purpose of Data Processing</h4>
+        <p class="legal-text">Your personal data is processed exclusively for:</p>
+        <ol class="legal-list" style="padding-left:20px;">
+          <li>Responding to job opportunities, internship offers, and professional project inquiries directed to Sanjai Ram M.</li>
+          <li>Protecting the website against automated bots, XSS attacks, and duplicate spam submissions.</li>
+          <li>Maintaining technical stability, accessibility, and security of the web application.</li>
+        </ol>
+
+        <h4 class="legal-heading">5. Data Sharing &amp; Third-Party Processors</h4>
+        <p class="legal-text">We <strong>never sell, rent, trade, or monetize</strong> your personal information. Data is shared only with essential infrastructure providers strictly to operate this site:</p>
+        <ul class="legal-list">
+          <li><strong>Vercel Inc.:</strong> Cloud hosting, edge delivery, and HTTPS/TLS encryption.</li>
+          <li><strong>Google Workspace / Gmail:</strong> If you choose the direct Gmail compose option, your email interaction is governed by Google's Privacy Policy.</li>
+          <li><strong>Technical Maintenance:</strong> Sarvesh Works maintains the codebase and infrastructure of this site solely as a technical developer and does not harvest, store, or use visitor contact submissions for independent marketing.</li>
+        </ul>
+
+        <h4 class="legal-heading">6. Data Retention &amp; Security Measures</h4>
+        <ul class="legal-list">
+          <li><strong>Retention:</strong> Recruitment and inquiry correspondence is retained only as long as necessary to evaluate and respond to your professional request, after which it is securely deleted upon request or conclusion of communication.</li>
+          <li><strong>Security Safeguards:</strong> All traffic is encrypted via HTTPS/TLS. Inputs are sanitized against cross-site scripting (XSS), protected by anti-bot honeypot validation, and served with strict HTTP security headers (<code>X-Frame-Options</code>, <code>X-Content-Type-Options</code>, <code>Content-Security-Policy</code>, and <code>Referrer-Policy</code>).</li>
+        </ul>
+
+        <h4 class="legal-heading">7. Your Rights Under the DPDP Act, 2023</h4>
+        <p class="legal-text">As a Data Principal, you have the right to:</p>
+        <ul class="legal-list">
+          <li><strong>Access &amp; Information:</strong> Request a summary of the personal data you have submitted to us.</li>
+          <li><strong>Correction &amp; Updating:</strong> Request correction of inaccurate or incomplete contact details.</li>
+          <li><strong>Erasure / Right to be Forgotten:</strong> Request permanent deletion of your personal correspondence from our records.</li>
+          <li><strong>Withdraw Consent:</strong> Withdraw your consent to further communication at any time.</li>
+        </ul>
+        <p class="legal-text">To exercise any of these rights, email <strong>sanjairam1179@gmail.com</strong> with the subject line <code>"Data Privacy Request"</code>. We will respond within 7 business days.</p>
+
+        <h4 class="legal-heading">8. Grievance Officer</h4>
+        <p class="legal-text">In accordance with the Information Technology Act, 2000 and DPDP Act, 2023, any privacy concerns or grievances may be addressed to:</p>
+        <div class="legal-grievance-card">
+          <p><strong>Name:</strong> Sanjai Ram M</p>
+          <p><strong>Location:</strong> Chennai, Tamil Nadu, India</p>
+          <p><strong>Email:</strong> <a href="mailto:sanjairam1179@gmail.com" class="legal-link">sanjairam1179@gmail.com</a></p>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="window.closeModal('modal-privacy-policy')">
@@ -2120,27 +2565,61 @@ GROUP BY p.category_name;
       <div class="modal-header">
         <div class="modal-title-lockup">
           <span class="modal-eyebrow">LEGAL AGREEMENT &middot; CANDIDATE DOSSIER</span>
-          <h3 class="modal-title" id="terms-modal-title">Terms &amp; Conditions</h3>
+          <h3 class="modal-title" id="terms-modal-title">Terms and Conditions</h3>
         </div>
         <button type="button" class="modal-close-btn" onclick="window.closeModal('modal-terms-conditions')" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body legal-modal-body">
-        <p class="legal-effective-date">Effective Date: May 2026 &middot; Last Updated: November 2026</p>
+        <div class="legal-metadata-box">
+          <p><strong>Effective Date:</strong> November 26, 2026</p>
+          <p><strong>Website:</strong> <a href="https://sanjai-analytics.vercel.app/" class="legal-link" target="_blank" rel="noopener noreferrer">https://sanjai-analytics.vercel.app/</a></p>
+          <p><strong>Owner:</strong> Sanjai Ram M</p>
+        </div>
 
         <h4 class="legal-heading">1. Acceptance of Terms</h4>
-        <p class="legal-text">By browsing or interacting with <strong>https://sanjai-analytics.vercel.app/</strong>, you agree to comply with and be bound by these Terms and Conditions. If you do not agree, you should discontinue use of the portfolio.</p>
+        <p class="legal-text">By accessing, browsing, or using <strong>https://sanjai-analytics.vercel.app/</strong> ("the Website"), you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any part of these terms, please discontinue use of the Website immediately.</p>
 
-        <h4 class="legal-heading">2. Professional Portfolio Purpose</h4>
-        <p class="legal-text">This platform serves as an executive portfolio and candidate dossier highlighting Sanjai Ram M's verified competencies in Power BI, DAX modeling, MySQL 3NF architecture, and ETL pipeline automation. All materials are presented for recruitment evaluation, technical review, and professional networking.</p>
+        <h4 class="legal-heading">2. Purpose of Website &amp; Simulated BI Data Disclaimer</h4>
+        <p class="legal-text">This Website serves as the personal professional portfolio, resume dossier, and technical showcase of <strong>Sanjai Ram M</strong> (B.Com Computer Applications, Data Analyst &amp; Business Intelligence Specialist).</p>
+        <p class="legal-text"><strong>IMPORTANT DISCLAIMER REGARDING ANALYTICS &amp; BI COCKPIT DATA:</strong></p>
+        <ul class="legal-list">
+          <li>All dashboards, interactive charts, regional performance figures (including metrics displayed for Chennai, Bangalore, Hyderabad, and Coimbatore), category margin percentages, SQL schemas, and DAX simulations presented in the <strong>BI Cockpit</strong> and <strong>Projects</strong> sections are <strong>illustrative, anonymized, or simulated datasets</strong> created solely to demonstrate technical proficiency in Power BI, DAX, SQL, and data modeling.</li>
+          <li>These figures do <strong>not</strong> represent live financial statements, confidential corporate records, or audited commercial forecasts of any past or present employer (including Izeon Innovative Pvt Ltd).</li>
+          <li>Nothing on this Website constitutes financial, investment, accounting, tax, or business consulting advice. You agree not to rely on any simulated metrics on this Website for commercial or financial decision-making.</li>
+        </ul>
 
-        <h4 class="legal-heading">3. Intellectual Property &amp; Attribution Integrity</h4>
-        <p class="legal-text">All proprietary interactive code, BI Cockpit simulation algorithms, custom SVG charts, and dossier designs are the intellectual work of Sanjai Ram M, developed in collaboration with and maintained by <strong>Sarvesh Works</strong> (<a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="legal-link">https://sarveshworks.vercel.app</a>). Mandatory attribution links and integrity fail-safes are protected and may not be removed or obscured.</p>
+        <h4 class="legal-heading">3. Intellectual Property Rights</h4>
+        <ul class="legal-list">
+          <li>All original content, portfolio case studies, DAX expressions, relational database diagrams, resume layouts, and branding assets on this Website are the intellectual property of <strong>Sanjai Ram M</strong>, with frontend architecture and technical implementation maintained by <strong>Sarvesh Works</strong> (<a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="legal-link">https://sarveshworks.vercel.app</a>), unless otherwise stated.</li>
+          <li>You may view, download, or print the <strong>Resume / Verified Candidate Dossier</strong> strictly for legitimate recruitment, hiring evaluation, or academic reference purposes.</li>
+          <li>You may <strong>not</strong> scrape, clone, redistribute, commercially exploit, or misrepresent any code, visual design, or portfolio work on this Website as your own without prior written consent.</li>
+        </ul>
 
-        <h4 class="legal-heading">4. Acceptable Use</h4>
-        <p class="legal-text">Users agree not to engage in denial-of-service attempts, automated scraping, vulnerability probing, or spamming the contact dispatch endpoints. Automated bot submissions are trapped and blocked.</p>
+        <h4 class="legal-heading">4. Acceptable Use &amp; Anti-Spam Policy</h4>
+        <p class="legal-text">When using the Website or its contact mechanisms, you agree <strong>not</strong> to:</p>
+        <ul class="legal-list">
+          <li>Submit false, misleading, defamatory, or unsolicited commercial spam messages.</li>
+          <li>Attempt to bypass session rate-limiting cookies (<code>sa_email_sent</code>), honeypot protections, or security headers.</li>
+          <li>Inject malicious scripts, SQL payloads, automated scrapers, or denial-of-service traffic against the Website or its Vercel hosting infrastructure.</li>
+        </ul>
 
-        <h4 class="legal-heading">5. Governing Law</h4>
-        <p class="legal-text">These Terms shall be interpreted and governed in accordance with the laws of the Republic of India and the jurisdiction of courts in Chennai, Tamil Nadu.</p>
+        <h4 class="legal-heading">5. Third-Party Links</h4>
+        <p class="legal-text">This Website contains external links to third-party platforms including <strong>GitHub</strong> (<a href="https://github.com/sanj2006-ram" target="_blank" rel="noopener noreferrer" class="legal-link">github.com/sanj2006-ram</a>), <strong>LinkedIn</strong> (<a href="https://linkedin.com/in/sanjai-ram" target="_blank" rel="noopener noreferrer" class="legal-link">linkedin.com/in/sanjai-ram</a>), <strong>Google Mail</strong>, and <strong>Sarvesh Works</strong> (<a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="legal-link">sarveshworks.vercel.app</a>). We do not control and are not responsible for the content, availability, or privacy practices of external websites. Accessing third-party links is at your own discretion.</p>
+
+        <h4 class="legal-heading">6. Disclaimer of Warranties ("As-Is" Basis)</h4>
+        <p class="legal-text">The Website and all its interactive components are provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, express or implied, including but not limited to merchantability, fitness for a particular purpose, uninterrupted availability, or absolute freedom from typographical or technical errors.</p>
+
+        <h4 class="legal-heading">7. Limitation of Liability &amp; Indemnification</h4>
+        <ul class="legal-list">
+          <li>To the maximum extent permitted under applicable Indian law, neither <strong>Sanjai Ram M</strong> nor <strong>Sarvesh Works</strong> shall be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your access to, use of, or inability to use this Website, or any reliance placed on illustrative analytical demonstrations herein.</li>
+          <li>You agree to indemnify and hold harmless <strong>Sanjai Ram M</strong> and <strong>Sarvesh Works</strong> from any claims, losses, liabilities, or expenses arising from your violation of these Terms and Conditions or misuse of the Website.</li>
+        </ul>
+
+        <h4 class="legal-heading">8. Modifications to Terms</h4>
+        <p class="legal-text">We reserve the right to update or modify these Terms and Conditions at any time without prior notice. Continued use of the Website following any changes constitutes acceptance of the revised terms.</p>
+
+        <h4 class="legal-heading">9. Governing Law &amp; Exclusive Jurisdiction</h4>
+        <p class="legal-text">These Terms and Conditions shall be governed by and construed in accordance with the laws of <strong>India</strong>. Any dispute, claim, or controversy arising out of or relating to this Website shall be subject to the exclusive jurisdiction of the competent courts located in <strong>Chennai, Tamil Nadu, India</strong>.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="window.closeModal('modal-terms-conditions')">

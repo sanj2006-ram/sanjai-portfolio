@@ -552,6 +552,9 @@
 
     // Update Visual Chart Mode
     renderCockpitChart(revenue, marginPct, retentionPct);
+
+    // Update Regional Performance Report & Category Metrics
+    updateRegionalPerformanceMetrics(revenue, marginPct);
   };
 
   window.switchVisualMode = function (mode) {
@@ -849,6 +852,195 @@
       container.style.display = 'none';
       container.innerHTML = '';
     }
+  };
+
+  /* --------------------------------------------------------------------------
+     7B. REGIONAL PERFORMANCE REPORT INTERACTIVITY & CROSS-FILTERING
+     -------------------------------------------------------------------------- */
+  function formatLakhs(val) {
+    if (isNaN(val) || val === null || val === undefined) return '₹0.00L';
+    return '₹' + (val / 100000).toFixed(2) + 'L';
+  }
+
+  function updateRegionalPerformanceMetrics(revenue, marginPct) {
+    if (isNaN(revenue)) revenue = 180000;
+    if (isNaN(marginPct)) marginPct = 0.32;
+
+    var ratio = revenue / 180000;
+    var blrRev = 689500 * ratio;
+    var chnRev = 584200 * ratio;
+    var cbeRev = 342800 * ratio;
+    var hydRev = 228700 * ratio;
+    var totalRev = 1845200 * ratio;
+
+    // Bar Top Value Labels
+    var valBlr = document.getElementById('bar-val-blr');
+    var valChn = document.getElementById('bar-val-chn');
+    var valCbe = document.getElementById('bar-val-cbe');
+    var valHyd = document.getElementById('bar-val-hyd');
+    if (valBlr) valBlr.innerHTML = formatLakhs(blrRev) + ' <span class="bar-share-pct">37.4%</span>';
+    if (valChn) valChn.innerHTML = formatLakhs(chnRev) + ' <span class="bar-share-pct">31.7%</span>';
+    if (valCbe) valCbe.innerHTML = formatLakhs(cbeRev) + ' <span class="bar-share-pct">18.6%</span>';
+    if (valHyd) valHyd.innerHTML = formatLakhs(hydRev) + ' <span class="bar-share-pct">12.4%</span>';
+
+    // Hover Tooltip Revenue Displays
+    var tipBlr = document.getElementById('tip-rev-blr');
+    var tipChn = document.getElementById('tip-rev-chn');
+    var tipCbe = document.getElementById('tip-rev-cbe');
+    var tipHyd = document.getElementById('tip-rev-hyd');
+    if (tipBlr) tipBlr.textContent = formatINR(blrRev);
+    if (tipChn) tipChn.textContent = formatINR(chnRev);
+    if (tipCbe) tipCbe.textContent = formatINR(cbeRev);
+    if (tipHyd) tipHyd.textContent = formatINR(hydRev);
+
+    // Lower Drill-Down Matrix Table Revenues
+    var tdBlr = document.getElementById('td-rev-blr');
+    var tdChn = document.getElementById('td-rev-chn');
+    var tdCbe = document.getElementById('td-rev-cbe');
+    var tdHyd = document.getElementById('td-rev-hyd');
+    var tdTotal = document.getElementById('td-total-rev');
+    if (tdBlr) tdBlr.textContent = formatINR(blrRev);
+    if (tdChn) tdChn.textContent = formatINR(chnRev);
+    if (tdCbe) tdCbe.textContent = formatINR(cbeRev);
+    if (tdHyd) tdHyd.textContent = formatINR(hydRev);
+    if (tdTotal) tdTotal.textContent = formatINR(totalRev);
+
+    // Right Card: Category Gross Margin Breakdown
+    var baseMargin = marginPct * 100;
+    var elecMargin = (baseMargin + 0.4).toFixed(1);
+    var commMargin = (baseMargin - 3.9).toFixed(1);
+    var hardMargin = (baseMargin + 3.6).toFixed(1);
+
+    var elElecMargin = document.getElementById('cat-margin-electronics');
+    var elElecDiff = document.getElementById('cat-diff-electronics');
+    var elElecBar = document.getElementById('cat-bar-electronics');
+    if (elElecMargin) elElecMargin.textContent = elecMargin + '%';
+    if (elElecDiff) {
+      var diffE = (parseFloat(elecMargin) - 30.0).toFixed(1);
+      elElecDiff.textContent = (diffE >= 0 ? '+' : '') + diffE + '% vs Target';
+      elElecDiff.className = 'target-diff-pill ' + (diffE >= 0 ? 'text-green' : 'text-amber');
+    }
+    if (elElecBar) elElecBar.style.width = Math.min(100, Math.max(0, parseFloat(elecMargin) * 2)) + '%';
+
+    var elCommMargin = document.getElementById('cat-margin-commercial');
+    var elCommDiff = document.getElementById('cat-diff-commercial');
+    var elCommBar = document.getElementById('cat-bar-commercial');
+    if (elCommMargin) elCommMargin.textContent = commMargin + '%';
+    if (elCommDiff) {
+      var diffC = (parseFloat(commMargin) - 30.0).toFixed(1);
+      elCommDiff.textContent = (diffC >= 0 ? '+' : '') + diffC + '% vs Target';
+      elCommDiff.className = 'target-diff-pill ' + (diffC >= 0 ? 'text-green' : 'text-amber');
+    }
+    if (elCommBar) elCommBar.style.width = Math.min(100, Math.max(0, parseFloat(commMargin) * 2)) + '%';
+
+    var elHardMargin = document.getElementById('cat-margin-hardware');
+    var elHardDiff = document.getElementById('cat-diff-hardware');
+    var elHardBar = document.getElementById('cat-bar-hardware');
+    if (elHardMargin) elHardMargin.textContent = hardMargin + '%';
+    if (elHardDiff) {
+      var diffH = (parseFloat(hardMargin) - 35.0).toFixed(1);
+      elHardDiff.textContent = (diffH >= 0 ? '+' : '') + diffH + '% vs Target';
+      elHardDiff.className = 'target-diff-pill ' + (diffH >= 0 ? 'text-green' : 'text-amber');
+    }
+    if (elHardBar) elHardBar.style.width = Math.min(100, Math.max(0, parseFloat(hardMargin) * 2)) + '%';
+  }
+
+  var selectedRegionState = 'All';
+
+  window.sliceRegionalData = function (region, btn) {
+    selectedRegionState = region || 'All';
+
+    // 1. Update Slicer Pills
+    var pills = document.querySelectorAll('.hub-slicer-pill');
+    pills.forEach(function (p) {
+      p.classList.remove('active');
+    });
+    if (btn) {
+      btn.classList.add('active');
+    } else {
+      var targetId = 'slicer-' + (region === 'All' ? 'all' : (region === 'Bangalore' ? 'blr' : (region === 'Chennai' ? 'chn' : (region === 'Coimbatore' ? 'cbe' : 'hyd'))));
+      var activePill = document.getElementById(targetId);
+      if (activePill) activePill.classList.add('active');
+    }
+
+    // 2. Cross-Highlight Chart Bar Columns
+    var bars = [
+      { id: 'bar-col-blr', region: 'Bangalore' },
+      { id: 'bar-col-chn', region: 'Chennai' },
+      { id: 'bar-col-cbe', region: 'Coimbatore' },
+      { id: 'bar-col-hyd', region: 'Hyderabad' }
+    ];
+
+    bars.forEach(function (item) {
+      var col = document.getElementById(item.id);
+      if (!col) return;
+      if (selectedRegionState === 'All') {
+        col.classList.remove('dimmed');
+        col.classList.remove('active');
+      } else if (item.region.toLowerCase() === selectedRegionState.toLowerCase()) {
+        col.classList.remove('dimmed');
+        col.classList.add('active');
+      } else {
+        col.classList.remove('active');
+        col.classList.add('dimmed');
+      }
+    });
+
+    // 3. Cross-Highlight Table Rows
+    var rows = [
+      { id: 'row-bangalore', region: 'Bangalore' },
+      { id: 'row-chennai', region: 'Chennai' },
+      { id: 'row-coimbatore', region: 'Coimbatore' },
+      { id: 'row-hyderabad', region: 'Hyderabad' }
+    ];
+
+    rows.forEach(function (item) {
+      var r = document.getElementById(item.id);
+      if (!r) return;
+      if (selectedRegionState === 'All') {
+        r.classList.remove('active');
+        r.classList.remove('dimmed');
+      } else if (item.region.toLowerCase() === selectedRegionState.toLowerCase()) {
+        r.classList.add('active');
+        r.classList.remove('dimmed');
+      } else {
+        r.classList.remove('active');
+        r.classList.add('dimmed');
+      }
+    });
+
+    // 4. Update Status Indicators
+    var filterStatus = document.getElementById('table-filter-status');
+    if (filterStatus) {
+      if (selectedRegionState === 'All') {
+        filterStatus.textContent = 'Filter: All Hubs (Active)';
+      } else {
+        filterStatus.textContent = 'Filter: ' + selectedRegionState + ' Hub (Active)';
+      }
+    }
+
+    var topPerformerText = document.getElementById('top-performer-text');
+    if (topPerformerText) {
+      if (selectedRegionState === 'All') {
+        topPerformerText.textContent = 'Top Hub: Bangalore';
+      } else if (selectedRegionState === 'Bangalore') {
+        topPerformerText.textContent = 'Top Hub: Bangalore (Selected)';
+      } else {
+        topPerformerText.textContent = 'Selected Hub: ' + selectedRegionState;
+      }
+    }
+  };
+
+  window.selectRegion = function (region) {
+    if (selectedRegionState.toLowerCase() === (region || '').toLowerCase()) {
+      window.sliceRegionalData('All');
+    } else {
+      window.sliceRegionalData(region);
+    }
+  };
+
+  window.resetRegionalFilter = function () {
+    window.sliceRegionalData('All');
   };
 
   /* --------------------------------------------------------------------------
