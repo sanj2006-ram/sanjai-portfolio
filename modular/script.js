@@ -471,6 +471,19 @@
     if (kpiClv) kpiClv.textContent = formatINR(clv);
     if (kpiEff) kpiEff.textContent = retentionEfficiency;
 
+    // Update Operating Margin Progress Bar & Status
+    var marginBar = document.getElementById('kpi-margin-bar');
+    if (marginBar) {
+      var pctWidth = Math.min(100, Math.max(0, (marginPct / 0.50) * 100));
+      marginBar.style.width = pctWidth.toFixed(1) + '%';
+    }
+    var marginStatus = document.getElementById('kpi-margin-status');
+    if (marginStatus) {
+      var tier = marginPct >= 0.30 ? 'Optimal Margin Tier' : (marginPct >= 0.20 ? 'Standard Margin Tier' : 'Low Margin Alert');
+      marginStatus.innerHTML = '<span>' + tier + ' &middot; ' + (marginPct * 100).toFixed(0) + '% Target</span>';
+    }
+
+
     // Flash DAX Measure Formula Parameters
     flashDaxParam('dax-param-margin', (marginPct * 100).toFixed(0) + '%');
     flashDaxParam('dax-param-retention', (retentionPct * 100).toFixed(0) + '%');
@@ -712,7 +725,7 @@
     try {
       stored = localStorage.getItem('sr_portfolio_theme');
     } catch (e) {}
-    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var theme = stored || 'dark';
     document.body.setAttribute('data-theme', theme);
   }
 

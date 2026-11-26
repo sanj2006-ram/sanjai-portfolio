@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -115,7 +115,7 @@
     </div>
   </div>
 
-  <!-- Sticky 56px Top Header -->
+  <!-- Sticky 60px Top Header (Linear / Vercel Aesthetic) -->
   <header class="deck-header" role="banner">
     <div class="header-inner">
       
@@ -143,7 +143,7 @@
         </div>
       </a>
 
-      <!-- Center Desktop Nav Links -->
+      <!-- Center Desktop Nav Links (6 screens) -->
       <nav class="desktop-deck-nav" aria-label="Deck screens">
         <button type="button" class="deck-nav-link active" data-index="0" onclick="window.goToScreen(0)">Overview</button>
         <button type="button" class="deck-nav-link" data-index="1" onclick="window.goToScreen(1)">BI Cockpit</button>
@@ -153,28 +153,37 @@
         <button type="button" class="deck-nav-link" data-index="5" onclick="window.goToScreen(5)">Resume</button>
       </nav>
 
-      <!-- Right Header Actions -->
+      <!-- Right Header Actions (Desktop: 15s Summary + Download Resume; Mobile: Resume Pill + Hamburger) -->
       <div class="header-actions">
         <!-- Command Palette Trigger Button (Ctrl+K / ⌘K) -->
-        <button type="button" class="header-icon-btn" id="btn-cmd-palette" title="Search &amp; Commands (Ctrl+K / ⌘K)" aria-label="Open Command Palette" onclick="window.toggleCommandPalette()">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <button type="button" class="header-icon-btn desktop-only" id="btn-cmd-palette" title="Search &amp; Commands (Ctrl+K / ⌘K)" aria-label="Open Command Palette" onclick="window.toggleCommandPalette()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <span class="cmd-shortcut-key" aria-hidden="true">⌘K</span>
         </button>
 
         <!-- Theme Toggle -->
-        <button type="button" class="header-icon-btn" id="btn-theme-toggle" title="Toggle dark/light theme" aria-label="Toggle theme" onclick="window.toggleTheme()">
-          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <button type="button" class="header-icon-btn desktop-only" id="btn-theme-toggle" title="Toggle dark/light theme" aria-label="Toggle theme" onclick="window.toggleTheme()">
+          <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
 
-        <!-- Resume Pill CTA -->
-        <button type="button" class="header-resume-pill" onclick="window.goToScreen(5)">
+        <!-- Desktop Action Buttons: ⚡ 15s Summary + Download Resume -->
+        <button type="button" class="btn btn-sm btn-nav-summary desktop-only" onclick="window.openRecruiterSummaryModal()">
+          <span>⚡ 15s Summary</span>
+        </button>
+        <button type="button" class="btn btn-sm btn-nav-resume desktop-only" onclick="window.printResume()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Resume</span>
+        </button>
+
+        <!-- Mobile Right: Compact Resume Pill (<= 768px only) -->
+        <button type="button" class="header-resume-pill mobile-only" onclick="window.goToScreen(5)" aria-label="Go to Resume">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           <span>Resume</span>
         </button>
 
-        <!-- Mobile Drawer Hamburger (<= 768px) -->
-        <button type="button" class="mobile-hamburger-btn" id="mobile-hamburger-btn" aria-label="Toggle navigation drawer" aria-expanded="false" onclick="window.toggleMobileMenu()">
+        <!-- Mobile Drawer Hamburger (<= 768px only) -->
+        <button type="button" class="mobile-hamburger-btn mobile-only" id="mobile-hamburger-btn" aria-label="Toggle navigation drawer" aria-expanded="false" onclick="window.toggleMobileMenu()">
           <span class="hamburger-bar"></span>
           <span class="hamburger-bar"></span>
           <span class="hamburger-bar"></span>
@@ -211,9 +220,9 @@
           <span class="drawer-row-num">06 &rarr;</span>
         </button>
       </div>
-      <div class="drawer-footer-actions">
-        <button type="button" class="btn btn-outline" onclick="window.toggleTheme()" style="flex:1; justify-content:center; height:44px;">
-          <span>Theme Toggle</span>
+      <div class="drawer-action-grid">
+        <button type="button" class="btn btn-outline" onclick="window.openRecruiterSummaryModal(); window.closeMobileMenu();" style="flex:1; justify-content:center; height:44px;">
+          <span>⚡ 15s Summary</span>
         </button>
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="window.closeMobileMenu()" style="flex:1; justify-content:center; height:44px;">
           <span>Email (Gmail)</span>
@@ -228,120 +237,179 @@
 
       <!-- SCREEN 0: OVERVIEW -->
       <section class="deck-screen active" id="overview" data-screen-index="0" aria-label="Screen 0: Overview">
-        <div class="site-container hero-layout-grid">
-          <div class="hero-text-cluster">
-            
-            <!-- Avatar & Role Lockup -->
-            <div class="hero-profile-avatar-lockup">
-              <div class="hero-avatar-frame-clickable" onclick="window.openAvatarModal()" title="Click / Tap to expand portrait photo">
-                <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Specialist" class="hero-avatar-img" width="88" height="88">
-                <span class="hero-avatar-badge" aria-hidden="true" title="Actively Seeking Opportunities">●</span>
-                <span class="hero-avatar-expand-hint" aria-hidden="true">Expand ↗</span>
+        <div class="hero-canvas-spotlight" aria-hidden="true"></div>
+        <div class="hero-engineering-grid" aria-hidden="true"></div>
+
+        <div class="site-container hero-layout-container">
+          
+          <!-- Top Row: Hero Text Cluster + Slate Portrait Card -->
+          <div class="hero-main-grid">
+            <div class="hero-content-cluster">
+              
+              <!-- Single Status Pill (Desktop & Mobile Unified) -->
+              <div class="hero-status-pill">
+                <span class="status-indicator-live"></span>
+                <span>Open to Data Analyst &amp; BI Roles &middot; Chennai, IN</span>
               </div>
-              <div class="hero-profile-details">
-                <div class="hero-status-pill">
-                  <span class="status-indicator-live"></span>
-                  <span>Available for Data Analytics &amp; BI Roles &middot; Chennai, IN</span>
+
+              <!-- Main Heading Row: Mobile Avatar Inline Beside Name -->
+              <div class="hero-heading-lockup">
+                <div class="mobile-avatar-mat mobile-only" onclick="window.openAvatarModal()" title="Tap to view portrait">
+                  <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Developer" class="mobile-avatar-img" width="76" height="76">
+                  <div class="mobile-avatar-vignette" aria-hidden="true"></div>
+                  <span class="mobile-status-dot" aria-hidden="true"></span>
                 </div>
-                <div class="hero-meta-brand-badge" title="Sanjai Analytics Identity">
-                  
-            <svg viewBox="0 0 178 126" width="38" height="27" fill="none" class="brand-svg-mark" aria-hidden="true">
-              <g fill="#DC4B04">
-                <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
-                <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
-              </g>
-              <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
-                <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
-                <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
-              </g>
-            </svg>
-                  <span>SANJAI ANALYTICS</span>
+                <h1 class="hero-display-h1">
+                  Sanjai Ram M
+                  <span class="hero-headline-sub">Bridging commercial data <span class="hero-accent-text">and executive reporting.</span></span>
+                </h1>
+              </div>
+
+              <p class="hero-summary-copy">
+                B.Com (Computer Applications) student at Guru Nanak College, Chennai, building Power BI data models, DAX measures, and MySQL reporting pipelines. Hands-on experience normalizing 12,000+ transaction records into 3NF relational schemas during my Data Analytics &amp; BI internship at Izeon Innovative Pvt Ltd.
+              </p>
+
+              <!-- Action Button Cluster -->
+              <div class="hero-action-cluster">
+                <div class="hero-cta-row-1">
+                  <button type="button" class="btn btn-primary hero-btn-recruiter" onclick="window.openRecruiterSummaryModal()">
+                    <span>⚡ 15s Recruiter Summary</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary hero-btn-cockpit" onclick="window.goToScreen(1)">
+                    <span>Explore BI Cockpit &rarr;</span>
+                  </button>
+                </div>
+                <div class="hero-cta-row-2">
+                  <button type="button" class="btn btn-outline hero-cta-btn-sub" onclick="window.goToScreen(5)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span>View ATS Resume</span>
+                  </button>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-outline hero-cta-btn-sub" title="Compose direct email in Gmail">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>Email via Gmail</span>
+                  </a>
                 </div>
               </div>
+
+              <!-- Core Focus Areas Pills -->
+              <div class="hero-competencies-wrap">
+                <span class="hero-comp-label">CORE FOCUS AREAS:</span>
+                <div class="hero-comp-pills">
+                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power BI &amp; DAX</button>
+                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">MySQL &amp; 3NF</button>
+                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power Query ETL</button>
+                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Advanced Excel</button>
+                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Tally Prime</button>
+                </div>
+              </div>
+
             </div>
 
-            <!-- Single Semantic H1 -->
-            <h1 class="hero-display-h1">
-              Sanjai Ram M
-              <span class="hero-role-title">Data Analyst &amp; Business Intelligence Specialist</span>
-            </h1>
-
-            <p class="hero-summary-copy">
-              B.Com (Computer Applications) student at Guru Nanak College, Chennai, building Power BI data models, DAX measures, and MySQL reporting pipelines. Hands-on experience normalizing 12,000+ transaction records into 3NF relational schemas during my Data Analytics &amp; BI internship at Izeon Innovative Pvt Ltd.
-            </p>
-
-            <!-- 2-Row Action Hierarchy -->
-            <div class="hero-action-cluster">
-              <div class="hero-cta-row-1">
-                <button type="button" class="btn btn-primary hero-btn-recruiter" onclick="window.openRecruiterSummaryModal()">
-                  <span>⚡ 15s Recruiter Summary</span>
-                </button>
-                <button type="button" class="btn btn-secondary hero-btn-cockpit" onclick="window.goToScreen(1)">
-                  <span>Explore BI Cockpit &rarr;</span>
-                </button>
-              </div>
-              <div class="hero-cta-row-2">
-                <button type="button" class="btn btn-outline hero-cta-btn-sub" onclick="window.goToScreen(5)">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                  <span>View ATS Resume</span>
-                </button>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-outline hero-cta-btn-sub" title="Compose direct email in Gmail">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  <span>Email via Gmail</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Core Competencies Preview -->
-            <div class="hero-competencies-wrap">
-              <span class="hero-comp-label">CORE FOCUS AREAS:</span>
-              <div class="hero-comp-pills">
-                <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power BI &amp; DAX</button>
-                <button type="button" class="comp-pill" onclick="window.goToScreen(3)">MySQL &amp; 3NF</button>
-                <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power Query ETL</button>
-                <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Advanced Excel</button>
-                <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Tally Prime</button>
+            <!-- Hero Right: Slate Studio Mat Portrait Card (Desktop Only, max-width: 260px) -->
+            <div class="hero-portrait-column desktop-only">
+              <div class="portrait-studio-mat" id="hero-portrait-card">
+                <div class="portrait-photo-box" onclick="window.openAvatarModal()" title="Click to view portrait">
+                  <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Developer" class="portrait-photo-img" width="240" height="290">
+                  <div class="portrait-vignette-overlay" aria-hidden="true"></div>
+                  <span class="portrait-expand-hint" aria-hidden="true">Expand &nearr;</span>
+                </div>
+                <div class="portrait-caption-bar">
+                  <div class="portrait-caption-meta">
+                    <span class="portrait-name">Sanjai Ram M</span>
+                    <span class="portrait-skills-tag">Power BI &bull; DAX &bull; MySQL</span>
+                  </div>
+                  <div class="portrait-mini-badge" title="Sanjai Analytics Identity">
+                    <svg viewBox="0 0 178 126" width="22" height="15" fill="none" class="brand-svg-mark" aria-hidden="true">
+                      <g fill="#DC4B04">
+                        <path d="M 114.5,12.0 L 116.0,11.5 L 117.5,15.0 L 119.5,17.0 L 123.5,26.0 L 125.5,28.0 L 139.5,55.0 L 141.5,57.0 L 145.5,66.0 L 147.5,68.0 L 147.5,70.0 L 149.5,72.0 L 163.5,99.0 L 169.5,108.0 L 173.5,117.0 L 176.5,121.0 L 176.0,124.5 L 157.0,124.5 L 153.5,121.0 L 150.5,114.0 L 148.5,112.0 L 144.5,103.0 L 142.5,101.0 L 137.5,90.0 L 135.5,88.0 L 132.5,81.0 L 130.5,79.0 L 116.5,52.0 L 115.0,51.5 L 113.0,53.5 L 111.0,53.5 L 104.0,49.5 L 96.0,48.5 L 94.5,47.0 L 94.5,45.0 L 96.5,43.0 L 98.5,38.0 L 103.5,31.0 L 109.5,19.0 L 114.5,12.0 Z" />
+                        <path d="M 77.5,74.0 L 94.0,73.5 L 95.0,74.5 L 97.0,74.5 L 98.5,77.0 L 96.5,81.0 L 91.5,88.0 L 85.5,100.0 L 81.5,105.0 L 72.5,122.0 L 70.0,124.5 L 51.0,124.5 L 49.5,123.0 L 49.5,121.0 L 51.5,119.0 L 53.5,114.0 L 61.5,102.0 L 65.5,93.0 L 69.5,88.0 L 71.5,83.0 L 77.5,74.0 Z" />
+                      </g>
+                      <g fill="var(--brand-navy, #0A1622)" class="brand-navy-shape">
+                        <path d="M 35.5,2.0 L 106.0,1.5 L 108.5,3.0 L 103.5,13.0 L 97.0,22.5 L 33.0,22.5 L 32.0,23.5 L 30.0,23.5 L 24.5,28.0 L 21.5,35.0 L 21.5,40.0 L 23.5,43.0 L 23.5,45.0 L 28.0,49.5 L 32.0,51.5 L 94.0,51.5 L 95.0,52.5 L 103.0,53.5 L 117.0,62.5 L 123.5,72.0 L 124.5,76.0 L 126.5,79.0 L 126.5,96.0 L 125.5,97.0 L 124.5,102.0 L 120.5,109.0 L 113.0,116.5 L 107.0,120.5 L 105.0,120.5 L 102.0,122.5 L 99.0,122.5 L 98.0,123.5 L 77.5,123.0 L 87.5,105.0 L 90.0,102.5 L 96.0,102.5 L 100.0,100.5 L 104.5,96.0 L 106.5,91.0 L 106.5,84.0 L 102.0,76.5 L 92.0,72.5 L 30.0,72.5 L 18.0,67.5 L 14.0,63.5 L 13.0,63.5 L 6.5,56.0 L 1.5,43.0 L 1.5,32.0 L 2.5,31.0 L 3.5,25.0 L 6.5,19.0 L 8.5,16.0 L 19.0,6.5 L 28.0,2.5 L 35.5,2.0 Z" />
+                        <path d="M 16.5,103.0 L 54.0,102.5 L 54.5,104.0 L 43.0,123.5 L 4.0,123.5 L 4.5,121.0 L 16.5,103.0 Z" />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 
           </div>
 
-          <!-- Hero Right: Symmetrical 2x2 Quick-Stats Grid -->
-          <div class="hero-stats-column">
-            <div class="hero-stats-panel">
-              <div class="hero-stats-header">
-                <span class="hero-stats-eyebrow">VERIFIED CANDIDATE HIGHLIGHTS</span>
-                <span class="hero-stats-status-pill">Active</span>
+          <!-- Middle Strip: Unified Segmented 4 Quick-Stats Metric Bar -->
+          <div class="hero-metric-bar">
+            <div class="metric-segment">
+              <span class="metric-seg-kpi">B.Com (CA)</span>
+              <span class="metric-seg-sub">Guru Nanak &bull; CGPA 8.6</span>
+            </div>
+            <div class="metric-divider" aria-hidden="true"></div>
+            <div class="metric-segment">
+              <span class="metric-seg-kpi">Izeon Innov.</span>
+              <span class="metric-seg-sub">12,000+ Records 3NF</span>
+            </div>
+            <div class="metric-divider" aria-hidden="true"></div>
+            <div class="metric-segment">
+              <span class="metric-seg-kpi">Power BI &amp; DAX</span>
+              <span class="metric-seg-sub">18+ Measures &bull; Star Schema</span>
+            </div>
+            <div class="metric-divider" aria-hidden="true"></div>
+            <div class="metric-segment">
+              <span class="metric-seg-kpi">Chennai, India</span>
+              <span class="metric-seg-sub">Hybrid / On-Site Ready</span>
+            </div>
+          </div>
+
+          <!-- Bottom Grid: 3 Executive Capability Cards -->
+          <div class="hero-capabilities-grid">
+            <div class="capability-card card-cobalt">
+              <div class="capability-accent-line"></div>
+              <div class="capability-card-inner">
+                <div class="capability-icon-badge icon-cobalt">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <h3 class="capability-title">Commercial &amp; Financial Acumen</h3>
+                <p class="capability-desc">Grounded in B.Com accounting principles: translating trial balances, OPEX/CAPEX variance, and gross margins into actionable executive KPIs.</p>
+                <div class="capability-footer-pills">
+                  <span class="cap-mono-pill">Tally Prime</span>
+                  <span class="cap-mono-pill">GST Compliance</span>
+                  <span class="cap-mono-pill">Financial Ratios</span>
+                </div>
               </div>
-              <div class="hero-quickstats-grid">
-                <div class="hero-stat-card">
-                  <span class="hero-stat-kpi">B.Com (CA)</span>
-                  <span class="hero-stat-lbl">Guru Nanak College</span>
-                  <span class="hero-stat-meta">2024–2027 &middot; CGPA 8.6</span>
+            </div>
+
+            <div class="capability-card card-cyan">
+              <div class="capability-accent-line"></div>
+              <div class="capability-card-inner">
+                <div class="capability-icon-badge icon-cyan">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
                 </div>
-                <div class="hero-stat-card">
-                  <span class="hero-stat-kpi">Izeon Intern</span>
-                  <span class="hero-stat-lbl">Data Analytics &amp; BI</span>
-                  <span class="hero-stat-meta">12,000+ records normalized</span>
-                </div>
-                <div class="hero-stat-card">
-                  <span class="hero-stat-kpi">Power BI &amp; SQL</span>
-                  <span class="hero-stat-lbl">Core Technical Stack</span>
-                  <span class="hero-stat-meta">DAX &middot; Power Query &middot; 3NF</span>
-                </div>
-                <div class="hero-stat-card">
-                  <span class="hero-stat-kpi">Chennai, IN</span>
-                  <span class="hero-stat-lbl">Primary Location</span>
-                  <span class="hero-stat-meta">Hybrid / On-Site Ready</span>
+                <h3 class="capability-title">Relational Data Architecture</h3>
+                <p class="capability-desc">Engineering 3NF normalized MySQL databases and Star Schema dimensional models (Fact &amp; Dimensions) to eliminate redundancy and enable scalable DirectQuery.</p>
+                <div class="capability-footer-pills">
+                  <span class="cap-mono-pill">MySQL 3NF</span>
+                  <span class="cap-mono-pill">Star Schema</span>
+                  <span class="cap-mono-pill">ETL Pipelines</span>
                 </div>
               </div>
-              <div class="hero-stats-footer">
-                <button type="button" class="hero-footer-link-btn" onclick="window.goToScreen(1)">
-                  <span>Launch Interactive Simulator &rarr;</span>
-                </button>
+            </div>
+
+            <div class="capability-card card-emerald">
+              <div class="capability-accent-line"></div>
+              <div class="capability-card-inner">
+                <div class="capability-icon-badge icon-emerald">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3 class="capability-title">Executive DAX &amp; Power BI</h3>
+                <p class="capability-desc">Authoring performant CALCULATE, Time-Intelligence, and Iterator measures in Power BI Pro to power interactive dashboards for decision makers.</p>
+                <div class="capability-footer-pills">
+                  <span class="cap-mono-pill">DAX Measures</span>
+                  <span class="cap-mono-pill">Time Intelligence</span>
+                  <span class="cap-mono-pill">Executive Dashboards</span>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -393,20 +461,13 @@
           <!-- 4 Live Scorecards (Tabular Numbers Locked) -->
           <div class="kpi-scorecards-grid">
             <div class="kpi-stat-box">
-              <div class="kpi-stat-label">GROSS MONTHLY SALES</div>
-              <div class="kpi-stat-num mono" id="kpi-gross-rev">₹1,80,000</div>
-              <div class="kpi-stat-delta delta-up">
-                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-                <span id="kpi-gross-delta" class="mono">+12.5% Target Attainment</span>
-              </div>
-            </div>
-
-            <div class="kpi-stat-box">
               <div class="kpi-stat-label">OPERATING MARGIN %</div>
               <div class="kpi-stat-num mono" id="kpi-margin-pct">32.0%</div>
+              <div class="margin-progress-track" aria-hidden="true">
+                <div class="margin-progress-fill" id="kpi-margin-bar" style="width: 64%;"></div>
+              </div>
               <div class="kpi-stat-delta delta-cyan" id="kpi-margin-status">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>
-                <span>Optimal Margin Tier</span>
+                <span>Optimal Margin Tier &middot; 32% Target</span>
               </div>
             </div>
 
@@ -439,71 +500,65 @@
               <div class="chart-svg-box">
                 <svg viewBox="0 0 540 180" class="svg-dashboard-canvas" id="main-cockpit-chart">
                   <defs>
-                    <linearGradient id="gradRev" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#3B82F6"/>
-                      <stop offset="100%" stop-color="#2563EB"/>
+                    <linearGradient id="barRevGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#3B82F6" />
+                      <stop offset="100%" stop-color="#1D4ED8" />
                     </linearGradient>
-                    <linearGradient id="gradProfit" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#10B981"/>
-                      <stop offset="100%" stop-color="#059669"/>
+                    <linearGradient id="barProfitGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#10B981" />
+                      <stop offset="100%" stop-color="#047857" />
                     </linearGradient>
-                    <linearGradient id="gradArea" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/>
-                      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.0"/>
-                    </linearGradient>
-                    <linearGradient id="gradGaugeModern" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stop-color="#2563EB"/>
-                      <stop offset="50%" stop-color="#10B981"/>
-                      <stop offset="100%" stop-color="#059669"/>
+                    <linearGradient id="barHighlight" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="rgba(255,255,255,0.3)" />
+                      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
                     </linearGradient>
                   </defs>
 
-                  <!-- Grid lines -->
-                  <line x1="40" y1="30" x2="520" y2="30" stroke="rgba(15,23,42,0.08)" stroke-dasharray="4"/>
-                  <line x1="40" y1="80" x2="520" y2="80" stroke="rgba(15,23,42,0.08)" stroke-dasharray="4"/>
-                  <line x1="40" y1="130" x2="520" y2="130" stroke="rgba(15,23,42,0.08)" stroke-dasharray="4"/>
-                  
-                  <!-- Group for Bars -->
-                  <g id="chart-bars-group">
-                    <rect x="60" y="65" width="26" height="80" rx="4" fill="url(#gradRev)"/>
-                    <rect x="90" y="105" width="26" height="40" rx="4" fill="url(#gradProfit)"/>
-                    <rect x="140" y="50" width="26" height="95" rx="4" fill="url(#gradRev)"/>
-                    <rect x="170" y="95" width="26" height="50" rx="4" fill="url(#gradProfit)"/>
-                    <rect x="220" y="40" width="26" height="105" rx="4" fill="url(#gradRev)"/>
-                    <rect x="250" y="90" width="26" height="55" rx="4" fill="url(#gradProfit)"/>
-                    <rect x="300" y="42" width="26" height="103" rx="4" fill="url(#gradRev)"/>
-                    <rect x="330" y="92" width="26" height="53" rx="4" fill="url(#gradProfit)"/>
-                    <rect x="380" y="30" width="26" height="115" rx="4" fill="url(#gradRev)"/>
-                    <rect x="410" y="80" width="26" height="65" rx="4" fill="url(#gradProfit)"/>
-                    <rect x="460" y="25" width="26" height="120" rx="4" fill="url(#gradRev)" id="chart-bar-rev-active"/>
-                    <rect x="490" y="70" width="26" height="75" rx="4" fill="url(#gradProfit)" id="chart-bar-profit-active"/>
-                  </g>
+                  <!-- Dashed Horizontal Reference Gridlines -->
+                  <line x1="40" y1="25" x2="520" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <text x="35" y="28" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">200k</text>
+                  <line x1="40" y1="65" x2="520" y2="65" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <text x="35" y="68" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">150k</text>
+                  <line x1="40" y1="105" x2="520" y2="105" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4,4" />
+                  <text x="35" y="108" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">100k</text>
+                  <line x1="40" y1="145" x2="520" y2="145" stroke="rgba(255,255,255,0.08)" />
+                  <text x="35" y="148" fill="var(--text-muted)" font-size="9" text-anchor="end" font-family="monospace">0</text>
 
-                  <!-- Group for Growth Area View -->
-                  <g id="chart-area-group" style="display:none;">
-                    <polygon id="chart-area-polygon" points="60,145 60,75 145,55 230,45 315,48 400,32 485,25 485,145" fill="url(#gradArea)"/>
-                    <polyline id="chart-area-line" points="60,75 145,55 230,45 315,48 400,32 485,25" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                    <circle id="chart-area-point" cx="485" cy="25" r="5" fill="#2563EB" stroke="#FFFFFF" stroke-width="2"/>
-                  </g>
+                  <!-- Month 1: Jan -->
+                  <rect x="58" y="70" width="22" height="75" rx="3" fill="url(#barRevGrad)" />
+                  <rect x="58" y="70" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+                  <rect x="84" y="105" width="22" height="40" rx="3" fill="url(#barProfitGrad)" />
+                  <rect x="84" y="105" width="22" height="2" rx="1" fill="url(#barHighlight)" />
 
-                  <!-- Group for Target Gauge View -->
-                  <g id="chart-gauge-group" style="display:none;">
-                    <rect x="25" y="48" width="135" height="74" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
-                    <text x="38" y="70" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#64748B">BENCHMARK GOAL</text>
-                    <text x="38" y="93" font-family="'JetBrains Mono', monospace" font-size="16.5" font-weight="800" fill="#0F172A">₹1,60,000</text>
-                    <text x="38" y="110" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#94A3B8">Monthly Target Base</text>
+                  <!-- Month 2: Feb -->
+                  <rect x="138" y="62" width="22" height="83" rx="3" fill="url(#barRevGrad)" />
+                  <rect x="138" y="62" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+                  <rect x="164" y="100" width="22" height="45" rx="3" fill="url(#barProfitGrad)" />
+                  <rect x="164" y="100" width="22" height="2" rx="1" fill="url(#barHighlight)" />
 
-                    <path d="M 195 125 A 75 75 0 0 1 345 125" fill="none" stroke="rgba(15,23,42,0.08)" stroke-width="14" stroke-linecap="round"/>
-                    <path id="gauge-circle-fill" d="M 195 125 A 75 75 0 0 1 345 125" fill="none" stroke="url(#gradGaugeModern)" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="30"/>
+                  <!-- Month 3: Mar -->
+                  <rect x="218" y="55" width="22" height="90" rx="3" fill="url(#barRevGrad)" />
+                  <rect x="218" y="55" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+                  <rect x="244" y="94" width="22" height="51" rx="3" fill="url(#barProfitGrad)" />
+                  <rect x="244" y="94" width="22" height="2" rx="1" fill="url(#barHighlight)" />
 
-                    <text x="270" y="98" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="900" fill="#0F172A" id="gauge-pct-text">113%</text>
-                    <text x="270" y="115" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#64748B">TARGET ATTAINMENT</text>
+                  <!-- Month 4: Apr -->
+                  <rect x="298" y="48" width="22" height="97" rx="3" fill="url(#barRevGrad)" />
+                  <rect x="298" y="48" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+                  <rect x="324" y="87" width="22" height="58" rx="3" fill="url(#barProfitGrad)" />
+                  <rect x="324" y="87" width="22" height="2" rx="1" fill="url(#barHighlight)" />
 
-                    <rect x="380" y="48" width="135" height="74" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
-                    <text x="393" y="70" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#64748B">PROJECTED PACE</text>
-                    <text x="393" y="93" font-family="'JetBrains Mono', monospace" font-size="16.5" font-weight="800" fill="#0F172A" id="gauge-projected-val">₹1,80,000</text>
-                    <text x="393" y="110" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#059669" id="gauge-surplus-val">+₹20,000 Surplus</text>
-                  </g>
+                  <!-- Month 5: May (Internship Baseline) -->
+                  <rect x="378" y="42" width="22" height="103" rx="3" fill="url(#barRevGrad)" />
+                  <rect x="378" y="42" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+                  <rect x="404" y="80" width="22" height="65" rx="3" fill="url(#barProfitGrad)" />
+                  <rect x="404" y="80" width="22" height="2" rx="1" fill="url(#barHighlight)" />
+
+                  <!-- Month 6: Jun (Dynamic Simulated Target) -->
+                  <rect id="svg-bar-rev" x="458" y="32" width="22" height="113" rx="3" fill="#60A5FA" />
+                  <rect x="458" y="32" width="22" height="2" rx="1" fill="#FFFFFF" />
+                  <rect id="svg-bar-profit" x="484" y="70" width="22" height="75" rx="3" fill="#34D399" />
+                  <rect x="484" y="70" width="22" height="2" rx="1" fill="#FFFFFF" />
                 </svg>
               </div>
 
