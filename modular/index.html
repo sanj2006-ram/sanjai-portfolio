@@ -265,185 +265,213 @@
 
         <div class="site-container hero-layout-container">
           
-          <!-- Top Row: Hero Text Cluster + Slate Portrait Card -->
-          <div class="hero-main-grid">
-            <div class="hero-content-cluster">
+          <!-- 2-Column Asymmetric Executive Hero Section -->
+          <div class="overview-hero-grid">
+            
+            <!-- Left Column: Executive Value Proposition -->
+            <div class="overview-hero-left">
               
-              <!-- Single Status Pill (Desktop Only) -->
-              <div class="hero-status-pill desktop-only">
-                <span class="status-indicator-live"></span>
-                <span>Open to Data Analyst &amp; BI Roles &middot; Chennai, IN</span>
+              <!-- Status Badge -->
+              <div class="status-badge-executive">
+                <span class="status-dot-pulse"></span>
+                <span class="status-badge-text">AVAILABLE FOR DATA ANALYST &amp; BI ROLES</span>
               </div>
 
-              <!-- Mobile Compact Horizontal Flex Header (<= 640px) -->
-              <div class="hero-mobile-header-card mobile-only">
-                <div class="mobile-avatar-box" onclick="window.openAvatarModal()" title="Tap to view portrait">
-                  <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Specialist" class="mobile-avatar-img" width="68" height="68">
-                  <span class="mobile-status-dot" aria-hidden="true"></span>
-                </div>
-                <div class="mobile-hero-meta-cluster">
-                  <span class="mobile-hero-name">Sanjai Ram M</span>
-                  <span class="mobile-hero-role">Data Analyst &middot; BI Specialist</span>
-                  <div class="hero-status-pill mobile-pill">
-                    <span class="status-indicator-live"></span>
-                    <span>Open to Roles &middot; Chennai, IN</span>
-                  </div>
-                </div>
+              <!-- Main Headline & Subheadline -->
+              <div class="overview-heading-block">
+                <h1 class="overview-hero-name">Sanjai Ram M</h1>
+                <p class="overview-hero-subline">
+                  B.Com (Computer Applications) &middot; <span class="accent-highlight">Data Analyst &amp; Business Intelligence Specialist</span>
+                </p>
               </div>
 
-              <!-- Desktop Heading Row (> 640px) -->
-              <div class="hero-heading-lockup desktop-only">
-                <h1 class="hero-display-h1">
-                  Sanjai Ram M
-                  <span class="hero-headline-sub">Bridging commercial data <span class="hero-accent-text">and executive reporting.</span></span>
-                </h1>
-              </div>
-
-              <p class="hero-summary-copy">
-                B.Com (Computer Applications) student at Guru Nanak College, Chennai, building Power BI data models, DAX measures, and MySQL reporting pipelines. Hands-on experience normalizing 12,000+ transaction records into 3NF relational schemas during my Data Analytics &amp; BI internship at Izeon Innovative Pvt Ltd.
+              <!-- Concise 2-Sentence Value Proposition -->
+              <p class="overview-hero-prop">
+                Transforming raw transactional datasets into normalized 3NF relational schemas, scalable star-schema dimensional models, and executive Power BI cockpits. Grounded in commercial accounting rigor and hands-on experience authoring performant DAX measures and automated Power Query ETL pipelines.
               </p>
 
-              <!-- Action Button Cluster -->
-              <div class="hero-action-cluster">
-                <div class="hero-cta-row-1">
-                  <button type="button" class="btn btn-primary hero-btn-recruiter" onclick="window.openRecruiterSummaryModal()">
-                    <span>⚡ 15s Recruiter Summary</span>
-                  </button>
-                  <button type="button" class="btn btn-secondary hero-btn-cockpit" onclick="window.goToScreen(1)">
-                    <span>Explore BI Cockpit &rarr;</span>
-                  </button>
+              <!-- Primary CTAs -->
+              <div class="overview-hero-ctas">
+                <button type="button" class="btn btn-primary overview-cta-btn" onclick="window.goToScreen(1)">
+                  <span>Explore BI Cockpit</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button type="button" class="btn btn-secondary overview-cta-btn" onclick="window.goToScreen(2)">
+                  <span>View Projects</span>
+                </button>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Role%20Inquiry%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-outline overview-cta-btn" title="Compose direct email in Gmail">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>Email via Gmail</span>
+                </a>
+              </div>
+
+              <!-- Quick Meta Pills -->
+              <div class="overview-quick-pills">
+                <span class="meta-pill"><span class="meta-pill-dot"></span>Chennai, India</span>
+                <span class="meta-pill"><span class="meta-pill-dot"></span>Guru Nanak College (CGPA 8.6)</span>
+                <span class="meta-pill"><span class="meta-pill-dot"></span>Izeon Innovative Intern</span>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Clean, Compact Executive Profile Card -->
+            <div class="overview-hero-right">
+              <div class="executive-profile-card">
+                
+                <div class="exec-card-header">
+                  <div class="exec-photo-wrap" onclick="window.openAvatarModal()" title="Click to view portrait">
+                    <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Specialist" class="exec-photo-img" width="88" height="104">
+                    <div class="exec-photo-badge" aria-hidden="true">&nearr;</div>
+                  </div>
+                  <div class="exec-header-meta">
+                    <div class="exec-name-row">
+                      <span class="exec-name">Sanjai Ram M</span>
+                      <span class="exec-role-pill">Verified BI Analyst</span>
+                    </div>
+                    <span class="exec-sub">B.Com (CA) &middot; Chennai, Tamil Nadu, India</span>
+                    <div class="exec-status-row">
+                      <span class="exec-status-indicator"></span>
+                      <span>Immediate Availability (On-site / Hybrid)</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="hero-cta-row-2">
-                  <button type="button" class="btn btn-outline hero-cta-btn-sub" onclick="window.goToScreen(5)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                    <span>View ATS Resume</span>
-                  </button>
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanjairam1179@gmail.com&su=Data%20Analytics%20%26%20BI%20Opportunity%20%E2%80%94%20Sanjai%20Ram%20M" target="_blank" rel="noopener noreferrer" class="btn btn-outline hero-cta-btn-sub" title="Compose direct email in Gmail">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    <span>Email via Gmail</span>
+
+                <div class="exec-card-divider" aria-hidden="true"></div>
+
+                <div class="exec-specs-list">
+                  <div class="exec-spec-row">
+                    <span class="exec-spec-label">CORE TOOLSET</span>
+                    <span class="exec-spec-val">Power BI Pro &middot; DAX &middot; MySQL 8.0 &middot; Power Query &middot; Excel</span>
+                  </div>
+                  <div class="exec-spec-row">
+                    <span class="exec-spec-label">INTERNSHIP IMPACT</span>
+                    <span class="exec-spec-val">12,000+ Normalized Records &middot; 40% Turnaround Cut</span>
+                  </div>
+                  <div class="exec-spec-row">
+                    <span class="exec-spec-label">ACADEMIC FOUNDATION</span>
+                    <span class="exec-spec-val">Guru Nanak College (Autonomous) &middot; CGPA 8.6 / 10</span>
+                  </div>
+                </div>
+
+                <div class="exec-card-divider" aria-hidden="true"></div>
+
+                <div class="exec-card-links">
+                  <a href="https://github.com/sanj2006-ram" target="_blank" rel="noopener noreferrer" class="exec-link-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    <span>github.com/sanj2006-ram</span>
+                  </a>
+                  <a href="https://linkedin.com/in/sanjai-ram" target="_blank" rel="noopener noreferrer" class="exec-link-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    <span>linkedin.com/in/sanjai-ram</span>
                   </a>
                 </div>
-              </div>
 
-              <!-- Core Focus Areas Pills -->
-              <div class="hero-competencies-wrap">
-                <span class="hero-comp-label">CORE FOCUS AREAS:</span>
-                <div class="hero-comp-pills">
-                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power BI &amp; DAX</button>
-                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">MySQL &amp; 3NF</button>
-                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Power Query ETL</button>
-                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Advanced Excel</button>
-                  <button type="button" class="comp-pill" onclick="window.goToScreen(3)">Tally Prime</button>
-                </div>
               </div>
-
             </div>
 
-            <!-- Hero Right: Slate Studio Mat Portrait Card (Desktop Only, max-width: 260px) -->
-            <div class="hero-portrait-column desktop-only">
-              <div class="portrait-studio-mat" id="hero-portrait-card">
-                <div class="portrait-photo-box" onclick="window.openAvatarModal()" title="Click to view portrait">
-                  <img src="assets/portrait.jpg" alt="Sanjai Ram M - Data Analyst &amp; BI Developer" class="portrait-photo-img" width="240" height="290">
-                  <div class="portrait-vignette-overlay" aria-hidden="true"></div>
-                  <span class="portrait-expand-hint" aria-hidden="true">Expand &nearr;</span>
-                </div>
-                <div class="portrait-caption-bar">
-                  <div class="portrait-caption-meta">
-                    <span class="portrait-name">Sanjai Ram M</span>
-                    <span class="portrait-skills-tag">Power BI &bull; DAX &bull; MySQL</span>
-                  </div>
-                  <div class="portrait-mini-badge" title="Sanjai Analytics Identity">
-                    <svg viewBox="0 0 178 126" width="22" height="15" fill="none" class="brand-svg-mark" aria-hidden="true">
-                      <!-- Orange A: Apex & Right Leg -->
-                      <path class="brand-orange-shape" d="M 115 10.5 L 176 122.5 L 154.5 122.5 L 115 50.5 L 94 45 Z" fill="var(--brand-orange, #DE4B00)" />
-                      <!-- Orange A: Lower Left Leg -->
-                      <path class="brand-orange-shape" d="M 78.5 73.5 L 98 73.5 L 71 122.5 L 50 122.5 Z" fill="var(--brand-orange, #DE4B00)" />
+          </div>
 
-                      <!-- Navy S: Main Spine & Right Loop -->
-                      <path class="brand-navy-shape" d="M 107.5 1.5 L 35 1.5 C 15 1.5, 1.5 15, 1.5 34.5 C 1.5 54, 15 72.5, 35 72.5 L 92 72.5 C 101 72.5, 106.5 77.5, 106.5 85 C 106.5 92.5, 101.5 98, 89.5 103 L 78 122.5 L 98 122.5 C 114 122.5, 127 107.5, 127 86 C 127 66.5, 117.5 51.5, 103 51.5 L 35 51.5 C 26 51.5, 21.5 44, 21.5 34.5 C 21.5 25, 26 22.5, 35 22.5 L 97.5 22.5 Z" fill="var(--brand-navy, #0A1622)" />
-                      <!-- Navy S: Bottom-Left Foot -->
-                      <path class="brand-navy-shape" d="M 17 102.5 L 54.5 102.5 L 43.5 122.5 L 3.5 122.5 Z" fill="var(--brand-navy, #0A1622)" />
-                    </svg>
+          <!-- Quick-Access Bento Preview Grid below Hero (3 Equal-Height Summary Cards) -->
+          <div class="overview-bento-section">
+            <div class="overview-bento-header">
+              <span class="bento-section-eyebrow">PORTFOLIO HIGHLIGHTS &amp; ARCHITECTURE</span>
+              <h2 class="bento-section-title">Production Intelligence at a Glance</h2>
+            </div>
+
+            <div class="overview-bento-grid">
+              
+              <!-- Bento Card 1: Featured BI Dashboard -->
+              <div class="bento-summary-card">
+                <div class="bento-card-top">
+                  <div class="bento-card-tag">01 &middot; INTERACTIVE COCKPIT</div>
+                  <div class="bento-card-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                   </div>
                 </div>
+                <h3 class="bento-card-title">Featured BI Dashboard</h3>
+                <p class="bento-card-desc">
+                  Interactive sales, margin, and retention simulator demonstrating live CALCULATE measures, dynamic parameter binding, and Star Schema vs. Raw Data relational comparison.
+                </p>
+                <div class="bento-card-meta">
+                  <span class="bento-stat-pill">18+ DAX Measures</span>
+                  <span class="bento-stat-pill">Live Simulation Engine</span>
+                </div>
+                <div class="bento-card-action">
+                  <button type="button" class="btn btn-outline btn-sm bento-nav-btn" onclick="window.goToScreen(1)">
+                    <span>Explore BI Cockpit</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
               </div>
-            </div>
 
+              <!-- Bento Card 2: Core Technical Stack -->
+              <div class="bento-summary-card">
+                <div class="bento-card-top">
+                  <div class="bento-card-tag">02 &middot; TECHNICAL COMPETENCIES</div>
+                  <div class="bento-card-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                  </div>
+                </div>
+                <h3 class="bento-card-title">Core Technical Stack</h3>
+                <p class="bento-card-desc">
+                  Rigorous data architecture across Power BI Pro, Star Schema dimensional design, MySQL 3NF normalization, CTEs, window functions, and automated Power Query M-code ETL.
+                </p>
+                <div class="bento-card-meta">
+                  <span class="bento-stat-pill">MySQL 3NF &middot; CTEs</span>
+                  <span class="bento-stat-pill">Power Query M-Code</span>
+                </div>
+                <div class="bento-card-action">
+                  <button type="button" class="btn btn-outline btn-sm bento-nav-btn" onclick="window.goToScreen(3)">
+                    <span>View Technical Skills</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Bento Card 3: Verified Internship Experience -->
+              <div class="bento-summary-card">
+                <div class="bento-card-top">
+                  <div class="bento-card-tag">03 &middot; VERIFIED EXPERIENCE</div>
+                  <div class="bento-card-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  </div>
+                </div>
+                <h3 class="bento-card-title">Verified Internship Experience</h3>
+                <p class="bento-card-desc">
+                  Data Analytics &amp; BI Intern at Izeon Innovative Pvt Ltd. Ingested and structured 12,000+ sales records into 3NF MySQL, cutting recurring weekly reporting turnaround by 40%.
+                </p>
+                <div class="bento-card-meta">
+                  <span class="bento-stat-pill">Izeon Innovative</span>
+                  <span class="bento-stat-pill">40% Turnaround Cut</span>
+                </div>
+                <div class="bento-card-action">
+                  <button type="button" class="btn btn-outline btn-sm bento-nav-btn" onclick="window.goToScreen(4)">
+                    <span>View Experience</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <!-- Middle Strip: Unified Segmented 4 Quick-Stats Metric Bar -->
-          <div class="hero-metric-bar">
-            <div class="metric-segment">
-              <span class="metric-seg-kpi">B.Com (CA)</span>
-              <span class="metric-seg-sub">Guru Nanak &bull; CGPA 8.6</span>
-            </div>
-            <div class="metric-divider" aria-hidden="true"></div>
-            <div class="metric-segment">
-              <span class="metric-seg-kpi">Izeon Innov.</span>
-              <span class="metric-seg-sub">12,000+ Records 3NF</span>
-            </div>
-            <div class="metric-divider" aria-hidden="true"></div>
-            <div class="metric-segment">
-              <span class="metric-seg-kpi">Power BI &amp; DAX</span>
-              <span class="metric-seg-sub">18+ Measures &bull; Star Schema</span>
-            </div>
-            <div class="metric-divider" aria-hidden="true"></div>
-            <div class="metric-segment">
-              <span class="metric-seg-kpi">Chennai, India</span>
-              <span class="metric-seg-sub">Hybrid / On-Site Ready</span>
-            </div>
-          </div>
-
-          <!-- Bottom Grid: 3 Executive Capability Cards -->
-          <div class="hero-capabilities-grid">
-            <div class="capability-card card-cobalt">
-              <div class="capability-accent-line"></div>
-              <div class="capability-card-inner">
-                <div class="capability-icon-badge icon-cobalt">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <h3 class="capability-title">Commercial &amp; Financial Acumen</h3>
-                <p class="capability-desc">Grounded in B.Com accounting principles: translating trial balances, OPEX/CAPEX variance, and gross margins into actionable executive KPIs.</p>
-                <div class="capability-footer-pills">
-                  <span class="cap-mono-pill">Tally Prime</span>
-                  <span class="cap-mono-pill">GST Compliance</span>
-                  <span class="cap-mono-pill">Financial Ratios</span>
-                </div>
+          <!-- Screen Minimal Footer -->
+          <footer class="deck-screen-footer" role="contentinfo">
+            <div class="footer-inner-lockup">
+              <div class="footer-brand-row">
+                <span class="footer-brand-title">SANJAI ANALYTICS</span>
+                <span class="footer-divider-dot">&bull;</span>
+                <span class="footer-role-text">Data Analyst &amp; BI Specialist</span>
+                <span class="footer-divider-dot">&bull;</span>
+                <span class="footer-loc-text">Chennai, India</span>
+              </div>
+              <div class="footer-bottom-lockup">
+                <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+                <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+                <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
               </div>
             </div>
-
-            <div class="capability-card card-cyan">
-              <div class="capability-accent-line"></div>
-              <div class="capability-card-inner">
-                <div class="capability-icon-badge icon-cyan">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                </div>
-                <h3 class="capability-title">Relational Data Architecture</h3>
-                <p class="capability-desc">Engineering 3NF normalized MySQL databases and Star Schema dimensional models (Fact &amp; Dimensions) to eliminate redundancy and enable scalable DirectQuery.</p>
-                <div class="capability-footer-pills">
-                  <span class="cap-mono-pill">MySQL 3NF</span>
-                  <span class="cap-mono-pill">Star Schema</span>
-                  <span class="cap-mono-pill">ETL Pipelines</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="capability-card card-emerald">
-              <div class="capability-accent-line"></div>
-              <div class="capability-card-inner">
-                <div class="capability-icon-badge icon-emerald">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <h3 class="capability-title">Executive DAX &amp; Power BI</h3>
-                <p class="capability-desc">Authoring performant CALCULATE, Time-Intelligence, and Iterator measures in Power BI Pro to power interactive dashboards for decision makers.</p>
-                <div class="capability-footer-pills">
-                  <span class="cap-mono-pill">DAX Measures</span>
-                  <span class="cap-mono-pill">Time Intelligence</span>
-                  <span class="cap-mono-pill">Executive Dashboards</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </footer>
 
         </div>
       </section>
@@ -904,6 +932,24 @@ GROUP BY p.category_name;
 
         </div>
 
+        <!-- Screen Minimal Footer -->
+        <footer class="deck-screen-footer" role="contentinfo">
+          <div class="footer-inner-lockup">
+            <div class="footer-brand-row">
+              <span class="footer-brand-title">SANJAI ANALYTICS</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-role-text">Data Analyst &amp; BI Specialist</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-loc-text">Chennai, India</span>
+            </div>
+            <div class="footer-bottom-lockup">
+              <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
+            </div>
+          </div>
+        </footer>
+
       </div>
     
       </section>
@@ -1058,6 +1104,24 @@ GROUP BY p.category_name;
 
         </div>
 
+        <!-- Screen Minimal Footer -->
+        <footer class="deck-screen-footer" role="contentinfo">
+          <div class="footer-inner-lockup">
+            <div class="footer-brand-row">
+              <span class="footer-brand-title">SANJAI ANALYTICS</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-role-text">Data Analyst &amp; BI Specialist</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-loc-text">Chennai, India</span>
+            </div>
+            <div class="footer-bottom-lockup">
+              <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
+            </div>
+          </div>
+        </footer>
+
       </div>
     
       </section>
@@ -1078,156 +1142,214 @@ GROUP BY p.category_name;
           </p>
         </div>
 
-        <!-- Recruiter Skill Filter Bar -->
-        <div class="recruiter-filter-bar" role="tablist">
-          <button type="button" class="filter-pill-btn active" onclick="filterSkills('all', this)" role="tab" aria-selected="true">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            <span>All Capabilities</span>
-          </button>
-          <button type="button" class="filter-pill-btn" onclick="filterSkills('bi', this)" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
-            <span>Power BI &amp; DAX</span>
-          </button>
-          <button type="button" class="filter-pill-btn" onclick="filterSkills('sql', this)" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/></svg>
-            <span>MySQL &amp; ETL</span>
-          </button>
-          <button type="button" class="filter-pill-btn" onclick="filterSkills('finance', this)" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>Finance &amp; Tally</span>
-          </button>
-        </div>
+          <!-- 3 Dedicated Structured Category Blocks -->
+          <div class="skills-categorized-matrix">
+            
+            <!-- Category 1: BI & Visualization -->
+            <div class="skills-category-block">
+              <div class="category-block-header">
+                <div class="category-header-icon icon-bi">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div>
+                  <span class="category-header-tag">CATEGORY 01</span>
+                  <h3 class="category-header-title">BI &amp; Visualization</h3>
+                  <p class="category-header-desc">End-to-end dashboard engineering, executive scorecards, star-schema dimensional modeling, and performant DAX formulas.</p>
+                </div>
+              </div>
+              
+              <div class="category-skills-grid">
+                
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Power BI Desktop &amp; Service</span>
+                    <span class="skill-level-pill">Advanced</span>
+                  </div>
+                  <p class="skill-app-note">Authoring enterprise reporting suites, drill-through matrices, scheduled automated data refreshes, and row-level security (RLS).</p>
+                  <div class="skill-tag-pills">
+                    <span>Power BI Desktop</span><span>Power BI Service</span><span>Row-Level Security</span><span>KPI Scorecards</span>
+                  </div>
+                </div>
 
-        <!-- 6 Clean Static Bento Cards (Strict Equal Heights, 24px Gap, NO 3D FLIP) -->
-        <div class="skills-bento-grid">
-          
-          <!-- Skill 1 -->
-          <div class="skill-bento-card" data-category="bi">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Advanced Proficiency</span>
-                <span class="bento-id mono">01</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
-                <span>Power BI &amp; Data Modeling</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Designed production dashboards at Izeon Innovative tracking sales, operating expenses, and departmental milestones with dynamic drill-downs.</p>
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Star Schema Modeling</span>
+                    <span class="skill-level-pill">Specialized</span>
+                  </div>
+                  <p class="skill-app-note">Designing clean Fact and Dimension relational schemas with 1-to-many cardinality, avoiding bidirectional filter ambiguity and optimizing DirectQuery performance.</p>
+                  <div class="skill-tag-pills">
+                    <span>Fact &amp; Dimensions</span><span>1:Many Relationships</span><span>Data Modeling</span><span>Cardinality</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Advanced DAX Calculations</span>
+                    <span class="skill-level-pill">Specialized</span>
+                  </div>
+                  <p class="skill-app-note">Engineering 18+ custom calculated measures using CALCULATE, Time Intelligence (DATESYTD, SAMEPERIODLASTYEAR), and iterators (SUMX, AVERAGEX) with ISBLANK safeguards.</p>
+                  <div class="skill-tag-pills">
+                    <span>CALCULATE</span><span>Time Intelligence</span><span>Iterator Functions</span><span>Variance %</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Power Query (M-Code) ETL</span>
+                    <span class="skill-level-pill">Advanced</span>
+                  </div>
+                  <p class="skill-app-note">Automating multi-source CSV and Excel ingestion pipelines, schema type normalization, date parsing, column profiling, and duplicate removal.</p>
+                  <div class="skill-tag-pills">
+                    <span>M-Code Transforms</span><span>Schema Normalization</span><span>ETL Automation</span><span>Data Cleansing</span>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="bento-toolset-tags">
-              <span>Power BI Desktop</span><span>Power BI Service</span><span>Star Schema</span><span>Row-Level Security</span>
+
+            <!-- Category 2: Databases & SQL -->
+            <div class="skills-category-block">
+              <div class="category-block-header">
+                <div class="category-header-icon icon-sql">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </div>
+                <div>
+                  <span class="category-header-tag">CATEGORY 02</span>
+                  <h3 class="category-header-title">Databases &amp; SQL</h3>
+                  <p class="category-header-desc">Relational database architecture, rigorous normalization, index tuning, and analytical query authoring for sub-second retrieval.</p>
+                </div>
+              </div>
+              
+              <div class="category-skills-grid">
+                
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">MySQL 8.0 &amp; Relational Architecture</span>
+                    <span class="skill-level-pill">Proficient</span>
+                  </div>
+                  <p class="skill-app-note">Architecting robust relational database structures, enforcing primary and foreign key constraints, ACID compliance, and data integrity rules.</p>
+                  <div class="skill-tag-pills">
+                    <span>MySQL 8.0</span><span>Foreign Key Constraints</span><span>ACID Compliance</span><span>Schema Design</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">3NF Relational Normalization</span>
+                    <span class="skill-level-pill">Specialized</span>
+                  </div>
+                  <p class="skill-app-note">Decomposing 12,000+ unnormalized transactional rows into 1NF, 2NF, and 3NF structures to eliminate insertion, update, and deletion anomalies.</p>
+                  <div class="skill-tag-pills">
+                    <span>3NF Normalization</span><span>Functional Dependencies</span><span>Zero Redundancy</span><span>Anomaly Prevention</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Complex SQL JOINs &amp; Grouping</span>
+                    <span class="skill-level-pill">Advanced</span>
+                  </div>
+                  <p class="skill-app-note">Formulating complex multi-table JOINs (INNER, LEFT, RIGHT), GROUP BY aggregations, and subqueries to synthesize multidimensional datasets.</p>
+                  <div class="skill-tag-pills">
+                    <span>Multi-Table JOINs</span><span>Aggregations</span><span>HAVING Filters</span><span>Subqueries</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">CTEs &amp; Window Functions</span>
+                    <span class="skill-level-pill">Proficient</span>
+                  </div>
+                  <p class="skill-app-note">Authoring Common Table Expressions (WITH clauses) and analytical window functions (ROW_NUMBER, DENSE_RANK, LEAD, LAG) for cohort and running-total analysis.</p>
+                  <div class="skill-tag-pills">
+                    <span>Common Table Expressions</span><span>ROW_NUMBER</span><span>DENSE_RANK</span><span>Running Totals</span>
+                  </div>
+                </div>
+
+              </div>
             </div>
+
+            <!-- Category 3: Analytics & Reporting -->
+            <div class="skills-category-block">
+              <div class="category-block-header">
+                <div class="category-header-icon icon-analytics">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div>
+                  <span class="category-header-tag">CATEGORY 03</span>
+                  <h3 class="category-header-title">Analytics &amp; Reporting</h3>
+                  <p class="category-header-desc">Commercial financial modeling, spreadsheet automation, trial balance reconciliation, and KPI variance scorecards.</p>
+                </div>
+              </div>
+              
+              <div class="category-skills-grid">
+                
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Advanced Microsoft Excel</span>
+                    <span class="skill-level-pill">Advanced</span>
+                  </div>
+                  <p class="skill-app-note">Building automated financial workbooks, dynamic array modeling (XLOOKUP, FILTER, INDEX/MATCH), Pivot Tables, and Power Pivot data models.</p>
+                  <div class="skill-tag-pills">
+                    <span>XLOOKUP &amp; INDEX/MATCH</span><span>Dynamic Arrays</span><span>Pivot Tables</span><span>Power Pivot</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Financial &amp; KPI Scorecards</span>
+                    <span class="skill-level-pill">Proficient</span>
+                  </div>
+                  <p class="skill-app-note">Translating commercial trial balances into executive scorecards tracking gross margins, operating expenses, and monthly budget variances.</p>
+                  <div class="skill-tag-pills">
+                    <span>OPEX Variance</span><span>Budget vs. Actual</span><span>Margin Tracking</span><span>P&amp;L Indicators</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">ETL Pipeline Automation</span>
+                    <span class="skill-level-pill">Proficient</span>
+                  </div>
+                  <p class="skill-app-note">Eliminating repetitive manual spreadsheet workflows by standardizing recurring weekly ETL extraction and transformation schedules, cutting turnaround by 40%.</p>
+                  <div class="skill-tag-pills">
+                    <span>Workflow Automation</span><span>Turnaround Reduction</span><span>Data Pipelines</span><span>Validation Rules</span>
+                  </div>
+                </div>
+
+                <div class="category-skill-card">
+                  <div class="skill-card-top">
+                    <span class="skill-title">Commercial Accounting &amp; Tally Prime</span>
+                    <span class="skill-level-pill">Proficient</span>
+                  </div>
+                  <p class="skill-app-note">Leveraging academic B.Com foundation for general ledger auditing, GST compliance verification, trial balance reconciliation, and commercial costing.</p>
+                  <div class="skill-tag-pills">
+                    <span>Tally Prime</span><span>B.Com Accounting</span><span>General Ledger</span><span>GST Compliance</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
-          <!-- Skill 2 -->
-          <div class="skill-bento-card" data-category="bi">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Specialized</span>
-                <span class="bento-id mono">02</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                <span>DAX &amp; Power Query (M-Code)</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Authored 25+ DAX measures for YoY growth, rolling averages, and automated multi-source CSV ETL transformations with zero manual handling.</p>
-              </div>
+        <!-- Screen Minimal Footer -->
+        <footer class="deck-screen-footer" role="contentinfo">
+          <div class="footer-inner-lockup">
+            <div class="footer-brand-row">
+              <span class="footer-brand-title">SANJAI ANALYTICS</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-role-text">Data Analyst &amp; BI Specialist</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-loc-text">Chennai, India</span>
             </div>
-            <div class="bento-toolset-tags">
-              <span>CALCULATE</span><span>Time Intelligence</span><span>M-Code Transforms</span><span>Incremental Refresh</span>
+            <div class="footer-bottom-lockup">
+              <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
             </div>
           </div>
-
-          <!-- Skill 3 -->
-          <div class="skill-bento-card" data-category="sql">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Proficient</span>
-                <span class="bento-id mono">03</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                <span>MySQL &amp; Relational Architecture</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Architected normalized 3NF relational schemas for 12,000+ transactional records, writing optimized queries with indexing and key constraints.</p>
-              </div>
-            </div>
-            <div class="bento-toolset-tags">
-              <span>MySQL 8.0</span><span>3NF Normalization</span><span>CTEs &amp; Joins</span><span>Foreign Keys</span>
-            </div>
-          </div>
-
-          <!-- Skill 4 -->
-          <div class="skill-bento-card" data-category="finance">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Proficient</span>
-                <span class="bento-id mono">04</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <span>Financial Accounting &amp; Tally Prime</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Leveraged academic foundation to reconcile general ledgers, trial balances, and OPEX variances, bridging transactional data with executive P&amp;L statements.</p>
-              </div>
-            </div>
-            <div class="bento-toolset-tags">
-              <span>Tally Prime</span><span>B.Com Accounting</span><span>Trial Balance</span><span>Variance Analysis</span>
-            </div>
-          </div>
-
-          <!-- Skill 5 -->
-          <div class="skill-bento-card" data-category="sql">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Advanced Proficiency</span>
-                <span class="bento-id mono">05</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                <span>Advanced Excel &amp; Statistical Modeling</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Built automated spreadsheet models, sensitivity analyses, and financial reconciliation matrices for rapid commercial auditing.</p>
-              </div>
-            </div>
-            <div class="bento-toolset-tags">
-              <span>XLOOKUP &amp; INDEX/MATCH</span><span>Power Pivot</span><span>Pivot Tables</span><span>Data Validation</span>
-            </div>
-          </div>
-
-          <!-- Skill 6 -->
-          <div class="skill-bento-card" data-category="bi">
-            <div>
-              <div class="bento-top-row">
-                <span class="bento-badge">Specialized</span>
-                <span class="bento-id mono">06</span>
-              </div>
-              <h3 class="bento-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                <span>Data Visualization UX &amp; Storytelling</span>
-              </h3>
-              <div class="bento-app-block">
-                <span class="bento-app-label">PRODUCTION APPLICATION</span>
-                <p class="bento-app-text">Implemented high-contrast editorial typography, cognitive-load reduction, and strict color semantics to turn complex multidimensional datasets into actionable briefings.</p>
-              </div>
-            </div>
-            <div class="bento-toolset-tags">
-              <span>IBCS Standards</span><span>Color Accessibility</span><span>Drill-through</span><span>KPI Hierarchy</span>
-            </div>
-          </div>
-
-        </div>
+        </footer>
 
       </div>
     
@@ -1275,7 +1397,7 @@ GROUP BY p.category_name;
             </div>
           </div>
 
-          <!-- Education Item -->
+          <!-- Education Item 1 -->
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-card">
@@ -1284,9 +1406,9 @@ GROUP BY p.category_name;
                 <span class="timeline-date-pill mono">2024 &ndash; 2027</span>
               </div>
               <h3 class="timeline-role-title">Bachelor of Commerce in Computer Applications &mdash; B.Com (CA)</h3>
-              <div class="timeline-company-title">Guru Nanak College (Autonomous), Velachery, Chennai</div>
+              <div class="timeline-company-title">Guru Nanak College (Autonomous), Velachery, Chennai &middot; CGPA 8.6 / 10</div>
               <p class="timeline-body-text">
-                Comprehensive undergraduate program combining core commercial principles (Corporate Accounting, Costing, Auditing, Business Mathematics) with computer applications (Relational Database Management Systems, Data Structures, Business Analytics).
+                Comprehensive undergraduate curriculum combining financial accounting, cost analysis, and commercial auditing with computer applications: Relational Database Management Systems, Data Structures, and Commercial Analytics.
               </p>
               <div class="timeline-tech-pills">
                 <span>Financial Accounting</span><span>Cost Analysis</span><span>Database Systems</span><span>Business Law</span><span>Commercial Analytics</span>
@@ -1294,7 +1416,80 @@ GROUP BY p.category_name;
             </div>
           </div>
 
+          <!-- Education Item 2: HSC -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-badge-row">
+                <span class="timeline-type-pill pill-edu">SECONDARY EDUCATION</span>
+                <span class="timeline-date-pill mono">2024</span>
+              </div>
+              <h3 class="timeline-role-title">Higher Secondary Certificate (HSC) &amp; Secondary School (SSLC)</h3>
+              <div class="timeline-company-title">Sitadevi Garodia Hindu Vidyalaya, Chennai &middot; Aggregate: 85.0% (Distinction)</div>
+              <p class="timeline-body-text">
+                Rigorous commerce and mathematics curriculum. Strong academic foundation in business mathematics, accountancy, and computer fundamentals.
+              </p>
+              <div class="timeline-tech-pills">
+                <span>Accountancy</span><span>Business Mathematics</span><span>Commerce</span><span>Computer Science</span>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        <!-- Verified Certifications Showcase -->
+        <div class="certifications-summary-card">
+          <div class="cert-header-row">
+            <div class="cert-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div>
+              <span class="cert-badge-tag">VERIFIED CREDENTIALS</span>
+              <h3 class="cert-title">Professional Certifications &amp; Training</h3>
+            </div>
+          </div>
+          <div class="cert-pills-cluster">
+            <div class="cert-pill-item">
+              <span class="cert-dot"></span>
+              <div>
+                <strong>Power BI Data Analyst Certification</strong>
+                <span>Izeon Innovative Pvt Ltd</span>
+              </div>
+            </div>
+            <div class="cert-pill-item">
+              <span class="cert-dot"></span>
+              <div>
+                <strong>MERN Stack Engineering Traineeship</strong>
+                <span>Full-Stack Development Fundamentals</span>
+              </div>
+            </div>
+            <div class="cert-pill-item">
+              <span class="cert-dot"></span>
+              <div>
+                <strong>Artificial Intelligence &amp; Cybersecurity</strong>
+                <span>Enterprise Security &amp; Analytics</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen Minimal Footer -->
+        <footer class="deck-screen-footer" role="contentinfo">
+          <div class="footer-inner-lockup">
+            <div class="footer-brand-row">
+              <span class="footer-brand-title">SANJAI ANALYTICS</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-role-text">Data Analyst &amp; BI Specialist</span>
+              <span class="footer-divider-dot">&bull;</span>
+              <span class="footer-loc-text">Chennai, India</span>
+            </div>
+            <div class="footer-bottom-lockup">
+              <span>&copy; 2026 Sanjai Ram M &middot; Chennai, India</span>
+              <span class="footer-divider-dot" aria-hidden="true">&bull;</span>
+              <a href="https://sarveshworks.vercel.app" target="_blank" rel="noopener noreferrer" class="sw-attribution-link">Maintained &amp; Developed by Sarvesh Works</a>
+            </div>
+          </div>
+        </footer>
 
       </div>
     
@@ -1325,11 +1520,11 @@ GROUP BY p.category_name;
               </a>
             </div>
             <div class="dossier-jump-bar" aria-label="Resume sections quick navigation">
-              <button type="button" class="dossier-jump-pill" onclick="document.getElementById('dossier-sec-summary').scrollIntoView({behavior:'smooth', block:'start'})">Summary</button>
-              <button type="button" class="dossier-jump-pill" onclick="document.getElementById('dossier-sec-skills').scrollIntoView({behavior:'smooth', block:'start'})">Skills</button>
-              <button type="button" class="dossier-jump-pill" onclick="document.getElementById('dossier-sec-experience').scrollIntoView({behavior:'smooth', block:'start'})">Experience</button>
-              <button type="button" class="dossier-jump-pill" onclick="document.getElementById('dossier-sec-projects').scrollIntoView({behavior:'smooth', block:'start'})">Projects</button>
-              <button type="button" class="dossier-jump-pill" onclick="document.getElementById('dossier-sec-education').scrollIntoView({behavior:'smooth', block:'start'})">Education</button>
+              <button type="button" class="dossier-jump-pill" onclick="window.scrollToDossierSection('dossier-sec-summary')">Summary</button>
+              <button type="button" class="dossier-jump-pill" onclick="window.scrollToDossierSection('dossier-sec-skills')">Skills</button>
+              <button type="button" class="dossier-jump-pill" onclick="window.scrollToDossierSection('dossier-sec-experience')">Experience</button>
+              <button type="button" class="dossier-jump-pill" onclick="window.scrollToDossierSection('dossier-sec-projects')">Projects</button>
+              <button type="button" class="dossier-jump-pill" onclick="window.scrollToDossierSection('dossier-sec-education')">Education</button>
             </div>
           </div>
 

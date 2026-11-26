@@ -66,14 +66,24 @@
 
     // Update Desktop Header Links
     deckNavLinks.forEach(function (btn, bIdx) {
-      if (bIdx === idx) btn.classList.add('active');
-      else btn.classList.remove('active');
+      if (bIdx === idx) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-current', 'page');
+      } else {
+        btn.classList.remove('active');
+        btn.removeAttribute('aria-current');
+      }
     });
 
     // Update Mobile Drawer Rows
     drawerNavRows.forEach(function (row, rIdx) {
-      if (rIdx === idx) row.classList.add('active');
-      else row.classList.remove('active');
+      if (rIdx === idx) {
+        row.classList.add('active');
+        row.setAttribute('aria-current', 'page');
+      } else {
+        row.classList.remove('active');
+        row.removeAttribute('aria-current');
+      }
     });
 
     // Update Bottom Dock Pills
@@ -84,17 +94,31 @@
 
     updateDockPillPosition(idx);
 
-    // Update URL hash
+    // Update URL hash smoothly
     if (updateHash && window.location.hash !== '#' + targetScreen) {
       try {
-        history.replaceState(null, null, '#' + targetScreen);
-      } catch (e) {}
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, null, '#' + targetScreen);
+        } else {
+          window.location.hash = '#' + targetScreen;
+        }
+      } catch (e) {
+        window.location.hash = '#' + targetScreen;
+      }
     }
 
     // Reset vertical scroll inside the target screen to top
     if (deckScreens[idx]) {
       deckScreens[idx].scrollTop = 0;
     }
+  };
+
+  window.scrollToDossierSection = function (id) {
+    var el = document.getElementById(id);
+    var resumeContainer = document.getElementById('resume');
+    if (!el || !resumeContainer) return;
+    var targetPos = el.offsetTop - 76;
+    resumeContainer.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
   };
 
   window.nextScreen = function () {
@@ -108,6 +132,23 @@
       window.goToScreen(currentScreenIndex - 1);
     }
   };
+
+  // Synchronize browser history and direct hash routing
+  window.addEventListener('hashchange', function () {
+    var hash = (window.location.hash || '').replace('#', '');
+    var idx = screenNames.indexOf(hash);
+    if (idx >= 0 && idx !== currentScreenIndex) {
+      window.goToScreen(idx, false);
+    }
+  });
+
+  window.addEventListener('popstate', function () {
+    var hash = (window.location.hash || '').replace('#', '');
+    var idx = screenNames.indexOf(hash);
+    if (idx >= 0 && idx !== currentScreenIndex) {
+      window.goToScreen(idx, false);
+    }
+  });
 
   /* --------------------------------------------------------------------------
      2. MULTI-INPUT GESTURE CONTROLLER (Touch Swipe, Trackpad Wheel, Keys)
@@ -169,7 +210,7 @@
       }
     }, { passive: true });
 
-    // 2B. Laptop Trackpad 2-Finger Horizontal Swipe & Wheel
+    // 2B. Laptop Trackpad Horizontal Swipe (Strict Dominance & Threshold)
     var wheelAccumulatorX = 0;
     var wheelResetTimer = null;
     var isWheelDebounced = false;
@@ -177,17 +218,18 @@
     window.addEventListener('wheel', function (e) {
       // Protect horizontal code blocks and tables from wheel swipe navigation
       if (e.target && typeof e.target.closest === 'function') {
-        if (e.target.closest('pre, code, .table-responsive-box')) return;
+        if (e.target.closest('pre, code, .table-responsive-box, .dock-container-pill')) return;
       }
 
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      // Only respond to strictly horizontal gestures with significant intent
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) * 2.5 && Math.abs(e.deltaX) > 20) {
         wheelAccumulatorX += e.deltaX;
         clearTimeout(wheelResetTimer);
         wheelResetTimer = setTimeout(function () {
           wheelAccumulatorX = 0;
-        }, 200);
+        }, 220);
 
-        if (!isWheelDebounced && Math.abs(wheelAccumulatorX) > 35) {
+        if (!isWheelDebounced && Math.abs(wheelAccumulatorX) > 95) {
           isWheelDebounced = true;
           if (wheelAccumulatorX > 0) {
             window.nextScreen();
@@ -197,7 +239,7 @@
           wheelAccumulatorX = 0;
           setTimeout(function () {
             isWheelDebounced = false;
-          }, 420);
+          }, 450);
         }
       }
     }, { passive: true });
