@@ -6,7 +6,6 @@ $htmlPath = Join-Path $modularDir "index.html"
 $cssPath = Join-Path $modularDir "style.css"
 $jsPath = Join-Path $modularDir "script.js"
 $portraitPath = Join-Path $modularDir "assets\portrait.jpg"
-$faviconPath = Join-Path $modularDir "assets\favicon.svg"
 $outputHtml = Join-Path $baseDir "index.html"
 
 Write-Output "Reading modular files..."
@@ -20,14 +19,6 @@ if (Test-Path $portraitPath) {
     $imgBytes = [System.IO.File]::ReadAllBytes($portraitPath)
     $imgB64 = [System.Convert]::ToBase64String($imgBytes)
     $html = $html.Replace('assets/portrait.jpg', "data:image/jpeg;base64,$imgB64")
-}
-
-# Encode favicon.svg to base64
-if (Test-Path $faviconPath) {
-    Write-Output "Inlining favicon.svg as Base64..."
-    $favBytes = [System.IO.File]::ReadAllBytes($faviconPath)
-    $favB64 = [System.Convert]::ToBase64String($favBytes)
-    $html = $html.Replace('assets/favicon.svg', "data:image/svg+xml;base64,$favB64")
 }
 
 # Inline CSS
